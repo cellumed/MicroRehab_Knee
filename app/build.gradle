@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+buildscript {
+    repositories {
+    }
+    dependencies {
+    }
+}
+android {
+    signingConfigs {
+        cellumed_release {
+            storeFile file('cellumed_release.jks')
+            storePassword 'cellumed'
+            keyAlias 'ems'
+            keyPassword 'cellumed'
+
+        }
+    }
+    compileSdkVersion 23
+    buildToolsVersion '25.0.0'
+    lintOptions {
+        abortOnError false
+        disable 'InvalidPackage'
+    }
+    defaultConfig {
+        applicationId "com.cellumed.healthcare.microrehab.knee"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 1
+        versionName '1.0.3.5'
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.cellumed_release
+        }
+
+    }
+    productFlavors {
+    }
+    packagingOptions {
+
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
+}
+repositories {
+    maven { url "https://jitpack.io" }
+
+}
+
+dependencies {
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.8@aar') {
+        transitive = true
+    }
+    compile files('libs/poi-3.13-20150929.jar')
+    compile files('libs/android-directionalviewpager-1.2.0.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'me.relex:circleindicator:1.2.1@aar'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
+    compile 'com.github.castorflex.verticalviewpager:library:19.0.1'
+    compile 'com.txusballesteros:snake:1.0'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+}

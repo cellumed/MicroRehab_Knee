@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#adadad</color>
+    <color name="colorPrimaryDark">#adadad</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="dialogColorPrimary">#adadad</color>
+    <color name="dialogColorPrimaryDark">#1baec8</color>
+    <color name="dialogColorAccent">#000000</color>
+    <color name="btn_add">#3cb2cb</color>
+    <color name="btn_add_NoEnabled">#803cb2cb</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="blue">#0000FF</color>
+    <color name="green">#00FF00</color>
+    <color name="purple">#FF00FF</color>
+    <color name="gray">#6E6E6E</color>
+    <color name="hintBlack">#80000000</color>
+    <color name="popupBg">#60999999</color>
+</resources>

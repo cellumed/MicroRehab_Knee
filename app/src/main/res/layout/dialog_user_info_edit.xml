@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingLeft="0dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="사용자이름"
+            android:background="#A0b7c4"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="#aec7d5"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_userName"
+                android:layout_width="fill_parent"
+                android:layout_margin="10dp"
+                android:layout_height="40dp"
+                android:hint="사용자 이름을 입력하세요 *10자 이내"
+                android:textSize="13dp"
+                android:maxLength="10"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:textCursorDrawable="@null"
+                android:textColorHint="@drawable/selector"
+                android:background="#ffffff"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="#aec7d5"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_birth"
+
+                android:layout_width="fill_parent"
+                android:layout_margin="10dp"
+                android:layout_height="40dp"
+                android:hint="생년월일을 입력하세요 ex) 1990.10.30"
+                android:textSize="13dp"
+                android:maxLength="10"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:textCursorDrawable="@null"
+                android:textColorHint="@drawable/selector"
+                android:background="#ffffff"/>
+                <!-- android:inputType="date" -->
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#9b928e"/>
+        <LinearLayout
+
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:background="#aec7d5"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:paddingRight="40dp"
+            android:paddingLeft="40dp">
+
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="fill_parent"
+
+                android:orientation="horizontal"
+                >
+                <CheckBox
+                    android:id="@+id/cb_male"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_width="20dp"
+                    android:layout_height="fill_parent"
+                    android:button="@null"
+                    android:background="@drawable/check2_checkbox" />
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="2"
+                    android:paddingLeft="0dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="남성"
+                  />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="55dp"
+                android:layout_height="fill_parent"
+
+                android:orientation="horizontal"></LinearLayout>
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="fill_parent"
+
+                android:orientation="horizontal"
+                >
+                <CheckBox
+                    android:id="@+id/cb_female"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_width="20dp"
+                    android:layout_height="fill_parent"
+                    android:button="@null"
+                    android:background="@drawable/check2_checkbox"/>
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="fill_parent"
+
+                    android:paddingLeft="0dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="여성"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.2"
+                android:orientation="horizontal"></LinearLayout>
+        </LinearLayout>
+            <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#9b928e"/>
+
+        <LinearLayout
+
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:background="#aec7d5"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:paddingRight="40dp"
+            android:paddingLeft="40dp">
+
+
+            <LinearLayout
+                android:layout_width="90dp"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                >
+                <CheckBox
+                    android:id="@+id/cb_left"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_width="20dp"
+                    android:layout_height="fill_parent"
+                    android:button="@null"
+                    android:background="@drawable/check2_checkbox"/>
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="fill_parent"
+                    android:paddingLeft="0dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="왼쪽다리"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="35dp"
+                android:layout_height="fill_parent"
+
+                android:orientation="horizontal"></LinearLayout>
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                >
+                <CheckBox
+                    android:id="@+id/cb_right"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_width="20dp"
+                    android:layout_height="fill_parent"
+                    android:button="@null"
+                    android:background="@drawable/check2_checkbox"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:paddingLeft="0dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="오른쪽다리"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#9b928e"/>
+        <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
+        android:paddingBottom="10dp"
+            android:background="#aec7d5">
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bt_cancel_nor"/>
+        <Button
+            android:id="@+id/saveDone"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bt_save_nor"/>
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>

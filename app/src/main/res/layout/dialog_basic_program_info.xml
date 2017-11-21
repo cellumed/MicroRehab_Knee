@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#dbcfc9"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:paddingLeft="16dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:background="#ff6669"/>
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_left"
+            android:layout_width="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:gravity="center_vertical"
+                android:text="프로그램 이름"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:gravity="center_vertical"
+                android:text="상태"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:gravity="center_vertical"
+                android:text="운동시간"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="자극강도"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:gravity="center_vertical"
+                android:text="펄스휴지시간"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:gravity="center_vertical"
+                android:text="펄스폭"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="#9b928e"
+                android:textColorHint="@color/hintBlack" />
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="#9b928e" />
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="#9b928e"
+                android:textColorHint="@color/hintBlack" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_StimulusIntensity"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="#9b928e" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
+                    android:singleLine="true"
+                    android:layout_marginRight="8dp"
+                    android:text="펄스작동시간"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/tv_PulseOperationTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="#9b928e" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_PulsePauseTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="#9b928e"
+                    android:textColorHint="@android:color/darker_gray" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
+                    android:singleLine="true"
+                    android:text="주파수"
+                    android:layout_marginRight="8dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/tv_Frequency"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="#9b928e"
+                    android:textColorHint="@android:color/darker_gray" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_PulseWidth"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="#9b928e"
+                    android:textColorHint="@android:color/darker_gray" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
+                    android:singleLine="true"
+                    android:layout_marginRight="8dp"
+                    android:text="펄스상승시간"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/tv_PulseRiseTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="#9b928e"
+                    android:textColorHint="@android:color/darker_gray" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#ffffff">
+        <Button
+            android:layout_marginLeft="200dp"
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="취소"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"/>
+    </RelativeLayout>
+</LinearLayout>

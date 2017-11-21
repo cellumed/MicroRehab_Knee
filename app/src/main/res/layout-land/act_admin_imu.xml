@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/widebg_02"
+    android:orientation="vertical">
+
+    <LinearLayout
+
+       android:layout_width="fill_parent"
+        android:layout_height="280dp"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="45dp">
+
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:id="@+id/rtv_b"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+
+                android:layout_weight="1"
+                android:background="@drawable/rtv_b0001"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="10dp"
+
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/angletxt"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:layout_marginTop="30dp"
+                android:gravity="right"
+                android:textColor="#A6cad8"
+                android:textSize="140dp"
+                android:text="140"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="10dp"
+
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/angletxt_dot"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="55dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="25dp"
+                android:layout_weight="1"
+                android:background="@drawable/angletxt_dot"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="32dp"
+        android:orientation="horizontal"
+        android:paddingRight="45dp"
+        android:paddingLeft="45dp">
+
+        <LinearLayout
+            android:paddingRight="35dp"
+            android:paddingLeft="30dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+           >
+            <!--
+            <CheckBox
+                android:id="@+id/cb_rtv_b"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/check_checkbox"/>
+-->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:layout_weight="5"
+                android:background="@drawable/rtvtxt_02"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingRight="15dp"
+            android:paddingLeft="50dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="4"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

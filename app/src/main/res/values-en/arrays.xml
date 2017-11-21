@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="SignalType">
+        <item>Prog1(mix)</item>
+        <item>Prog2(mix)</item>
+        <item>Prog3(mix)</item>
+        <item>Prog4(mix)</item>
+        <item>Prog5(mix)</item>
+        <item>Prog6(mix)</item>
+        <item>Prog7(basic)</item>
+        <item>Prog8(basic)</item>
+        <item>Prog9(basic)</item>
+    </string-array>
+    <string-array name="FitnessName">
+        <item>Basic position</item>
+        <item>Dynamic squat</item>
+        <item>Dynamic forward lunges left</item>
+        <item>Dynamic forward lunges right</item>
+        <item>Dynamic crunches diagonal left</item>
+        <item>Dynamic crunches diagonal right</item>
+        <item>Dynamic knee compression(Knee crunch dynamic)</item>
+        <item>Dynamic trunk rotation left</item>
+        <item>Dynamic trunk rotation right</item>
+        <item>Dynamic crunches</item>
+        <item>Dynamic table holding(Table pose dynamic)</item>
+        <item>Dynamic biceps</item>
+    </string-array>
+    <string-array name="FitnessImageNumber">
+        <item>0</item>
+        <item>1</item>
+        <item>4</item>
+        <item>3</item>
+        <item>17</item>
+        <item>17</item>
+        <item>22</item>
+        <item>30</item>
+        <item>30</item>
+        <item>15</item>
+        <item>7</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="FitnessRepeatCount">
+        <item>18</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="MuscleStrengthening">
+        <item>Basic position static</item>
+        <item>Dynamic squat</item>
+        <item>Dynamic butterfly reverse diagonal left</item>
+        <item>Dynamic butterfly reverse diagonal right</item>
+        <item>Dynamic trunk rotation left</item>
+        <item>Dynamic trunk rotation right</item>
+        <item>Dynamic crunches diagonal left</item>
+        <item>Dynamic crunches diagonal right</item>
+        <item>Dynamic crunches</item>
+        <item>Dynamic over extension(Overstretch dynamic)</item>
+        <item>Dynamic table holding(Table pose dynamic)</item>
+    </string-array>
+    <string-array name="MuscleStrengtheningImageNumber">
+        <item>1</item>
+        <item>25</item>
+        <item>34</item>
+        <item>35</item>
+        <item>49</item>
+        <item>50</item>
+        <item>41</item>
+        <item>42</item>
+        <item>28</item>
+        <item>30</item>
+        <item>29</item>
+    </string-array>
+
+    <string-array name="MuscleStrengtheningRepeatCount">
+        <item>18</item>
+        <item>15</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="ExercisePerformance">
+        <item>Basic position static</item>
+        <item>Dynamic squat</item>
+        <item>Dynamic forward lunges left</item>
+        <item>Dynamic forward lunges right</item>
+        <item>Dynamic sideways lunges left</item>
+        <item>Dynamic sideways lunges right</item>
+        <item>Dynamic knee compression(Knee crunch dynamic)</item>
+        <item>Dynamic crunches diagonal left</item>
+        <item>Dynamic crunches diagonal right</item>
+        <item>Dynamic trunk rotation left</item>
+        <item>Dynamic trunk rotation right</item>
+        <item>Dynamic crunches</item>
+        <item>Dynamic table holding(Table pose dynamic)</item>
+    </string-array>
+    <string-array name="ExercisePerformanceImageNumber">
+        <item>1</item>
+        <item>25</item>
+        <item>43</item>
+        <item>44</item>
+        <item>47</item>
+        <item>48</item>
+        <item>32</item>
+        <item>41</item>
+        <item>42</item>
+        <item>49</item>
+        <item>50</item>
+        <item>28</item>
+        <item>29</item>
+    </string-array>
+
+    <string-array name="ExercisePerformanceRepeatCount">
+        <item>18</item>
+        <item>15</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>13</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>13</item>
+        <item>13</item>
+    </string-array>
+
+    <string-array name="ManagementBody">
+        <item>Basic position static</item>
+        <item>Dynamic squat</item>
+        <item>Dynamic knee compression(Knee crunch dynamic)</item>
+        <item>Dynamic forward lunges left</item>
+        <item>Dynamic forward lunges right</item>
+        <item> Dynamic sideways lunges left</item>
+        <item>Dynamic sideways lunges right</item>
+        <item>Dynamic crunches diagonal left</item>
+        <item>Dynamic crunches diagonal right</item>
+        <item>Dynamic crunches</item>
+        <item>Dynamic trunk rotation left</item>
+        <item>Dynamic trunk rotation right</item>
+        <item>Dynamic table holding(Table pose dynamic)</item>
+
+    </string-array>
+
+    <string-array name="ManagementBodyImageNumber">
+        <item>1</item>
+        <item>25</item>
+        <item>32</item>
+        <item>43</item>
+        <item>44</item>
+        <item>47</item>
+        <item>38</item>
+        <item>41</item>
+        <item>42</item>
+        <item>28</item>
+        <item>49</item>
+        <item>50</item>
+        <item>29</item>
+    </string-array>
+
+    <string-array name="ManagementBodyRepeatCount">
+        <item>18</item>
+        <item>13</item>
+        <item>13</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>13</item>
+        <item>10</item>
+        <item>10</item>
+        <item>13</item>
+        <item>10</item>
+        <item>10</item>
+        <item>13</item>
+    </string-array>
+
+    <string-array name="Program">
+        <item>Adaptive Pulse</item>
+        <item>Invigoration Basic</item>
+        <item>Invigoration Adv</item>
+        <item>Metabolism</item>
+        <item>Body Relex</item>
+    </string-array>
+
+    <string-array name="ProgramExercisePlanTime">
+        <item>5</item>
+        <item>20</item>
+        <item>20</item>
+        <item>20</item>
+        <item>10</item>
+    </string-array>
+    <string-array name="ProgramFrequency">
+        <item>85</item>
+        <item>85</item>
+        <item>85</item>
+        <item>7</item>
+        <item>100</item>
+    </string-array>
+    <string-array name="ProgramOperationTime">
+        <item>지속</item>
+        <item>4</item>
+        <item>4</item>
+        <item>지속</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="ProgramPauseTime">
+        <item>없음</item>
+        <item>4</item>
+        <item>4</item>
+        <item>없음</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="ProgramRiseTime">
+        <item>없음</item>
+        <item>0.4</item>
+        <item>없음</item>
+        <item>없음</item>
+        <item>없음</item>
+    </string-array>
+    <string-array name="ProgramWidth">
+        <item>350</item>
+        <item>350</item>
+        <item>350</item>
+        <item>350</item>
+        <item>150</item>
+    </string-array>
+
+    <string-array name="ExerciseType">
+        <item>Choose a Training posture</item>
+        <item>Basic position</item>
+		<item>Static squat</item>
+		<item>Static hip down</item>
+        <item>Static forward lunges right</item>
+		<item>Static forward lunges left</item>
+        <item>Static biceps</item>
+        <item>Static triceps</item>
+        <item>Static shoulder press</item>
+        <item>Static standing row</item>
+        <item>Static squat <![CDATA["&"]]> biceps curl</item>
+        <item>Static squat <![CDATA["&"]]> shoulder press</item>
+        <item>Static butterfly</item>
+        <item>Static chestpress</item>
+		<item>Static lunges body twist right</item>
+		<item>Static lunges body twist left</item>
+        <item>Static crunches</item>
+        <item>Static reverse crunches</item>
+        <item>push-up</item>
+        <item>Static side lunges right</item>
+		<item>Static side lunges left</item>
+        <item>Static standing knee crunches</item>
+        <item>Static side band right</item>
+        <item>Static side band left</item>
+        <item>Static stanging crunch</item>
+        <item>Dynamic deadlift</item>
+		<item>Static side lateral raise</item>
+		<item>Static front lateral raise</item>
+        <item>Static pullover stretching</item>
+        <item>Dynamic body twist</item>
+        <item>Static reverse butterfly</item>
+        <item>Static squat <![CDATA["&"]]> triceps curl</item>
+        <item>Static overhand stretching</item>
+        <item>Static standing body twist</item>
+        <item>Knee push-up</item>
+        <item>Static sideways one leg stand right</item>
+        <item>Static sideways one leg stand left</item>
+        <item>Dynamic back kick right</item>
+        <item>Dynamic back kick left</item>
+    </string-array>
+
+</resources>

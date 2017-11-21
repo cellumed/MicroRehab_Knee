@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="SignalType">
+        <item>프로그램1(복합)</item>
+        <item>프로그램2(복합)</item>
+        <item>프로그램3(복합)</item>
+        <item>프로그램4(복합)</item>
+        <item>프로그램5(복합)</item>
+        <item>프로그램6(복합)</item>
+        <item>프로그램7(기본)</item>
+        <item>프로그램8(기본)</item>
+        <item>프로그램9(기본)</item>
+    </string-array>
+    <string-array name="FitnessName">
+        <item>기본자세</item>
+        <item>스쿼트</item>
+        <item>좌측 런지</item>
+        <item>우측 런지</item>
+        <item>크런치 트위스트</item>
+        <item>크런치 트위스트</item>
+        <item>스탱딩 니 크런치</item>
+        <item>바디 트위스트</item>
+        <item>바디 트위스트</item>
+        <item>크런치</item>
+        <item>숄더프레스</item>
+        <item>바이셉 컬</item>
+    </string-array>
+    <string-array name="FitnessImageNumber">
+        <item>0</item>
+        <item>1</item>
+        <item>4</item>
+        <item>3</item>
+        <item>17</item>
+        <item>17</item>
+        <item>22</item>
+        <item>30</item>
+        <item>30</item>
+        <item>15</item>
+        <item>7</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="FitnessRepeatCount">
+        <item>18</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="MuscleStrengthening">
+        <item>기본자세</item>
+        <item>스쿼트</item>
+        <item>리버스 버터플라이</item>
+        <item>리버스 버터플라이</item>
+        <item>바디 트위스트</item>
+        <item>바디 트위스트</item>
+        <item>크런치 트위스트</item>
+        <item>크런치 트위스트</item>
+        <item>크런치</item>
+        <item>풀 오버 스트레치</item>
+        <item>데드리프트</item>
+    </string-array>
+
+    <string-array name="MuscleStrengtheningImageNumber">
+        <item>0</item>
+        <item>1</item>
+        <item>31</item>
+        <item>31</item>
+        <item>30</item>
+        <item>30</item>
+        <item>17</item>
+        <item>17</item>
+        <item>15</item>
+        <item>29</item>
+        <item>26</item>
+    </string-array>
+
+    <string-array name="MuscleStrengtheningRepeatCount">
+        <item>18</item>
+        <item>15</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>12</item>
+        <item>15</item>
+        <item>15</item>
+        <item>15</item>
+    </string-array>
+
+    <string-array name="ExercisePerformance">
+        <item>기본자세</item>
+        <item>스쿼트</item>
+        <item>좌측 런지</item>
+        <item>우측 런지</item>
+        <item>좌측 사이드 런지</item>
+        <item>우측 사이드 런지</item>
+        <item>스탠딩 니 크런치</item>
+        <item>크런치 트위스트</item>
+	    <item>크런치 트위스트</item>
+        <item>바디 트위스트</item>
+        <item>바디 트위스트</item>
+        <item>크런치</item>
+        <item>숄더프레스</item>
+    </string-array>
+    <string-array name="ExercisePerformanceImageNumber">
+        <item>0</item>
+        <item>1</item>
+        <item>4</item>
+        <item>3</item>
+        <item>21</item>
+        <item>20</item>
+        <item>22</item>
+        <item>17</item>
+        <item>17</item>
+        <item>30</item>
+        <item>30</item>
+        <item>15</item>
+        <item>7</item>
+    </string-array>
+
+    <string-array name="ExercisePerformanceRepeatCount">
+        <item>18</item>
+        <item>15</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>13</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>13</item>
+        <item>13</item>
+    </string-array>
+
+    <string-array name="ManagementBody">
+        <item>기본자세</item>
+        <item>스쿼트</item>
+        <item>스탠딩 니 크런치</item>
+        <item>좌측 런지</item>
+        <item>우측 런지</item>
+        <item>좌측 사이드 런지</item>
+        <item>우측 사이드 런지</item>
+        <item>크런치 트위스트</item>
+        <item>크런치 트위스트</item>
+        <item>크런치</item>
+        <item>바디 트위스트</item>
+        <item>바디 트위스트</item>
+        <item>스쿼트 <![CDATA["&"]]> 숄더프레스</item>
+    </string-array>
+
+    <string-array name="ManagementBodyImageNumber">
+        <item>0</item>
+        <item>1</item>
+        <item>22</item>
+        <item>4</item>
+        <item>3</item>
+        <item>21</item>
+        <item>20</item>
+        <item>17</item>
+        <item>17</item>
+        <item>15</item>
+        <item>30</item>
+        <item>30</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="ManagementBodyRepeatCount">
+        <item>18</item>
+        <item>13</item>
+        <item>13</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>13</item>
+        <item>10</item>
+        <item>10</item>
+        <item>13</item>
+    </string-array>
+
+    <string-array name="Program">
+        <item>펄스적응</item>
+        <item>강화/기본</item>
+        <item>강화/고급</item>
+        <item>신진대사</item>
+        <item>근육이완</item>
+    </string-array>
+
+    <string-array name="ProgramExercisePlanTime">
+        <item>5</item>
+        <item>20</item>
+        <item>20</item>
+        <item>20</item>
+        <item>10</item>
+    </string-array>
+    <string-array name="ProgramFrequency">
+        <item>85</item>
+        <item>85</item>
+        <item>85</item>
+        <item>7</item>
+        <item>100</item>
+    </string-array>
+    <string-array name="ProgramOperationTime">
+        <item>지속</item>
+        <item>4</item>
+        <item>4</item>
+        <item>지속</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="ProgramPauseTime">
+        <item>없음</item>
+        <item>4</item>
+        <item>4</item>
+        <item>없음</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="ProgramRiseTime">
+        <item>없음</item>
+        <item>0.4</item>
+        <item>없음</item>
+        <item>없음</item>
+        <item>없음</item>
+    </string-array>
+    <string-array name="ProgramWidth">
+        <item>350</item>
+        <item>350</item>
+        <item>350</item>
+        <item>350</item>
+        <item>150</item>
+    </string-array>
+
+    <string-array name="ExerciseType">
+        <item>운동자세를 선택해주세요.</item>
+        <item>기본자세</item>
+        <item>스쿼트</item>
+        <item>힙다운</item>
+        <item>우측 런지</item>
+        <item>좌측 런지</item>
+        <item>바이셉 컬</item>
+        <item>트라이셉 컬</item>
+        <item>숄더프레스</item>
+        <item>스탠딩 로우</item>
+        <item>스쿼트 <![CDATA["&"]]> 바이셉컬</item>
+        <item>스쿼트 <![CDATA["&"]]> 숄더프레스</item>
+        <item>버터플라이</item>
+        <item>체스트프레스</item>
+        <item>우측 런지 바디 트위스트</item>
+        <item>좌측 런지 바디 트위스트</item>
+        <item>크런치</item>
+        <item>리버스 크런치</item>
+        <item>크런치 트위스트</item>
+        <item>플랭크</item>
+        <item>푸쉬업</item>
+        <item>우측 사이드 런지</item>
+        <item>좌측 사이드 런지</item>
+        <item>스탠딩 니 크런치</item>
+        <item>우측 사이드 밴드</item>
+        <item>좌측 사이드 밴드</item>
+        <item>스탠딩 크런치</item>
+        <item>데드리프트</item>
+        <item>사이드 레터럴레이즈</item>
+        <item>프론트 레터럴레이즈</item>
+        <item>풀 오버 스트레칭</item>
+        <item>바디 트위스트</item>
+        <item>리버스 버터플라이</item>
+        <item>스쿼트 <![CDATA["&"]]> 트라이셉 컬</item>
+        <item>오버핸드 스트레칭</item>
+        <item>스탠딩 바디 트위스트</item>
+        <item>무릎 푸쉬업</item>
+        <item>우측 스탠딩 레그사이드</item>
+        <item>좌측 스탠딩 레그사이드</item>
+        <item>우측다리 뒤로 뻗기</item>
+        <item>좌측다리 뒤로 뻗기</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_img01"
+    android:orientation="vertical"
+ >
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/emgchart"
+            android:layout_width="match_parent"
+            android:layout_height="290dp" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+
+       android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@drawable/lowbar_bg"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+            <CheckBox
+                android:id="@+id/cb_ct1"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/check_checkbox"/>
+            <ImageView
+                android:id="@+id/img_ct1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="5"
+                android:background="@drawable/ct_01"
+                android:clickable="true" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.2"
+            android:orientation="horizontal"></LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+           >
+            <CheckBox
+                android:id="@+id/cb_ct2"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/check_checkbox"/>
+            <ImageView
+                android:id="@+id/img_ct2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="5"
+                android:background="@drawable/ct_02"
+                android:clickable="true" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.2"
+            android:orientation="horizontal"></LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/cb_ct3"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/check_checkbox"/>
+            <ImageView
+                android:id="@+id/img_ct3"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="5"
+                android:background="@drawable/ct_03"
+                android:clickable="true" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.2"
+            android:orientation="horizontal"></LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+            <CheckBox
+                android:id="@+id/cb_ct4"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/check_checkbox"/>
+            <ImageView
+                android:id="@+id/img_ct4"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="5"
+                android:background="@drawable/ct_04"
+                android:clickable="true" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.2"
+            android:orientation="horizontal"></LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+     >
+            <CheckBox
+                android:id="@+id/cb_ct5"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/check_checkbox"/>
+            <ImageView
+                android:id="@+id/img_ct5"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="5"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/ct_05"
+                android:clickable="true" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

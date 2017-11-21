@@ -1,0 +1,274 @@
+<resources>
+    <!--앱 이름-->
+    <string name="app_name">EMS</string>
+
+    <!--운동계획-->
+    <string name="exercisePlan">Training plan</string>	<!--운동계획-->
+
+    <!--운동계획 팝업-->
+    <string name="DetailsExercisePlan" formatted="false">Training plan %s details</string>
+    <string name="posture1" formatted="false">Exercise %d</string>
+
+    <!--일반-->
+    <string name="trainer">Trainer</string>				<!--트레이너-->
+    <string name="ok">OK</string>					<!--확인-->
+    <string name="close">Close</string>					<!-- 닫기-->
+    <string name="engineer">Engineer</string>				<!--엔지니어-->
+    <string name="save">Save</string>					<!--저장-->
+    <string name="start">Start</string>
+    <string name="cancel">Cancel</string>				<!--취소-->
+    <string name="user">User</string>					<!--사용자-->
+    <string name="man">Male</string>					<!--남-->
+    <string name="Woman">Female</string>				<!--여-->
+    <string name="notice">Notice</string>				<!--알림-->
+    <string name="selectPlz">Click here.</string>			<!--선택해 주세요.-->
+    <string name="Explanation">Explanation</string>			<!--설명-->
+    <string name="regDate">Join</string>				<!--등록일자-->
+    <string name="minute">Min.</string>					<!--분-->
+    <string name="Modified">Edit</string>				<!--수정-->
+    <string name="warning">Caution</string>				<!--경고-->
+
+    <!--재활-->
+    <string name="rehab_title">Rehab</string>
+    <string name="gait">Gait</string>
+    <string name="squat">Squat</string>
+    <string name="stepbox">Stepbox</string>
+    <string name="admin_ems">Admin EMS</string>
+
+
+    <!--로그인 / 유저 추가 팝업-->
+    <string name="pleaseId">Enter user ID. </string>		<!--아이디를 입력하세요.-->
+    <string name="pleasePass">Enter the password. </string>	<!--비밀번호를 입력하세요.-->
+    <string name="pleaseNowPass">Enter the current password.</string>	<!--현재 비밀번호를 입력하세요.-->
+    <string name="pleaseRePass">Re-enter the password.</string>		<!--비밀번호를 다시 입력하세요.-->
+    <string name="pleasePassRe">Check the incorrect re-entered password.</string>	<!--비밀번호 확인 항목을 다시 입력하세요.-->
+    <string name="PassNotEquals">Invalid password.</string>		<!--비밀번호가 일치하지 않습니다.-->
+    <string name="PassNowNotEquals">Invalid current password. </string>	<!--현재 비밀번호가 맞지 않습니다.-->
+    <string name="pleaseName">Enter your name.</string>			<!--이름을 입력하세요.-->
+    <string name="pleaseBirthDay">Enter your date of birth. </string>	<!--생년월일을 선택해 주세요.-->
+    <string name="pleaseRightBirthDay">Enter your date of birth with right format (YYYY.MM.DD)</string>
+    <string name="pleaseIdCheck">Invalid user ID.</string>		<!--사용자 정보가 없습니다.-->
+    <!--처음설치시 로그인화면에서 기기관리자 화면 메세지-->
+    <string name="devicePolicyManagerMessage">Ask for admin permission.</string>	<!--관리자 권한을 신청합니다.-->
+    <string name="guest">GUEST</string>
+    <string name="login">LOGIN</string>
+
+
+    <!--사용자 추가시  MSG-->
+    <string name="NewUserRegistration">User registration</string>		<!--새 사용자 등록-->
+    <string name="same_name"  >Same user<![CDATA["'"]]>s name exists. Do you want to continue?</string>		<!--동일한 사용자 이름이 존재합니다. 계속하시겠습니까?-->
+    <string name="same_ID">Same user ID exists. Check it again.</string>				<!--동일한 사용자 아이디가 존재합니다. 다시 확인하세요.-->
+    <string name="selectYourDateOfBirth">Enter your date of birth.</string>				<!--생년월일을 선택하세요.-->
+    <!--확인 버튼  MSG-->
+    <string name="PleaseSelectAUser">Select the user.</string>					<!--사용자를 선택하세요.-->
+    <string name="TheSameUserCanNotBeSelected">Same user could not be selected.</string>		<!--동일한 사용자를 선택할 수 없습니다.-->
+    <string name="Please_select_your_wired_or_wireless_users">At least one user should be selected.</string> 	<!--한 명 이상의 사용자를 선택해야 합니다.-->
+    <string name="Please_select_your_wired_users">At least one wired user should be selected. </string>		<!--한 명 이상의 유선 사용자를 선택해야 합니다.-->
+
+    <!--프로그램-->
+    <string name="program">Program</string>		<!--프로그램-->
+    <!--프로그램 팝업-->
+    <string name="DetailsProgram" formatted="false">Program %s details</string>		<!--프로그램Program %s 상세보기details-->
+    <string name="second" formatted="false">%.1f Sec.</string>				<!--%.1f초-->
+    <string name="secondText" >Sec.</string>						<!--초-->
+
+    <!--즐겨찾기-->
+    <string name="favorites">Favorites</string>						<!--즐겨찾기-->
+    <string name="ExercisePlan1" formatted="false">Training plan %s</string>		<!--운동계획-->
+    <string name="Program1" formatted="false">Program %s</string>			<!--프로그램-->
+    <string name="second1" formatted="false">%.1f Sec.</string>				<!--%.1f 초-->
+    <string name="noAddFabvorites"  >Favorites can<![CDATA["'"]]>t exceed 8 items.</string>		<!--즐겨찾기는 최대 8개 까지 지정이 가능합니다.-->
+
+
+    <!--트레이닝 /프로그램-->
+    <string name="ScanTitle">Scanning...</string>
+    <string name="Scanning">Scanning EMS Devices</string>
+    <string name="ConnectTitle">Connecting...</string>
+    <string name="Connecting">Connecting to EMS Device</string>
+    <string name="ConnectFailed">Cannot connect</string>
+    <string name="DisconnectWhileConnect">Disconnected while trying to connect.</string>
+    <string name="CannotScan">There is no device</string>
+
+
+    <string name="Time_remaining">Remains</string>	<!--남은 시간-->
+    <string name="remaining_number">Remains</string>	<!--남은 횟수-->
+    <string name="posture">Balance</string>
+    <!--팝업-->
+    <string name="Restart">Press LEVEL/SELECTOR button to continue,\nClick STOP icon to exit.</string>	<!--계속 하시려면 LEVEL/SELECTOR 버튼을,\n종료하시려면 종료 버튼을 누르세요.-->
+    <string name="End">STOP</string>
+
+    <!--설정-->
+    <string name="action_settings">Settings</string>
+    <string name="SystemInit_Msg">Do you want to initialize the system?</string>	<!--시스템을 초기화 하시겠습니까?-->
+    <string name="NOUSB">No connected USB devices.\nCheck the USB mass storage connection.</string>		<!--연결된 USB 장치가 없습니다.\n저장 장치 연결을 확인하세요.-->
+    <string name="USBConnect">USB storage has been connected.</string>			<!--USB 저장 장치가 연결 되었습니다.-->
+    <string name="NoFile">There is no database file on designated path.</string>	<!--지정한 경로에 데이터 베이스 파일이 존재 하지 않습니다.-->
+    <string name="DBSaveOK">Exporting of database file has been completed. </string>	<!--데이터베이스 파일 추출이 완료되었습니다.-->
+    <string name="DBRestore">Recovery of database file has been completed.</string>	<!--데이터베이스파일 복구가 완료 되었습니다.-->
+    <string name="usb_msg">Do not delete, modify or move the database file on USB mass storage</string>		<!--USB 저장 장치에 데이터베이스 파일을 임의로 수정할 경우,\n복구가 되지 않을 수 있으므로 복사, 이동 및 수정을 금합니다.-->
+    <string name="usb_saveDone" formatted="false">Backup file has been created on %s.</string>	<!--백업이 완료되었으며 %s에 파일이 생성 되었습니다 -->
+    <string name="backup">Backup</string>		<!--백업-->
+    <string name="restore">Restore</string>		<!--복구-->
+    <string name="update">Update</string>		<!--업데이트-->
+    <string name="setting">Setting</string>		<!--설정-->
+    <string name="UserManagement">User management</string>			<!--사용자 관리-->
+    <string name="ManagingFavorites">Favorites management </string>		<!--즐겨찾기 관리-->
+    <string name="ExercisePlanManagement">Training plan management</string>	<!--운동계획 관리-->
+    <string name="ProgramManagement">Program management</string>		<!--프로그램 관리-->
+    <string name="DataExtraction">Data exporting</string>			<!--자료 추출-->
+    <string name="SystemSetting">System configurations</string>			<!--시스템 설정-->
+    <string name="SystemUpdate">System update</string>				<!--시스템 업데이트-->
+    <string name="SystemState">System information</string>			<!--시스템 상태정보-->
+    <string name="SystemInit">System factory setting</string>			<!--시스템 초기화-->
+    <string name="LogOut">Logout</string>			<!--로그아웃-->
+    <string name="title">Title</string>				<!--제목-->
+    <string name="division">category</string>			<!--구분-->
+    <string name="Constructor">Creator</string>			<!--생성자-->
+    <string name="setting_update">There is no file to update.</string>	<!--Update 할 파일이 없습니다.-->
+    <string name="imuSetting">IMU activation</string>		<!--IMU 활성-->
+    <string name="ecgSetting">ECG activation </string>		<!--ECG 활성-->
+    <string name="languageSetting">Languages</string>		<!--언어 설정-->
+    <string name="SystemVersion">System version </string>
+    <string name="HardwareVersion">Hardware version </string>
+    <string name="FirmwareVersion">Firmware version </string>
+    <string name="VersionInfo" formatted="false">Ver. %s Version Info </string>
+    <string name="Remove" >Remove</string>
+    <!--사용자 정보/추가 팝업-->
+    <string name="newUser">Add user</string>		<!--새 사용자 추가-->
+    <string name="isRemove">Selected User information will be deleted.  Are you sure?</string>	<!--선택한 사용자의 정보가 삭제됩니다. 사용자를 삭제하시겠습니까?-->
+    <string name="removeUser">User Info. has been deleted.</string>			<!--사용자 정보를 삭제 하였습니다.-->
+    <string name="ModifyingUser">Modify user Info.</string>				<!--사용자 정보 수정-->
+    <string name="SettingUser">Setting User Info</string>
+    <string name="New_User_Registration">Add new user</string>				<!--새 사용자 등록-->
+    <string name="Modify_the_user_has_failed">Modification of the user Information has been failed.</string>	<!--사용자 정보 수정을 실패했습니다.-->
+    <string name="type">Type</string>		<!--타입-->
+    <string name="id">ID</string>		<!--아이디-->
+    <string name="CurrentPassword">Current password </string>		<!--현재 비밀번호 -->
+    <string name="Newpassword">New password</string>			<!--새 비밀번호 -->
+    <string name="ConfirmPassword">Confirm password</string>		<!--비밀번호 확인-->
+    <string name="Password">Password </string>				<!--비밀번호-->
+    <string name="name">Name</string>					<!--이름-->
+    <string name="gender">Gender </string>				<!--성별-->
+    <string name="date_of_birth">Date of birth </string>		<!--생년월일-->
+    <string name="user_explanation">Enter an explanation of the User.</string>		<!--사용자에 대한 설명을 입력하세요.-->
+
+    <!--운동계획 팝업 신규/수정-->
+    <string name="removeExercisePlanByDialog">Do you want to delete the selected training plan? \n\nEvery information of training plan will be deleted. \nAre you sure?</string>
+    <!--선택한 운동계획을 삭제하시겠습니까? \n\n해당 운동계획의 모든 정보가 삭제됩니다.\n그래로 삭제하시겠습니까-->
+    <string name="Workout_plan_name">Name</string>			<!--운동계획 이름-->
+    <string name="PlzWorkoutTime">Enter the Training Time</string>	<!--운동시간을 입력하세요.-->
+    <string name="Repeat_Count">No. of repeat</string>		<!--반복횟수-->
+    <string name="removeExercisePlan">Training plan has been deleted.</string>	<!--운동계획을 삭제하였습니다.-->
+    <string name="exercisePlanName">Enter the training plan name.</string>	<!--운동계획의 이름을 입력하세요.-->
+    <string name="explanation">Enter the training plan xxplanation.</string>	<!--운동계획의 설명을 입력하세요.-->
+    <string name="program_error">Select a program.</string>			<!--프로그램을 선택하세요.-->
+    <string name="time_error">Enter the training time.</string>			<!--운동시간을 입력하세요.-->
+    <string name="exercisePlanType">Select a posture.</string>			<!--운동자세를 선택해주세요.-->
+    <string name="RepeatCount">Enter the number of repeat.</string>		<!--반복 횟수를 입력하세요.-->
+    <string name="Modified_exercise_plan">Modify training plan</string>		<!--운동계획 수정-->
+    <string name="Custom_workout_plans">Training plan custom</string>		<!--운동계획 Custom-->
+    <string name="RepeatCount_error">Repeat number should be set one or more.</string>		<!--반복 횟수는 1이상 설정하세요.-->
+    <string name="activation">Activation</string>		<!--활성-->
+    <string name="Inactive">Inactive </string>			<!--비활성-->
+    <string name="repetitions" formatted="false">The remaining number of repeat. %d/%d</string>		<!--남은 반복 횟수-->
+    <string name="repetitions_error" formatted="false">The number of repeat lacks %0f.\nAdd the training posture.</string>	<!--자세의 반복횟수가 %.0f회 부족합니다.\n자세를 추가하세요.-->
+    <string name="repetitions_error2" formatted="false">The number of repeat exceed %0f.\nReduce the training posture.</string>		<!--자세의 반복횟수가 %.0f회 초과 되었습니다.자세의 반복횟수가 %.0f회 초과 되었습니다.-->
+    <string name="postureInsert">Add posture </string>		<!--자세추가-->
+    <string name="program_msg1">*The name is not exceed maximum 25 characters.</string>		<!--*이름은 최대 25자 이내로 작성이 가능합니다.-->
+    <string name="programmsg2">*This training plan will not be shown on the list when the inactive is checked.</string>	<!--*해제시 운동계획 목록에 보이지 않습니다.-->
+    <string name="programmsg3">*This program will not be shown on the list when the inactive is checked.</string>	<!--해제시 프로그램 목록에 보이지 않습니다.-->
+    <string name="ExericsePlanName">Enter a name of training plan.</string>			<!--운동계획의 제목을 입력하세요.-->
+    <string name="ExericsePlanEx">Enter an explanation of training plan.</string>		<!--운동계획에 대한 설명을 입력하세요.-->
+    <string name="NumberError">Enter the number.</string>
+    <!--필터 조건-->
+    <string name="Adaptive_Pulse">Pulse adaptation</string>
+    <string name="Metabolism">Metabolism</string>
+
+    <!--프로그램 수정/신규 팝업-->
+    <string name="removeProgramBydialog">Do you want to delete the selected program?\n\nEvery information of program will be deleted.\nAre you sure?</string>
+    <!--선택한 프로그램을 삭제하시겠습니까?\n\n해당 프로그램의 모든 정보가 삭제됩니다.\n그래로 삭제하시겠습니까?-->
+    <string name="programName">Name</string>		<!--프로그램 이름-->
+    <string name="program_explanation">Enter an explanation of the program. </string>	<!--프로그램에 대한 설명을 입력하세요.-->
+    <string name="Add_new_program">Add program</string>		<!--새 프로그램 추가-->
+    <string name="Add_exercise_plan">Add training plan</string>	<!--새 운동계획 추가-->
+    <string name="Program_modifications">Modify program</string>	<!--프로그램 수정-->
+    <string name="removeProgram">Program has been deleted.</string>	<!--프로그램을 삭제하였습니다.-->
+    <string name="programNameEmpty">Enter the program name. </string>	<!--프로그램의 이름을 입력하세요.-->
+    <string name="programExplanation">Enter the program explanation.</string>	<!--프로그램의 설명을 입력하세요.-->
+    <string name="stimulusIntensity_error">Set the stimulation level.</string>	<!--자극강도를 설정하세요.-->
+    <string name="PulseOperationTime_error">Set the pulse operating time.</string>	<!--펄스동작시간을 설정하세요.-->
+    <string name="PulsePauseTime_error">Set the pulse pause time.</string>		<!--펄스휴지시간을 설정하세요.-->
+    <string name="Frequency_error">Set the frequency.</string>			<!--주파수를 설정하세요.-->
+    <string name="PulseWidth_error">Set the pulse width.</string>		<!--펄스폭을 설정하세요.-->
+    <string name="CustomPrograms">Program custorm</string>		<!--프로그램 Custom-->
+    <string name="PulseRiseTime_error">Set the pulse rising time.</string>	<!--펄스 상승시간을 설정하세요.-->
+    <string name="time_six_error">Training time should be set by range of 1 to 60 minutes.</string>		<!--운동 시간은 1 ~ 60분 범위로 설정하세요.-->
+    <string name="program_error1">Pulse operation time should be set by range of 0 to 10 seconds.</string>	<!--펄스동작 시간은 0 ~ 10초 범위로 설정하세요.-->
+    <string name="program_error2">Pulse pause time should be set by range of 0 to 60 seconds.</string>		<!--펄스휴지 시간은 0 ~ 10초 범위로 설정하세요.-->
+    <string name="program_error3">Frequency should be set by range of 2 to 150 Hz. </string>			<!--주파수 2 ~ 150 Hz 범위로 설정하세요.-->
+    <string name="program_error4">Pulse width should be set by range of 50 to 350 μs.</string>			<!--펄스폭 50 ~ 350 μs 범위로 설정하세요.-->
+    <string name="program_error5">Pulse rising time should be set by range of 0 to 1 seconds.</string>		<!--펄스상승시간 0 ~ 1 초 범위로 설정하세요.-->
+    <string name="exercisePlanName_error">Same name of training plan already exists.</string>		<!--동일한 운동계획 이름이 존재합니다.\n다시 입력하세요.-->
+    <string name="programName_error">Same name of program already exists.</string>			<!--동일한 프로그램 이름이 존재합니다.\n다시 입력하세요.-->
+    <string name="pleasetwo">Enter 2 or more.</string>		<!--2이상 입력하세요.-->
+    <string name="hz">Hz</string>		<!--Hz-->
+    <string name="pleaseone">Enter 1 or less.</string>	<!--1이하 입력하세요.-->
+    <string name="pleasefive">Enter 50 or more.</string>	<!--50이상 입력하세요.-->
+    <string name="pleaseonefive">Enter 150 or less.</string>	<!--150이하 입력하세요.-->
+    <string name="pleaseonefore">Enter 400 or less.</string>	<!--400이하 입력하세요.-->
+    <string name="pleaseoneten">Enter 10 or less.</string>	<!--10이하 입력하세요.-->
+    <string name="ProgramName">Name</string>				<!--프로그램 이름-->
+    <string name="state">State</string>					<!--상태-->
+    <string name="ExerciseTime">Time</string>				<!--운동시간-->
+    <string name="StimulusIntensity">Stimulation level</string>		<!--자극강도-->
+    <string name="PulseOperationTime">Pulse operation time</string>	<!--펄스동작시간-->
+    <string name="PulsePauseTime">Pulse pause time</string>		<!--펄스휴지시간-->
+    <string name="frequency">Frequency </string>			<!--주파수-->
+    <string name="PulseWidth">Pulse width</string>			<!--펄스폭-->
+    <string name="PulseRiseTime">Pulse rising time </string>		<!--펄스상승시간-->
+    <string name="ProgramEnter_description">Enter an explanation of the program.</string>	<!--프로그램에 대한 설명을 입력하세요.-->
+    <string name="s">μs</string>
+    <!--DB 검색-->
+
+    <string name="fitness">Fitness</string>
+    <string name="Muscles">Back strengthening</string>
+    <string name="ExercisePlanBasic">Training Plan Basic</string>
+    <string name="ExercisePerformance">Training Performance</string>
+    <string name="ManagementBody">Body shaping</string>
+    <string name="program1">Impulse adaptation</string>
+    <string name="program2">Invigoration basic</string>
+    <string name="program3">Invigoration advanced</string>
+    <string name="program4">Metabolism</string>
+    <string name="program5">Body relax</string>
+    <string name="duration">Duration</string>
+    <string name="none">None</string>
+
+    <!--트레이닝-->
+    <string name="HeartRate">Heart rate</string>
+    <string name="EMS_Setting">EMS Setting</string>
+    <!--채널별 명칭-->
+    <string name="Leg1">Leg1</string>
+    <string name="Leg2">Leg2</string>
+    <string name="Back_Up">Back Upper</string>
+    <string name="Back_Down">Back Lower</string>
+    <string name="Hips">Hips</string>
+    <string name="Chest">Chest</string>
+    <string name="Abdomen">Abdomen</string>
+    <string name="Arms">Arms</string>
+    <string name="Fem_Up">Fem(Up)</string>
+    <string name="Fem_Down">Fem(Down)</string>
+    <string name="Ham_In">Hamstr(IN)</string>
+    <string name="Ham_Out">Hamstr(OUT)</string>
+
+
+    <!--평가항목-->
+    <string name="TitleReportView">REPORT</string>
+    <string name="PreRehab">Pre-Rehab</string>
+    <string name="PostRehab">Post-Rehab</string>
+    <string name="Angle1">MinAngle</string>
+    <string name="Angle2">MaxAngle</string>
+    <string name="TimeTitle">Time(sec)</string>
+    <string name="AngleTitle">Angle(°)</string>
+
+
+</resources>

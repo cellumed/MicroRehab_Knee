@@ -1,0 +1,1225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical">
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:paddingLeft="16dp"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:text="재활기록조회"
+        android:background="#0f223a"/>
+    <LinearLayout
+
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp"
+        >
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="프로그램"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/tv_program_name"
+            android:paddingLeft="2dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:background="#aec7d5"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/hintBlack" />
+    </LinearLayout>
+    <LinearLayout
+
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp"
+        >
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="시작시간"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/tv_starttime"
+            android:paddingLeft="2dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:background="#aec7d5"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/hintBlack" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:paddingLeft="16dp"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:text="사전평가"
+        android:background="#0f223a"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp"
+        >
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="@string/TimeTitle"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/tv_pre_time"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:background="#aec7d5"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/hintBlack"
+            android:paddingLeft="10px" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="@string/AngleTitle"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+        <LinearLayout
+
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+
+                android:gravity="center"
+                android:text="굴곡"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#A0b2c0"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/tv_pre_angle1"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text="신전"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#A0b2c0"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/tv_pre_angle2"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+        <!--ch1-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="EMG\nCH1(uV)"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+        <LinearLayout
+
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_weight="1.3"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+
+                android:gravity="center"
+                android:text="평균"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#A0b2c0"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/tv_pre_emg_avr"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1.3"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_marginRight="1dp"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text="최대"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#A0b2c0"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:layout_marginRight="1dp"
+                android:id="@+id/tv_pre_emg_max"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1.4"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text="Total Work"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#A0b2c0"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/tv_pre_emg_total"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!--ch2-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="CH2(uV)"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+     
+            <TextView
+                android:layout_marginRight="1dp"
+                android:id="@+id/tv_pre_emg_avr2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.3"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+      
+
+            <TextView
+                android:layout_marginRight="1dp"
+                android:id="@+id/tv_pre_emg_max2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.3"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+    
+            <TextView
+                android:id="@+id/tv_pre_emg_total2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.4"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+    </LinearLayout>
+    <!--ch3-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="CH3(uV)"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_pre_emg_avr3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_pre_emg_max3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:id="@+id/tv_pre_emg_total3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.4"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+    </LinearLayout>
+
+    <!--ch4-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="CH4(uV)"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_pre_emg_avr4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_pre_emg_max4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:id="@+id/tv_pre_emg_total4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.4"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+    </LinearLayout>
+    <!--ch2-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="CH5(uV)"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_pre_emg_avr5"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_pre_emg_max5"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:id="@+id/tv_pre_emg_total5"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.4"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:paddingLeft="16dp"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:text="사후평가"
+        android:background="#0f223a"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp"
+        >
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="@string/TimeTitle"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/tv_post_time"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:background="#aec7d5"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/hintBlack"
+            android:paddingLeft="10px" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="@string/AngleTitle"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+        <LinearLayout
+
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+
+                android:gravity="center"
+                android:text="굴곡"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#A0b2c0"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/tv_post_angle1"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text="신전"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#A0b2c0"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/tv_post_angle2"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="EMG\nCH1(uV)"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+        <LinearLayout
+
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_weight="1.3"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+
+                android:gravity="center"
+                android:text="평균"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#A0b2c0"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/tv_post_emg_avr"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1.3"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_marginRight="1dp"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text="최대"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#A0b2c0"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:layout_marginRight="1dp"
+                android:id="@+id/tv_post_emg_max"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1.4"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text="Total Work"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#A0b2c0"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/tv_post_emg_total"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#aec7d5"
+
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <!--ch2-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="CH2(uV)"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_post_emg_avr2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_post_emg_max2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:id="@+id/tv_post_emg_total2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.4"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+    </LinearLayout>
+    <!--ch3-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="CH3(uV)"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_post_emg_avr3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_post_emg_max3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:id="@+id/tv_post_emg_total3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.4"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+    </LinearLayout>
+
+    <!--ch4-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="CH4(uV)"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_post_emg_avr4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_post_emg_max4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:id="@+id/tv_post_emg_total4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.4"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+    </LinearLayout>
+    <!--ch2-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#454545"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+
+            android:gravity="center"
+            android:text="CH5(uV)"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#A0b2c0"
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_post_emg_avr5"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+
+        <TextView
+            android:layout_marginRight="1dp"
+            android:id="@+id/tv_post_emg_max5"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.3"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+        <TextView
+            android:id="@+id/tv_post_emg_total5"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.4"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="#aec7d5"
+
+            tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#0f223a">
+        <Button
+            android:layout_marginLeft="200dp"
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="확인"
+            android:textColor="@android:color/white"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"/>
+    </RelativeLayout>
+</LinearLayout>
+</ScrollView>

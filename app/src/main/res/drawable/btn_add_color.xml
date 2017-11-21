@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/dialogColorPrimary"  android:state_enabled="false"/>
+    <item android:drawable="@color/btn_add"  android:state_enabled="true"/>
+    <item android:drawable="@color/btn_add"  android:state_selected="true"/>
+    <!-- pressed -->
+    <item android:drawable="@color/btn_add" android:state_enabled="true" android:state_pressed="true" android:state_selected="true"/>
+
+    <!-- default -->
+    <item android:drawable="@color/btn_add"/>
+
+</selector>

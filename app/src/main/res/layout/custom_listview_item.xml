@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/control_pad_bg">
+    
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="name"
+            android:id="@+id/nameView"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="8"
+            android:gravity="center_vertical"/>
+
+        <Button
+            android:id="@+id/decreaseLevel"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:gravity="center"
+            android:background="@drawable/bt_rdlevel_nor"/>
+        <TextView
+            android:id="@+id/levelValue"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:text="00"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:cursorVisible="false"
+            android:longClickable="false" />
+        <Button
+            android:id="@+id/increaseLevel"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:gravity="center"
+            android:background="@drawable/bt_addlevel_nor"
+            android:layout_marginRight="10dp"
+            android:focusableInTouchMode="true" />
+
+</LinearLayout>

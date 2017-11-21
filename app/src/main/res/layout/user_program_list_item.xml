@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/list_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="6"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+            <CheckBox
+                android:id="@+id/cb"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:button="@null"
+                android:background="@drawable/list_checkbox"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="title"
+                android:id="@+id/tv_name"
+                android:textSize="22dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="7"
+                android:gravity="center_vertical"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:id="@+id/tv_regDater"
+                android:gravity="right"
+                android:textSize="15dp"
+                android:textColor="#818181"
+                android:text="date"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:paddingLeft="35dp">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="2"
+                android:background="@drawable/ico_list"/>
+            <TextView
+                android:layout_width="0dp"
+                android:id="@+id/programName"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:layout_height="fill_parent"
+                android:text="programName"
+                android:layout_weight="20"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

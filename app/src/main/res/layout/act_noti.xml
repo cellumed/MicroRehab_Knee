@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_img01"
+    android:orientation="vertical"
+    tools:context=".Bluetooth.Act_Device_Connect">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/bt_data_extraction"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/bt_aleat_nor"
+            android:scaleType="fitXY"
+            android:layout_weight="1"/>
+        <ScrollView
+            android:id="@+id/scrollTxt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="7"
+            >
+        <TextView
+            android:padding = "10dp"
+            android:id="@+id/noti_text"
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="본 제품은 EMS(저주파 전기자극) 의료기기로서 다음 사항을 준수해야 합니다.\n\n 1.     본 제품은 실내 사용을 원칙으로 하며, 동작온도범위를 벗어난 환경에서는 정상적으로 동작하지 않을 수 있습니다. \n\n 2.     수술을 받은 환자는 의사 상담을 통한 처방 또는 안내에 따라 사용해야 합니다. \n\n 3.     본체, 압박 밴드 및 전극을 부착 또는 제거 시 반드시 애플리케이션 및 본체의 전원을 종료한 상태에서 해야 합니다. \n\n 4.     본 제품은 방수가 되지 않으므로 습하거나 물기가 있는 곳에서 사용하지 마십시오. \n\n 5.     본 제품의 구성품 중 전극 및 압박 밴드는 소모성으로 품질보증기간에 포함되지 않습니다.   \n\n\n 다음의 경우 사용을 금합니다. \n\n 1.     세동제거기를 이식하였거나, 심박조정기를 사용중인 경우 \n\n 2.     금속, 전자 임플란트를 이식 한 경우 \n\n 3.     심장질환이나 간질이 있는 경우. \n\n 4.     임신중인 경우 \n\n 5.     동맥 또는 정맥 혈전증, 현전 정맥염이 있는 경우.   \n\n\n 정해진 부위 이외의 사용을 금지합니다. \n1.     목의 전면 및 측면, 심장 주위를 포함하는 가슴부위 및 머리부위 \n2.     청결하지 않은 피부, 감각을 상실한 피부 및 화상 또는 상처가 있거나 아물지 않은 피부. \n3.     피부 트러블, 홍조, 감염이나 염증, 발진 등이 있는 부위.   \n\n 사용 중 다음과 같은 거부 반응이 있는 경우, 즉시 사용을 중지하고 의사와 상담하시기 바랍니다. \n\n 1.     전극 사용부위의 피부 트러블(알러지반응 등) \n\n 2.     전극 사용부위의 화상 또는 통증 \n\n 3.     메스꺼움, 현기증 또는 두통 등.   \n\n 사용에 따른 부작용 \n\n 1.     저주파 전기 자극 후 근육 통증이 있을 수 있습니다. \n\n 2.     전극 사용부위의 피부가 일시적으로 붉어질 수 있습니다."
+            android:textColor="@color/white"
+            />
+        </ScrollView>
+
+        <ImageButton
+            android:id="@+id/bt_ok"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/bt_okay_disable"
+            android:scaleType="fitXY"
+            android:onClick="go_next"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:src="@drawable/cellumed_logo" />
+    </LinearLayout>
+
+</LinearLayout>
