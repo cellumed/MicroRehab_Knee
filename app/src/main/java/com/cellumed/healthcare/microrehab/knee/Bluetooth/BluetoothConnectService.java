@@ -57,22 +57,22 @@ public class BluetoothConnectService extends Service implements IMP_CMD {
 */
 
     //기존모듈
-
+/*
     public static final UUID SERVICE_UUID=UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
     public static final UUID WRITE_UUID=UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");   // android입장에서write.
     public static final UUID NOTIFY_UUID=UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e");   // serial
     //public static final UUID WRITE_UUID=UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e");   // serial
     //public static final UUID CommandUUID=UUID.fromString("0000dfb2-0000-1000-8000-00805f9b34fb");
-
+*/
 
 // 신규모듈
-/*
+
     public static final UUID SERVICE_UUID=UUID.fromString("49535343-fe7d-4ae5-8fa9-9fafd205e455");
     public static final UUID WRITE_UUID=UUID.fromString("49535343-1e4d-4bd9-ba61-23c647249616");   // android입장에서write.
     public static final UUID NOTIFY_UUID=UUID.fromString("49535343-1e4d-4bd9-ba61-23c647249616");   // serial
     //public static final UUID WRITE_UUID=UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e");   // serial
     //public static final UUID CommandUUID=UUID.fromString("0000dfb2-0000-1000-8000-00805f9b34fb");
-*/
+
     //To tell the onCharacteristicWrite call back function that this is a new characteristic,
     //not the Write Characteristic to the device successfully.
     private static final int WRITE_NEW_CHARACTERISTIC = -1;

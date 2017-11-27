@@ -215,6 +215,27 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 }).show();
     }
 
+    public void checkEmsPad () {
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
+        builder
+                .title(getString(R.string.SystemState))
+                .titleColor(Color.parseColor("#000000"))
+                .backgroundColor(Color.parseColor("#aec7d5"))
+                .content("EMS 전극을 확인 해주세요")
+                .positiveText(getString(R.string.ok))
+                .positiveColor(Color.parseColor("#000000"))
+                .onPositive((dialog, which) -> {
+
+                    Intent intent = new Intent(this, Act_Home.class);
+                    final Bundle bundle = new Bundle();
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                    dialog.dismiss();
+
+
+                }).show();
+    }
 
 
     @Override
@@ -616,6 +637,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             {
                 // 현재 시간 세팅
               //  startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH.mm.ss");
+                checkEmsPad();
 
             }
             else
@@ -835,8 +857,29 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             Log.d("TAG","Sent START_REQ");
             isRunning = 3;
         }
+        else if (cmd.equals(CMD_EMS_STATUS))
+        {
+            //Todo: 디바이스와 테스트 필요
+            /*
+            String com="";
+            String k;
 
+            for(int i=4;i<14;i++)
+            {
+                k=data.split(" ")[i];
+                if(k.length()==1) k = "0"+k;
+                com+= k;
+            }
 
+            char status = com.charAt(9);
+            if(status == '1'){
+
+                Log.d("TAG","Pad Drop status !!!");
+                isRunning = 4;
+                start.callOnClick();
+            }
+            */
+        }
     }
 
     @Override

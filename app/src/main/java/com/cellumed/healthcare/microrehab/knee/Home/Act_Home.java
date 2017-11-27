@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microrehab.knee.Bluetooth.BTConnectActivity;
@@ -28,6 +29,7 @@ import com.cellumed.healthcare.microrehab.knee.Dialog.DialogUserInfoEdit;
 import com.cellumed.healthcare.microrehab.knee.R;
 import com.cellumed.healthcare.microrehab.knee.Setting.Act_Setting;
 import com.cellumed.healthcare.microrehab.knee.Util.BudUtil;
+import com.cellumed.healthcare.microrehab.knee.Util.CustomToast;
 
 import java.util.ArrayList;
 
@@ -86,7 +88,8 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
             Log.w("yourtag", "Error Package name not found ", e);
         }
 
-
+        //Toast.makeText(this, "Ver " + BudUtil.getInstance().FWVersion, Toast.LENGTH_SHORT).show();
+        CustomToast.getInstance(this).showToast(BudUtil.getInstance().FWVersion, Toast.LENGTH_SHORT);
     }
 
     @Override

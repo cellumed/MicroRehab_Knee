@@ -19,6 +19,7 @@ public interface IMP_CMD {
      String CMD_EMS_LEVEL = "03";
      String CMD_REQ_BATT_INFO = "04";
      String CMD_REQ_START_CAL = "31";
+     String CMD_EMS_STATUS = "41";
 
      // error code
      /*

@@ -1,6 +1,10 @@
 *.iml
 .gradle
-/app/*.iml
+local.properties
+app/*.iml
 /.idea/
 /build
 /captures
+.DS_Store
+app/MicroRehab knee.apk
+app/app-release.apk
