@@ -670,6 +670,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 // 현재 시간 세팅
                 //  startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH.mm.ss");
                 whenRequestStop();
+                checkEmsPad();
 
             } else {
                 isRunning = 0;
@@ -714,7 +715,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             screen.setBackgroundResource(R.drawable.img_stepbox);
         }
 
-        checkEmsPad();
 /*
         if(!not_started) {
             new DBQuery(mContext).endProgramData( startTimeStr, programTime - time);

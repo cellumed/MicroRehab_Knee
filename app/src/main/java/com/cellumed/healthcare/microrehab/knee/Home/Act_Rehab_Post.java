@@ -387,8 +387,9 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
                                 if (tickCnt % 10 == 0) {
                                     bg_ctx.setImageResource(currentPostureId);
                                 } else if(tickCnt%5==0) {
-                                    String resName = currentPosture.replaceAll("/res/drawable/", "");
+                                    String resName = currentPosture.replaceAll("res/drawable/", "");
                                     resName = resName.replaceAll(".png", "_eff");
+                                    Log.i("TAG", "resName:" + resName);
                                     bg_ctx.setImageResource(getResources().getIdentifier(resName, "drawable", getPackageName()));
                                 }
                             }
