@@ -49,26 +49,26 @@
     <string name="pleaseIdCheck">사용자 정보가 없습니다.</string>
     <string name="guest">GUEST</string>
     <string name="login">LOGIN</string>
-        <!--처음설치시 로그인화면에서 기기관리자 화면 메세지-->
-        <string name="devicePolicyManagerMessage">관리자 권한을 신청합니다.</string>
+    <!--처음설치시 로그인화면에서 기기관리자 화면 메세지-->
+    <string name="devicePolicyManagerMessage">관리자 권한을 신청합니다.</string>
 
-        <!--사용자 추가시  MSG-->
-        <string name="NewUserRegistration">새 사용자 등록</string>
-        <string name="same_name">동일한 사용자 이름이 존재합니다. 계속하시겠습니까?</string>
-        <string name="same_ID">동일한 사용자 아이디가 존재합니다. 다시 확인하세요</string>
-        <string name="selectYourDateOfBirth">생년월일을 선택하세요.</string>
-        <!--확인 버튼  MSG-->
-        <string name="PleaseSelectAUser">사용자를 선택하세요.</string>
-        <string name="TheSameUserCanNotBeSelected">동일한 사용자를 선택할 수 없습니다.</string>
-        <string name="Please_select_your_wired_or_wireless_users">한 명 이상의 사용자를 선택해야 합니다.</string>
-        <string name="Please_select_your_wired_users">한 명 이상의 유선 사용자를 선택해야 합니다.</string>
+    <!--사용자 추가시  MSG-->
+    <string name="NewUserRegistration">새 사용자 등록</string>
+    <string name="same_name">동일한 사용자 이름이 존재합니다. 계속하시겠습니까?</string>
+    <string name="same_ID">동일한 사용자 아이디가 존재합니다. 다시 확인하세요</string>
+    <string name="selectYourDateOfBirth">생년월일을 선택하세요.</string>
+    <!--확인 버튼  MSG-->
+    <string name="PleaseSelectAUser">사용자를 선택하세요.</string>
+    <string name="TheSameUserCanNotBeSelected">동일한 사용자를 선택할 수 없습니다.</string>
+    <string name="Please_select_your_wired_or_wireless_users">한 명 이상의 사용자를 선택해야 합니다.</string>
+    <string name="Please_select_your_wired_users">한 명 이상의 유선 사용자를 선택해야 합니다.</string>
 
     <!--프로그램-->
     <string name="program">프로그램</string>
-        <!--프로그램 팝업-->
+    <!--프로그램 팝업-->
     <string name="DetailsProgram" formatted="false">프로그램 %s 상세보기</string>
     <string name="second" formatted="false">%.1f초</string>
-    <string name="secondText" >초</string>
+    <string name="secondText">초</string>
 
     <!--즐겨찾기-->
     <string name="favorites">즐겨찾기</string>
@@ -76,7 +76,6 @@
     <string name="Program1" formatted="false">프로그램 %s</string>
     <string name="second1" formatted="false">%.1f초</string>
     <string name="noAddFabvorites">즐겨찾기는 최대 6개 까지 지정이 가능합니다.</string>
-
 
 
     <!--connect -->
@@ -93,9 +92,9 @@
     <string name="Time_remaining">남은 시간</string>
     <string name="remaining_number">남은 횟수</string>
     <string name="posture">자세</string>
-        <!--팝업-->
-        <string name="Restart">계속 하시려면 LEVEL/SELECTOR 버튼을,\n종료하시려면 종료 버튼을 누르세요</string>
-        <string name="End">종료</string>
+    <!--팝업-->
+    <string name="Restart">계속 하시려면 LEVEL/SELECTOR 버튼을,\n종료하시려면 종료 버튼을 누르세요</string>
+    <string name="End">종료</string>
 
     <!--설정-->
     <string name="action_settings">Settings</string>
@@ -132,7 +131,7 @@
     <string name="HardwareVersion">Hardware Version</string>
     <string name="FirmwareVersion">Firmware Version</string>
     <string name="VersionInfo" formatted="false">Ver. %s</string>
-    <string name="Remove" >삭제</string>
+    <string name="Remove">삭제</string>
 
     <!--사용자 정보/추가 팝업-->
     <string name="newUser">새 사용자 추가</string>
@@ -228,7 +227,7 @@
     <string name="ProgramEnter_description">프로그램에 대한 설명을 입력하세요.</string>
     <string name="s">μs</string>
 
-<!--DB 검색-->
+    <!--DB 검색-->
 
     <string name="fitness">피트니스</string>
     <string name="Muscles">등 근육 강화</string>
@@ -244,7 +243,7 @@
     <string name="duration">지속</string>
     <string name="none">없음</string>
 
-<!--트레이닝-->
+    <!--트레이닝-->
     <string name="HeartRate">심박수</string>
 
     <string name="EMS_Setting">EMS 설정</string>
@@ -271,6 +270,18 @@
     <string name="TimeTitle">수행시간\n(sec)</string>
     <string name="AngleTitle">무릎각도\n(°)</string>
 
-    <string name="complete_calibration">센서 교정이 완료 되었습니다</string>
+
+    <!-- 개별프로그램 -> ems 스피너 클릭시 프로그램 설명 -->
+    <string name="EMS_Program1">* 운동범위의 유지또는 증가\n</string>
+    <string name="EMS_Program2">* 비 활동성 위추의 예방및 지연\n</string>
+    <string name="EMS_Program3">* 근육 재훈련 강화\n</string>
+    <string name="EMS_Program4">* 수술 후 초기 대퇴부 근육 강화 및 수술 후 무릎 안정성 개선\n</string>
+    <string name="EMS_Program5">* 근육 경련의 완화\n</string>
+    <string name="EMS_Program6">* 혈액 순환의 증대\n</string>
+    <string name="EMS_Program7">* 만성, 난치성 통증의 증상 완화 및 관리\n</string>
+    <string name="EMS_Program8">* 급성, 수술후 또는 외상후의 통증관리 시 보조 치료\n</string>
+    <string name="EMS_Program9">* 난치성 통증의 증상완화 및 관리와 관절염과 관련된 통증의 완화\n</string>
+    <string name="EMS_Program10">* 무릎의 골관절염과 관련된 통증과 증상을 감소시키기 위한 보조 요법\n</string>
+
 
 </resources>
