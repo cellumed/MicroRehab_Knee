@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Spinner;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -26,6 +28,7 @@ import com.cellumed.healthcare.microrehab.knee.Home.Act_EMS;
 import com.cellumed.healthcare.microrehab.knee.R;
 import com.cellumed.healthcare.microrehab.knee.Util.BudUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -55,25 +58,36 @@ public class DialogEmsEdit implements SqlImp {
 
     private static Typeface typeface;
 
+    //스피너 선택된 값
+    String spTitle="";
+    //프로그램 설명 리스트
+    ArrayList ems_explain = new ArrayList();
+
+    //각 스피너 프로그램별 적용증 번호 배열
+    int emsNum[];
+    //각 프로그램별 적용증 텍스트
+    String emsProgramTxt="";
+    //각 프로그램별 적용증 번호
+    int emsProgramNum;
 
 
-/*
-    private void setGlobalFont(View view) {
-        if(view != null) {
-            if(view instanceof ViewGroup) {
-                ViewGroup viewGroup = (ViewGroup)view;
-                int vgCnt = viewGroup.getChildCount();
-                for(int i = 0; i<vgCnt; i++) {
-                    View v = viewGroup.getChildAt(i);
-                    if(v instanceof TextView) {
-                        ((TextView) v).setTypeface(typeface);
+    /*
+        private void setGlobalFont(View view) {
+            if(view != null) {
+                if(view instanceof ViewGroup) {
+                    ViewGroup viewGroup = (ViewGroup)view;
+                    int vgCnt = viewGroup.getChildCount();
+                    for(int i = 0; i<vgCnt; i++) {
+                        View v = viewGroup.getChildAt(i);
+                        if(v instanceof TextView) {
+                            ((TextView) v).setTypeface(typeface);
+                        }
+                        setGlobalFont(v);
                     }
-                    setGlobalFont(v);
                 }
             }
         }
-    }
-*/
+    */
     public DialogEmsEdit(Context mContext) {
         this.mContext = mContext;
         if(typeface == null) {
@@ -132,6 +146,20 @@ public class DialogEmsEdit implements SqlImp {
 
 
     private void showEditProgram() {
+        ems_explain.add(mContext.getString(R.string.EMS_Program1));
+        ems_explain.add(mContext.getString(R.string.EMS_Program2));
+        ems_explain.add(mContext.getString(R.string.EMS_Program3));
+        ems_explain.add(mContext.getString(R.string.EMS_Program4));
+        ems_explain.add(mContext.getString(R.string.EMS_Program5));
+        ems_explain.add(mContext.getString(R.string.EMS_Program6));
+        ems_explain.add(mContext.getString(R.string.EMS_Program7));
+        ems_explain.add(mContext.getString(R.string.EMS_Program8));
+        ems_explain.add(mContext.getString(R.string.EMS_Program9));
+        ems_explain.add(mContext.getString(R.string.EMS_Program10));
+
+        for(int i=0;i<ems_explain.size();i++){
+            Log.d("tag","설명 배열 : "+ ems_explain.get(i));
+        }
 
         MaterialDialog mMaterialDialog = new MaterialDialog.Builder(mContext)
                 .title(mContext.getString(R.string.EMS_Setting))
@@ -164,7 +192,7 @@ public class DialogEmsEdit implements SqlImp {
 
 
 
-                        // 저장
+                        // 선택된 저장
                         SharedPreferences sf = mContext.getSharedPreferences(sfName, 0);
 
                         SharedPreferences.Editor editor = sf.edit();
@@ -227,20 +255,33 @@ public class DialogEmsEdit implements SqlImp {
         a8Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_SignalType.setAdapter(a8Adapter);
 
+        //스피너별 값 설정
         sp_SignalType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spTitle = sp_SignalType.getSelectedItem().toString();
                 if(i==0)    // prog1
                 {
+                    //선택될 때만 다이얼로그 띄워지도록
+                    if(!adapterView.toString().contains("......I.")) {
+                        emsNum = new int[]{1, 2, 3, 5, 6};
+                        emsProgramDialog(spTitle, emsNum);
+                    }
                     et_WorkingTime.setText("20");
                     et_Frequency.setText("50");
                     et_PulseOperationTime.setText("5");
                     et_PulsePauseTime.setText("10");
                     et_PulseRiseTime.setText("1");
                     et_PulseWidth.setText("350");
+
                 }
                 else if(i==1)    // prog2
                 {
+                    if(!adapterView.toString().contains("......I.")) {
+                        emsNum = new int[]{1, 2, 3, 5, 6};
+                        emsProgramDialog(spTitle, emsNum);
+                    }
+
                     et_WorkingTime.setText("20");
                     et_Frequency.setText("50");
                     et_PulseOperationTime.setText("10");
@@ -250,6 +291,10 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==2)    // prog3
                 {
+                    if(!adapterView.toString().contains("......I.")) {
+                        emsNum = new int[]{1, 2, 3, 5, 6};
+                        emsProgramDialog(spTitle, emsNum);
+                    }
                     et_WorkingTime.setText("20");
                     et_Frequency.setText("50");
                     et_PulseOperationTime.setText("10");
@@ -259,6 +304,10 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==3)    // prog4
                 {
+                    if(!adapterView.toString().contains("......I.")) {
+                        emsNum = new int[]{1, 2, 3, 5, 6};
+                        emsProgramDialog(spTitle, emsNum);
+                    }
                     et_WorkingTime.setText("20");
                     et_Frequency.setText("50");
                     et_PulseOperationTime.setText("10");
@@ -268,6 +317,10 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==4)    // prog5
                 {
+                    if(!adapterView.toString().contains("......I.")) {
+                        emsNum = new int[]{1, 2, 3, 5, 6};
+                        emsProgramDialog(spTitle, emsNum);
+                    }
                     et_WorkingTime.setText("20");
                     et_Frequency.setText("50");
                     et_PulseOperationTime.setText("5");
@@ -277,24 +330,38 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==5)    // prog6
                 {
+                    if(!adapterView.toString().contains("......I.")) {
+                        emsNum = new int[]{1, 2, 3, 5, 6};
+                        emsProgramDialog(spTitle, emsNum);
+                    }
                     et_WorkingTime.setText("20");
                     et_Frequency.setText("50");
                     et_PulseOperationTime.setText("10");
                     et_PulsePauseTime.setText("50");
                     et_PulseRiseTime.setText("1");
                     et_PulseWidth.setText("350");
+
                 }
                 else if(i==6)    // prog7
                 {
+                    if(!adapterView.toString().contains("......I.")) {
+                        emsNum = new int[]{7, 8, 9, 10};
+                        emsProgramDialog(spTitle, emsNum);
+                    }
                     et_WorkingTime.setText("30");
                     et_Frequency.setText("99");
                     et_PulseOperationTime.setText("10");
                     et_PulsePauseTime.setText("0");
                     et_PulseRiseTime.setText("0");
                     et_PulseWidth.setText("200");
+
                 }
                 else if(i==7)    // prog8
                 {
+                    if(!adapterView.toString().contains("......I.")) {
+                        emsNum = new int[]{7, 8, 9};
+                        emsProgramDialog(spTitle, emsNum);
+                    }
                     et_WorkingTime.setText("30");
                     et_Frequency.setText("4");
                     et_PulseOperationTime.setText("10");
@@ -304,6 +371,10 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==8)    // prog9
                 {
+                    if(!adapterView.toString().contains("......I.")) {
+                        emsNum = new int[]{7, 8, 9};
+                        emsProgramDialog(spTitle, emsNum);
+                    }
                     et_WorkingTime.setText("30");
                     et_Frequency.setText("125");
                     et_PulseOperationTime.setText("10");
@@ -519,7 +590,7 @@ public class DialogEmsEdit implements SqlImp {
         sb_WorkingTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-              //  Log.d("DialogEditProgram", "progress:" + progress);
+                //  Log.d("DialogEditProgram", "progress:" + progress);
                 et_WorkingTime.setText(String.valueOf(progress+ workingTimeMin));
             }
 
@@ -576,13 +647,13 @@ public class DialogEmsEdit implements SqlImp {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
 
- //               if (!et_PulseOperationTimeFocus || sb_pulseOperationTimeTracking) {
+                //               if (!et_PulseOperationTimeFocus || sb_pulseOperationTimeTracking) {
                 int value=operMin + (progress*operStep);
-               //     float value = (float) (progress / 10.0);
-                    et_PulseOperationTime.setText(String.valueOf((int) value));
+                //     float value = (float) (progress / 10.0);
+                et_PulseOperationTime.setText(String.valueOf((int) value));
 
 
-          //      }
+                //      }
             }
 
             @Override
@@ -745,7 +816,7 @@ public class DialogEmsEdit implements SqlImp {
         removeFrequency.setOnClickListener(v -> sb_Frequency.setProgress(sb_Frequency.getProgress() - 1));
 
 
-    //********** PULSE WIDTH
+        //********** PULSE WIDTH
 
         sb_PulseWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -816,7 +887,7 @@ public class DialogEmsEdit implements SqlImp {
         removePulseWidth.setOnClickListener(v -> sb_PulseWidth.setProgress(sb_PulseWidth.getProgress() - 1));
 
 
-    //*********** Pulse Riseing
+        //*********** Pulse Riseing
         sb_PulseRiseTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             private boolean sb_pulseRiseTimeTracking;
             @Override
@@ -896,5 +967,23 @@ public class DialogEmsEdit implements SqlImp {
     public static void downKeyboard(Context context, EditText editText) {
         InputMethodManager mInputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
         mInputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+
+    public void emsProgramDialog(String spTitle, int emsNum[]){
+        emsProgramTxt="";
+        for(int i=0; i< emsNum.length; i++){
+            emsProgramNum = emsNum[i];
+            Log.d("tag","ems string : "+emsProgramNum);
+            emsProgramTxt = emsProgramTxt + ems_explain.get(emsProgramNum-1).toString();
+        }
+
+        MaterialDialog mMaterialDialog = new MaterialDialog.Builder(mContext)
+                .title(spTitle)
+                .titleColor(Color.parseColor("#ffffff"))
+                .content(emsProgramTxt)
+                .contentColor(Color.parseColor("#ffffff"))
+                .positiveColor(Color.parseColor("#ffffff"))
+                .backgroundColor(Color.parseColor("#236793"))
+                .positiveText(mContext.getString(R.string.ok)).show();
     }
 }

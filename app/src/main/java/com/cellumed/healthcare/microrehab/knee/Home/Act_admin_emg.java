@@ -142,7 +142,7 @@ public class Act_admin_emg extends BTConnectActivity  implements IMP_CMD, SqlImp
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setDrawLabels(true); // no axis labels
         //leftAxis.setDrawAxisLine(true); // no axis line
-       // leftAxis.setDrawGridLines(true); // no grid lines
+        // leftAxis.setDrawGridLines(true); // no grid lines
         leftAxis.setTypeface(typeface);
         leftAxis.setTextSize(12f); // set the text size
         leftAxis.setTextColor(Color.WHITE);
@@ -180,22 +180,22 @@ public class Act_admin_emg extends BTConnectActivity  implements IMP_CMD, SqlImp
         }
 
         cbCt1.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton comBtn, boolean b)
-                {
-                    ILineDataSet lset = ldata.getDataSetByIndex(0);
-                    if(lset!=null) {
+            @Override
+            public void onCheckedChanged(CompoundButton comBtn, boolean b)
+            {
+                ILineDataSet lset = ldata.getDataSetByIndex(0);
+                if(lset!=null) {
 
-                        if (cbCt1.isChecked())
-                        {
-                            lset.setVisible(true);
-                        }
-                        else
-                        {
-                            lset.setVisible(false);
-                        }
-                            // recalculate y axis.
-                        // back to static limit to 9999
+                    if (cbCt1.isChecked())
+                    {
+                        lset.setVisible(true);
+                    }
+                    else
+                    {
+                        lset.setVisible(false);
+                    }
+                    // recalculate y axis.
+                    // back to static limit to 9999
                         /*
                         if (cbCt1.isChecked())
                         {
@@ -224,17 +224,17 @@ public class Act_admin_emg extends BTConnectActivity  implements IMP_CMD, SqlImp
                             }
                         }
                         */
-                        emg_chart.notifyDataSetChanged();
-                        emg_chart.invalidate();
-                    }
+                    emg_chart.notifyDataSetChanged();
+                    emg_chart.invalidate();
                 }
-            });
+            }
+        });
 
-        imgCt1.setOnClickListener(new View.OnClickListener() {
+        imgCt1.setOnClickListener(new View.OnClickListener() { //글씨 눌러도 적용되게 (이미지)
             @Override
             public void onClick(View v) {
                 cbCt1.toggle();
-            }
+            }//toggle --> 체크박스 상태 바꿈
         });
 
         cbCt2.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
@@ -284,7 +284,7 @@ public class Act_admin_emg extends BTConnectActivity  implements IMP_CMD, SqlImp
                     */
                     emg_chart.notifyDataSetChanged();
                     emg_chart.invalidate();
-                 }
+                }
             }
         });
 
@@ -544,7 +544,7 @@ public class Act_admin_emg extends BTConnectActivity  implements IMP_CMD, SqlImp
         else if(i==4) set.setColor(Color.rgb(240, 240, 240));
 
         set.setDrawValues(false);
-      //  set.setCircleColor(Color.rgb(240, 99, 99));
+        //  set.setCircleColor(Color.rgb(240, 99, 99));
         set.setDrawCircles(false);
         set.setHighLightColor(Color.rgb(190, 190, 190));
         set.setAxisDependency(AxisDependency.LEFT);

@@ -52,9 +52,9 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     @Bind(R.id.start_button)
     ImageButton start;
     @Bind(R.id.context_title)
-            ImageView ctx_title;
+    ImageView ctx_title;
     @Bind(R.id.bg_context)
-            ImageView bg_ctx;
+    ImageView bg_ctx;
 
 
     boolean checkOk=false;
@@ -74,7 +74,10 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     private String rehab_mode_str;  // db에 저장형식
     private String startTimeStr;
 
-    private String db_idx="";
+    //원래
+    //private String db_idx="";
+    //임시
+    public static String db_idx="";
 
     private int report_cnt=0;   // report를 요청하고 수신한 패킷수
     private int work_cnt=0;
@@ -108,6 +111,9 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     int legtype_idx=0;  // 0:left, 1:right
     int flex_cnt=0;
 
+    //개별프로그램에서만 오는 데이터
+    private int admin_mode=0;
+
     @Override
     protected void connected_callback()
     {
@@ -119,12 +125,16 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_rehab_pre);
+
         Log.e("TAG", "START ACT REHAB_PRE");
         ButterKnife.bind(this);
         BudUtil.actList.add(this);
         mContext = this;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         final Bundle extras = getIntent().getExtras();
+
+        //개별프로그램에서만 오는 데이터
+        admin_mode = extras.getInt("admin_mode",1);
 
         //----------------
         startService();
@@ -147,8 +157,11 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
 
         Log.e("TAG","onCreate PRE");
 
-        if(pre_mode==1) posturePopup();
+        if(pre_mode==1) posturePopup(); //걷기일때만 적용
+
+
     }
+    //뒤로가기와 백버튼 눌렀을 때
     private void checkBack()
     {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
@@ -165,7 +178,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                     //   int i= BudUtil.actList.size();
                     //   BudUtil.actList.get(i-1).finish();  // 이전것(사전운동) 종료
                     for (int i = 0; i < BudUtil.actList.size(); i++) {
-                        BudUtil.actList.get(i).finish();
+                        BudUtil.actList.get(i).finish(); //이전 화면 지우기
                     }
 
                     // 시작해서 db기록이 된 경우 삭제
@@ -186,6 +199,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     }
     private void setWorkoutData() {
         // 시작시 운동 기록.
+
         final HashMap<String, String> workoutData = new HashMap<>();
 
         startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH:mm:ss");
@@ -199,10 +213,13 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
         }
 
         db_idx = new DBQuery(mContext).getIdxFromStartDate(startTimeStr);
+        Log.d("TAG","====TEST19===="+db_idx);
     }
 
-    private void setPreData() {
+    private void setPreData() { //사전 운동 끈나고 기록
         // 시작시 운동 기록.
+        // HashMap<key, value>
+
         final HashMap<String, String> workoutData = new HashMap<>();
 
         if(db_idx.length()==0)
@@ -211,7 +228,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
             return;
         }
 
-        workoutData.put(PreTime, String.valueOf(time));
+        workoutData.put(PreTime, String.valueOf(time)); // time를 string으로 변환
         workoutData.put(PreAngleMin, String.valueOf(ang_min));
         workoutData.put(PreAngleMax, String.valueOf(ang_max));
         workoutData.put(PreEmgAvr, String.valueOf(s_emg_amp_avr[0]));
@@ -257,7 +274,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     public void checkComplete() {
         // if complete go to EMS
         //if(sensing_cnt > 50) {
-
+        Log.d("TAG","====rehab_check 1 ====");
         checkOk = false;
         checkDonePopup();
 
@@ -282,10 +299,12 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
             public void run() {
                 checkOkHandler.postDelayed(this, 300);
                 if (checkOk) {
+
                     checkOkHandler.removeCallbacksAndMessages(null);
                     final Bundle bundle = new Bundle();
                     bundle.putInt("mode", pre_mode);
                     bundle.putString("dbidx", db_idx);
+                    Log.d("TAG","====  TEST22 ==== "+db_idx);
                     BudUtil.goActivity(mContext, Act_EMS.class, bundle);
 
                 }
@@ -345,6 +364,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     Button.OnClickListener startClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
             int interval;
 
             if (isRunning == 0) {
@@ -363,7 +383,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
 
                         timeHandler.postDelayed(this, 100);
                         tickCnt++;
-                      //  Log.d("TAG", "pretimer 100. isRunning" + isRunning);
+                        //  Log.d("TAG", "pretimer 100. isRunning" + isRunning);
                         // request battery every 1 sec
                         /*
                         if(tickCnt%600 == 0)
@@ -399,8 +419,8 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                                 else if(tickCnt%5==0) bg_ctx.setImageResource(R.drawable.out_squat_02);
                             } else if (runningPos == 0x10) //step
                             {
-                              //  if (tickCnt % 20 == 0) bg_ctx.setImageResource(R.drawable.updown_01);
-                              //  else if (tickCnt % 10 == 0) bg_ctx.setImageResource(R.drawable.updown_02);
+                                //  if (tickCnt % 20 == 0) bg_ctx.setImageResource(R.drawable.updown_01);
+                                //  else if (tickCnt % 10 == 0) bg_ctx.setImageResource(R.drawable.updown_02);
                             }
                         }
 
@@ -463,6 +483,8 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
             mBluetoothConnectService.send(CMD_REQ_BATT_INFO, "");
 
         Log.e("TAG","onResume PRE");
+
+
     }
 
     @Override
@@ -475,12 +497,12 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     protected void onDestroy() {
         super.onDestroy();
         if(not_started ==false) {
-          //  recycleBitmap(screen);
+            //  recycleBitmap(screen);
         }
         try{
-          //  timer.cancel();
+            //  timer.cancel();
         } catch (Exception e) {}
-     //   timer = null;
+        //   timer = null;
     }
 
     private static void recycleBitmap(ImageView iv) {
@@ -527,7 +549,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
 
 
         //임시 강제시작
-      //   checkComplete();    // TODO. 지울것
+        //   checkComplete();    // TODO. 지울것
 
         if(cmd.equals(CMD_REQ_BATT_INFO))
         {
@@ -556,7 +578,9 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
             {
                 Log.d("TAG","SENS info recved");
 
+
                 if(!doneFlag) {
+
                     work_cnt++;
                     String n = Integer.toString(work_cnt, 10);
                     if (n.length() == 1) n = "0" + n;
@@ -654,6 +678,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
             String pos=data.split(" ")[6];
             // gait
             if(pos.equals("1"))    // standup
+
             {
                 runningPos = 0x1;
                 if (pre_mode == 1) // gait
@@ -665,16 +690,16 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                     bg_ctx.setImageResource(R.drawable.conico_squat);
                 }
                 else if(pre_mode == 3) //step
-            {
-                bg_ctx.setImageResource(R.drawable.step_stand_up);
-            }
+                {
+                    bg_ctx.setImageResource(R.drawable.step_stand_up);
+                }
             }
             else if(pos.equals("2"))
             {
                 runningPos=0x2;
                 bg_ctx.setImageResource(R.drawable.conico_walk);
             }
-             // squart
+            // squart
             else if(pos.equals("4"))    // in
             {
                 runningPos=0x4;
@@ -690,7 +715,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
             {
                 if(legtype_idx==0)  //left
                 {
-                   if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_left_up);
+                    if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_left_up);
                     else bg_ctx.setImageResource(R.drawable.step_right_down);
                 }
                 else    //right
@@ -724,8 +749,8 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
         actionBar.setCustomView(mCustomView);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff6669")));
 
-      //  ((ImageButton) findViewById(R.id.custom_back_btn)).setBackground(null);
-      //  ((ImageButton) findViewById(R.id.custom_back_btn)).setEnabled(false);
+        //  ((ImageButton) findViewById(R.id.custom_back_btn)).setBackground(null);
+        //  ((ImageButton) findViewById(R.id.custom_back_btn)).setEnabled(false);
         ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_03);
 
 

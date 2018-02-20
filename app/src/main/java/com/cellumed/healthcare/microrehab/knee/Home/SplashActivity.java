@@ -39,14 +39,18 @@ public class SplashActivity extends BTConnectActivity {
 
         ContextUtil.CONTEXT = this;
         getSupportActionBar().hide();
-      //  imageView = (ImageView) findViewById(R.id.splashscreen);
-      //  imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.splash_image));
+        //  imageView = (ImageView) findViewById(R.id.splashscreen);
+        //  imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.splash_image));
 
+        //서비스 시작
         startService();
+
+        //PreferenceUtil.lastConnectedDeviceAddress() 가 항상 null이 되서 if문 안거침
         if (PreferenceUtil.lastConnectedDeviceAddress() != null) {
             mBluetoothConnectService.connect(PreferenceUtil.lastConnectedDeviceAddress());
+
             connectedDevice();
-        } else {
+        } else { //바로 여기 거침
             startHandler();
         }
     }

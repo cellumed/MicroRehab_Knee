@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:background="@drawable/bg_img01"
     android:orientation="vertical"
- >
+    >
 
 
     <LinearLayout
@@ -23,7 +23,7 @@
 
     <LinearLayout
 
-       android:layout_width="fill_parent"
+        android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
         android:background="@drawable/lowbar_bg"
@@ -55,9 +55,16 @@
                 android:layout_height="fill_parent"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:background="@drawable/ct_01"
                 android:clickable="true" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="●"
+                android:textColor="#F06363"
+                android:gravity="center"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -69,7 +76,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:orientation="horizontal"
-           >
+            >
             <CheckBox
                 android:id="@+id/cb_ct2"
                 android:layout_marginLeft="7dp"
@@ -86,9 +93,16 @@
                 android:layout_height="fill_parent"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:background="@drawable/ct_02"
                 android:clickable="true" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="●"
+                android:textColor="#63F063"
+                android:gravity="center"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -116,9 +130,16 @@
                 android:layout_height="fill_parent"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:background="@drawable/ct_03"
                 android:clickable="true" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="●"
+                android:textColor="#6363F0"
+                android:gravity="center"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -147,9 +168,16 @@
                 android:layout_height="fill_parent"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:background="@drawable/ct_04"
                 android:clickable="true" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="●"
+                android:textColor="#636363"
+                android:gravity="center"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -161,7 +189,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:orientation="horizontal"
-     >
+            >
             <CheckBox
                 android:id="@+id/cb_ct5"
                 android:layout_marginLeft="7dp"
@@ -177,11 +205,18 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_margin="3dp"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:background="@drawable/ct_05"
                 android:clickable="true" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="●"
+                android:textColor="#F0F0F0"
+                android:gravity="center"/>
         </LinearLayout>
 
     </LinearLayout>

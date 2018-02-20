@@ -63,8 +63,10 @@ public class Act_noti extends BTConnectActivity implements  IMP_CMD, SqlImp {
             }
         };
 */
-  //      bt_go_next.setOnClickListener(goNextBtn);
+        //      bt_go_next.setOnClickListener(goNextBtn);
+        //주의사항 읽어야 넘어감
         bt_go_next.setEnabled(false);
+
 //        txt_noti.setMovementMethod(new ScrollingMovementMethod());
 /*
         scr_txt.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -81,6 +83,7 @@ public class Act_noti extends BTConnectActivity implements  IMP_CMD, SqlImp {
         });
         */
 
+        //스크롤이 끝까지 내려갔는지 확인
         scr_txt.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
@@ -97,7 +100,7 @@ public class Act_noti extends BTConnectActivity implements  IMP_CMD, SqlImp {
         });
 
 
-       // final int scrollAmount = txt_noti.getLayout().getLineTop(txt_noti.getLineCount()) - txt_noti.getHeight();
+        // final int scrollAmount = txt_noti.getLayout().getLineTop(txt_noti.getLineCount()) - txt_noti.getHeight();
 
     }
 
@@ -105,7 +108,7 @@ public class Act_noti extends BTConnectActivity implements  IMP_CMD, SqlImp {
     public void go_next(View view) {
         final Bundle bundle = new Bundle();
         BudUtil.goActivity(mContext, Act_Device_Connect.class,bundle);
-       //BudUtil.goActivity(mContext, Act_Home.class,bundle);
+        //BudUtil.goActivity(mContext, Act_Home.class,bundle);
 
         this.finish();
     }
@@ -131,8 +134,8 @@ public class Act_noti extends BTConnectActivity implements  IMP_CMD, SqlImp {
         View mCustomView = LayoutInflater.from(this).inflate(R.layout.layout_actionbar, null);
         actionBar.setCustomView(mCustomView);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
-       // actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff6669")));
-     //   ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_05);
+        // actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff6669")));
+        //   ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_05);
 
 
         Toolbar parent = (Toolbar) mCustomView.getParent();
@@ -173,7 +176,6 @@ public class Act_noti extends BTConnectActivity implements  IMP_CMD, SqlImp {
             Log.e("BLE","Pkt dropped. s= "+data);
             return;
         }
-
 
         String cmd=data.split(" ")[3];
         if(cmd.length()==1) cmd = "0" + cmd;

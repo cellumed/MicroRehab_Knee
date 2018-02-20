@@ -130,28 +130,35 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
         String cmd = data.split(" ")[3];
         if (cmd.length() == 1) cmd = "0" + cmd;
 
+
+        //임시
+        for(int i=0 ; i<sp.length;i++){
+            Log.d("TAG","==== TEST3 ==== : "+sp[i]);
+        }
+        Log.d("TAG","==== TEST4 ==== : "+cmd);
+        Log.d("TAG","==== TEST5 ==== : "+data);
         int interval;
 
 
         if (cmd.equals(CMD_REQ_BATT_INFO)) {
             //battery_bgl.setBackgroundResource(R.drawable.battery_bg);
 
-        } else if (cmd.equals(CMD_REQ_VER)) {
-			String fw1=data.split(" ")[5];
-			String fw2=data.split(" ")[4];
-			String hw1=data.split(" ")[7];
-			String hw2=data.split(" ")[6];
-			
+        } else if (cmd.equals(CMD_REQ_VER)) {// 01
+            String fw1=data.split(" ")[5];
+            String fw2=data.split(" ")[4];
+            String hw1=data.split(" ")[7];
+            String hw2=data.split(" ")[6];
+
             if(fw1.length()==1) fw1 = "0" + fw1;
-			if(fw2.length()==1) fw2 = "0" + fw2;
-			if(hw1.length()==1) hw1 = "0" + hw1;
-			if(hw2.length()==1) hw2 = "0" + hw2;
-				
+            if(fw2.length()==1) fw2 = "0" + fw2;
+            if(hw1.length()==1) hw1 = "0" + hw1;
+            if(hw2.length()==1) hw2 = "0" + hw2;
+
             Log.e("TAG", "ver updated" + fw1 + "." + fw2 + ","
                     + hw1 + "."+ hw2 );
 
             BudUtil.getInstance().FWVersion = fw2 + "." + fw1;
-            BudUtil.getInstance().HWVersion = hw2 + "."+ hw1;
+            BudUtil.getInstance().HWVersion = hw2 + "." + hw1;
         }
 
 
@@ -204,7 +211,7 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
         BudUtil.goActivity(mContext, Act_Setting.class, bundle);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN) // 이 함수는 젤리빈에서만 호출된다
     private void setCustomActionbar() {
         ActionBar actionBar = getSupportActionBar();
 

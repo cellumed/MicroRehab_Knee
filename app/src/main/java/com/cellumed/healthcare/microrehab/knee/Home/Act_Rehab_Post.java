@@ -250,24 +250,24 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
                 checkOkHandler.postDelayed(this, 300);
                 if (checkOk) {
                     checkOkHandler.removeCallbacksAndMessages(null);
-                 
-				    //final Bundle bundle = new Bundle();
+
+                    //final Bundle bundle = new Bundle();
                     //bundle.putInt("mode", pre_mode);
                     //bundle.putString("dbidx", db_idx);
-                    
-				     for (int i = 0; i < BudUtil.actList.size(); i++) {
-            			BudUtil.actList.get(i).finish();
-        			}
 
-        			finish();   // 현재 종료
-        			Intent intent = new Intent(mContext, Act_Home.class);
-        			startActivity(intent);
+                    for (int i = 0; i < BudUtil.actList.size(); i++) {
+                        BudUtil.actList.get(i).finish();
+                    }
+
+                    finish();   // 현재 종료
+                    Intent intent = new Intent(mContext, Act_Home.class);
+                    startActivity(intent);
 
 
                 }
             }
         }, 500);
-  
+
 
 
     }
@@ -275,13 +275,13 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
     private void setStart() {
         final Bundle extras = getIntent().getExtras();
 
- 		pre_mode = extras.getInt("mode",1);
+        pre_mode = extras.getInt("mode",1);
         //String pre_mode_str=extras.getString("title");
-		db_idx=extras.getString("dbidx","");
-
+        db_idx=extras.getString("dbidx","");
+        Log.d("TAG","사후로 넘어온 값 : "+pre_mode);
 
         if (pre_mode==1) {
-          
+
             rehab_send_txt="01";
             rehab_mode_name=mContext.getResources().getString(R.string.gait);
             rehab_mode_str="0";
@@ -293,7 +293,7 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
             total_cnt_int=3;
 
         } else if (pre_mode==2) {
-   
+
             rehab_send_txt="02";
             rehab_mode_name=mContext.getResources().getString(R.string.squat);
             rehab_mode_str="1";
@@ -342,7 +342,7 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
 
                         timeHandler.postDelayed(this, 100);
                         tickCnt++;
-                      //  Log.d("TAG", "posttimer 100");
+                        //  Log.d("TAG", "posttimer 100");
                         // request battery every 1 sec
                         /*
                         if(tickCnt%600 == 0)
@@ -377,8 +377,8 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
                                 else if(tickCnt%5==0) bg_ctx.setImageResource(R.drawable.out_squat_02);
                             } else if (runningPos == 0x10) //step
                             {
-                              //  if (tickCnt % 20 == 0) bg_ctx.setImageResource(R.drawable.updown_01);
-                              //  else if (tickCnt % 10 == 0) bg_ctx.setImageResource(R.drawable.updown_02);
+                                //  if (tickCnt % 20 == 0) bg_ctx.setImageResource(R.drawable.updown_01);
+                                //  else if (tickCnt % 10 == 0) bg_ctx.setImageResource(R.drawable.updown_02);
                             }
                         }
                     }
@@ -657,9 +657,9 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
                     bg_ctx.setImageResource(R.drawable.conico_squat);
                 }
                 else if(pre_mode == 3) //step
-            {
-                bg_ctx.setImageResource(R.drawable.step_stand_up);
-            }
+                {
+                    bg_ctx.setImageResource(R.drawable.step_stand_up);
+                }
             }
             else if(pos.equals("2"))
             {
@@ -682,7 +682,7 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
             {
                 if(legtype_idx==0)  //left
                 {
-                   if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_left_up);
+                    if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_left_up);
                     else bg_ctx.setImageResource(R.drawable.step_right_down);
                 }
                 else    //right
@@ -714,8 +714,8 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
         actionBar.setCustomView(mCustomView);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff6669")));
 
-     //  ((ImageButton) findViewById(R.id.custom_back_btn)).setBackground(null);
-     //   ((ImageButton) findViewById(R.id.custom_back_btn)).setEnabled(false);
+        //  ((ImageButton) findViewById(R.id.custom_back_btn)).setBackground(null);
+        //   ((ImageButton) findViewById(R.id.custom_back_btn)).setEnabled(false);
         ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_10);
 
 
