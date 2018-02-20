@@ -85,10 +85,10 @@ public class Act_Rehab_Home extends BTConnectActivity implements SqlImp,IMP_CMD 
         int interval;
 
 
-        if (cmd.equals(CMD_REQ_BATT_INFO)) {
+        if (cmd.equals(CMD_REQ_BATT_INFO)) {//04이면
             //battery_bgl.setBackgroundResource(R.drawable.battery_bg);
 
-        } else if (cmd.equals(CMD_REQ_START_CAL)) {
+        } else if (cmd.equals(CMD_REQ_START_CAL)) {// 31이면
             Log.e("TAG", "cal acked"  );
             calibration_acked = true;
         }

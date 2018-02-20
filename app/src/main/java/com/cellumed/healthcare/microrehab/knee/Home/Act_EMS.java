@@ -1,10 +1,15 @@
 package com.cellumed.healthcare.microrehab.knee.Home;
 
 import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microrehab.knee.Bluetooth.BTConnectActivity;
@@ -91,11 +98,11 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     private int sumTime;
     private int init_time_min;
     private Custom_List_Adapter customAdapter;
-  //  private CountDownTimer timer = null;
+    //  private CountDownTimer timer = null;
     private int listCnt = 0;
     private int exercisePlanRepeatCount = 0;
     private int exercisePlanRepeatCountTotal=0;
-   // private int rowCont;
+    // private int rowCont;
     private int[] levelValues = new int[10];
     private long saveTime = 0;
 
@@ -103,7 +110,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     private String startTimeStr;
     private String rehab_mode_name;
     private String rehab_mode_str;
-    private String db_idx;
+    //개별프로그램에서도 쓰기 위해 private에서 public으로 변경
+    public static String db_idx;
 
     private Handler timeHandler = new Handler();
     private Runnable r;
@@ -112,7 +120,11 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     private int SignalTypeIdx;
 
     private int rehab_mode_idx=0;
+
     private boolean not_started = true;
+
+    //개별프로그램에서만 오는 데이터
+    private int admin_mode=0;
 
     private boolean isAdminMode = false;    // EMS관리자 모드에서 들어온 경우
 
@@ -128,7 +140,10 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
     private void checkBack()
     {
-        if(isAdminMode) super.onBackPressed();
+        if(isAdminMode) {
+            super.onBackPressed();
+            Log.d("TAG"," ====TEST==== "+isAdminMode);
+        }
         else {
             MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
             builder
@@ -178,15 +193,20 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 .positiveColor(Color.parseColor("#000000"))
                 .onPositive((dialog, which) -> {
 
-                    setWorkoutData();
+                    setWorkoutData();//운동 기록 저장
 
-                    Intent intent = new Intent(this, Act_Rehab_Post.class);
-                    final Bundle bundle = new Bundle();
-                    bundle.putInt("mode", rehab_mode_idx);
-                    bundle.putString("dbidx", db_idx);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-
+                    //개별프로그램에서만 오는 데이터 하나 만들어 사후로 안넘어가게 구분
+                    if(admin_mode==0){
+                        this.finish();
+                    } else {
+                        Intent intent = new Intent(this, Act_Rehab_Post.class);
+                        final Bundle bundle = new Bundle();
+                        bundle.putInt("mode", rehab_mode_idx);
+                        bundle.putString("dbidx", db_idx);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        Log.d("tag","사후로 넘어간 값 : "+rehab_mode_idx);
+                    }
                     dialog.dismiss();
 
 
@@ -235,7 +255,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
 
                 }).show();
-
         mBluetoothConnectService.send(CMD_REQ_STOP_EMS, "");
         mBluetoothConnectService.send(CMD_STOP_SENS, "");
     }
@@ -246,7 +265,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     {
         if (mBluetoothConnectService != null)
             mBluetoothConnectService.send(CMD_REQ_BATT_INFO, "");
-            mBluetoothConnectService.send(CMD_REQ_BATT_INFO, "");
+        mBluetoothConnectService.send(CMD_REQ_BATT_INFO, "");
     }
 
 
@@ -254,6 +273,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_ems);
+
+        Log.d("tag","ems oncreate");
         Log.e("TAG", "START ACT EMS");
         ButterKnife.bind(this);
         BudUtil.actList.add(this);
@@ -278,8 +299,13 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         final Bundle extras = getIntent().getExtras();
 
         rehab_mode_idx = extras.getInt("mode",9);   // 모드가 없이 오면 관리자 모드
+        Log.d("tag","사후로 : "+rehab_mode_idx);
+
+        //개별프로그램에서만 오는 데이터
+        admin_mode = extras.getInt("admin_mode",1);
 
         db_idx=extras.getString("dbidx","");
+        Log.d("TAG","=== TEST19 ====="+db_idx);
         if(rehab_mode_idx==0)
         {
             screen.setBackgroundResource(R.drawable.img_gait);
@@ -288,6 +314,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         }
         else if(rehab_mode_idx==1)
         {
+
             screen.setBackgroundResource(R.drawable.img_squat);
             rehab_mode_name=mContext.getResources().getString(R.string.squat);
             rehab_mode_str="1";
@@ -374,9 +401,9 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             SignalTypeIdx = 0;
             signal_type.setText(SignalTypeStr[SignalTypeIdx]);
 
-            // 시간 30분
-           String t = "30";
-           // String t = "1";
+            // 시간 30분 임시로 3분
+            String t = "3";
+            // String t = "1";
             working_time.setText(t);
 
             // 2-150
@@ -427,43 +454,43 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         listView.setAdapter(customAdapter);
         setCustomList();
     }
-/*
-    private void startCountDownTimer() {
-        not_started=false;
-        long millisSeconds = time * 1000; // time min
-        final Locale locale = getResources().getConfiguration().locale;
-        sumTime = Integer.parseInt(String.format("%.0f", (float)(onTime + offTime)));
+    /*
+        private void startCountDownTimer() {
+            not_started=false;
+            long millisSeconds = time * 1000; // time min
+            final Locale locale = getResources().getConfiguration().locale;
+            sumTime = Integer.parseInt(String.format("%.0f", (float)(onTime + offTime)));
 
-        // 현재 시간 세팅
-        startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH.mm.ss");
-        setWorkoutData();
-        rowCont = sumTime;
+            // 현재 시간 세팅
+            startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH.mm.ss");
+            setWorkoutData();
+            rowCont = sumTime;
 
-        if (timer != null) {
-            timer.start();
-        } else {
+            if (timer != null) {
+                timer.start();
+            } else {
 
-            timer = new CountDownTimer(millisSeconds, 100) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    saveTime = millisUntilFinished / 1000 + 1;
+                timer = new CountDownTimer(millisSeconds, 100) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        saveTime = millisUntilFinished / 1000 + 1;
 
-                    runOnUiThread(() -> {
-                        rowCont -= 1;
-                        if (rowCont == 0) {
-                            rowCont = sumTime;
-                        }
-                    });
+                        runOnUiThread(() -> {
+                            rowCont -= 1;
+                            if (rowCont == 0) {
+                                rowCont = sumTime;
+                            }
+                        });
 
-                }
-                @Override
-                public void onFinish() {
-                    finish();
-                }
-            }.start();
+                    }
+                    @Override
+                    public void onFinish() {
+                        finish();
+                    }
+                }.start();
+            }
         }
-    }
-*/
+    */
     private void setWorkoutData() {
 
         // 시작시 운동 기록.
@@ -477,9 +504,16 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         workoutData.put(ProgramPulseRiseTime , pulse_rising_time.getText().toString()); //펄스 상승시
         workoutData.put(ProgramPulseWidth,pulse_width.getText().toString()) ;//펄스폭
 
+
+        Log.d("TAG","----TEST----- "+ db_idx);
+
         if (new DBQuery(mContext).setProgramUpdate(workoutData,db_idx)) {
-            Log.d("ACT ems시작 db 업데이트", "저장");
+
+            Log.d("ACT ems시작 db 업데이트", "ems db update success");
+
         }
+
+
     }
 
 
@@ -487,12 +521,12 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     private void setStart() {
         final Bundle extras = getIntent().getExtras();
 
-         try {
-                programTime = Integer.parseInt(working_time.getText().toString());
-                time = programTime*60;  // in sec
-                init_time_min = programTime;    // const
+        try {
+            programTime = Integer.parseInt(working_time.getText().toString());
+            time = programTime*60;  // in sec
+            init_time_min = programTime;    // const
         } catch (Exception e) {
-                programTime = 0;
+            programTime = 0;
         }
         try {
             frequency = Integer.parseInt(frequency_txt.getText().toString());
@@ -554,9 +588,10 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 r = new Runnable() {
                     @Override
                     public void run() {
+                        Log.d("TAG","====rehab_check 1 ====");
                         //BTConnectActivity send battery info
                         //if(time%60==0) mBluetoothConnectService.send(CMD_REQ_BATT_INFO, "");    // battery
-                       // Log.e("time","0.1sec");
+                        // Log.e("time","0.1sec");
                         timeHandler.postDelayed(this, 100);
 
                         if(ts_last_ms==0)
@@ -580,7 +615,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                         int milli = ((int)System.currentTimeMillis() % 10000000);
                         //if( System.currentTimeMillis() - ts_last_ms > 999) run_cnt++;
 
-                    // every 1sec
+                        // every 1sec
                         if(milli - last_milli > 900) {
                             Log.e("diff",Integer.toString(last_milli) + " , " + Integer.toString(milli));
                             run_cnt=0;
@@ -613,6 +648,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                     }
                 };
 
+                Log.d("tag","시간 :1" + time);
                 startTime = time;
                 // check interval
                 // set starttime when resumed
@@ -639,7 +675,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             } else if(isRunning==4) // 일시정지
             {
                 // 현재 시간 세팅
-              //  startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH.mm.ss");
+                //  startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH.mm.ss");
                 //checkEmsPad();
                 whenRequestStop();
 
@@ -706,6 +742,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     public void onResume() {
 
         super.onResume();
+        Log.d("tag","ems onresume");
         if (mBluetoothConnectService != null)
             mBluetoothConnectService.send(CMD_REQ_BATT_INFO, "");
     }
@@ -713,17 +750,31 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("tag","ems onpause");
+
         whenRequestStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d("tag","ems ondestroy");
+        //뒤로가기를 눌러서 온 경우와 ems 끝내서 사후운동으로 넘어간 경우는 따로 체크
+//        Intent Service = new Intent(this, MainActivity.class);
+//        Service.putExtra("mode",rehab_mode_idx);
+//        Service.putExtra("time",0);
+//        startService(Service);
+
+        Log.d("tag","시간 : " + ts_last_ms);
+        Log.d("tag","시간 : " + last_milli);
+
+
+
         if(not_started ==false) {
-          //  recycleBitmap(screen);
+            //  recycleBitmap(screen);
         }
         try{
-           // timer.cancel();
+            // timer.cancel();
         } catch (Exception e) {}
         //timer = null;
     }
@@ -760,7 +811,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         toSend.append(String.format("%02X", width));
 
 
-        //toSend.append(String.format("%02X", frequency));
+        //        toSend.append(String.format("%02X", frequency));
         //toSend.append(makeLevelData());
 
         Log.e("TAG", toSend.toString());
@@ -777,7 +828,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             levelValues[i] = level;
             toSend.append(String.format("%02X", level));
         }
-      //  setLevelValue();
+        //  setLevelValue();
         // 10 bytes dummy
         return toSend.toString();
     }
@@ -854,8 +905,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         else if (cmd.equals(CMD_EMS_INFO))   // EMS info받으면 req_ems_start보냄
         {
             // 현재 시간 세팅
-           // startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH.mm.ss");
-          //  setWorkoutData();
+            // startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH.mm.ss");
+            //  setWorkoutData();
 
             mBluetoothConnectService.send(CMD_REQ_START_EMS, "");
             Log.d("TAG","Sent START_REQ");
@@ -864,7 +915,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         else if (cmd.equals(CMD_EMS_STATUS))
         {
             //Todo: 디바이스와 테스트 필요
-
+            /*
             String com="";
             String k;
 
@@ -882,7 +933,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 isRunning = 4;
                 start.callOnClick();
             }
-
+            */
         }
     }
 

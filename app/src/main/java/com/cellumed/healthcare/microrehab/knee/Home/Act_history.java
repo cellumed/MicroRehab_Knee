@@ -84,6 +84,7 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
         final DBQuery dbQuery = new DBQuery(mContext);
 
         dbQuery.programRemoveNotComplete();
+        //Log.d("TAG","==== TEST8 ==== "+dbQuery.programRemoveNotComplete());
 
         final ArrayList<DAO_Program> progList = dbQuery.getALLProgram();
         int i;
@@ -148,6 +149,8 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
             updated = view;
             selectedTimeName = hh.getHistoryTimeName();
             selectedTime = hh.getHistoryTime();
+            Log.d("TAG","==== TEST11 ==== "+selectedTimeName); // 2018.01.25 09:44:25 걷기
+            Log.d("TAG","==== TEST11 ==== "+selectedTime); //2018.01.25 09:44:25
             Log.e("TAG", hh.getHistoryTimeName());
             view.setBackgroundColor(Color.GRAY);
         }
@@ -180,14 +183,14 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
             }
 
             // 데이터 추출
-           if(selectedTime.length()!=0)
-           {
-               final DBQuery dbQuery = new DBQuery(mContext);
-               new DialogRehabInfo(mContext, dbQuery.getProgramFromStartTime(selectedTime)).show();
+            if(selectedTime.length()!=0)
+            {
+                final DBQuery dbQuery = new DBQuery(mContext);
+                new DialogRehabInfo(mContext, dbQuery.getProgramFromStartTime(selectedTime)).show();
 
-           }
+            }
 
-             Log.e("TAG", "extract " + deviceAddress);
+            Log.e("TAG", "extract " + deviceAddress);
 
         }
     };

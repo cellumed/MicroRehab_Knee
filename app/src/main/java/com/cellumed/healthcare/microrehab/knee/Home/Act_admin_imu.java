@@ -217,7 +217,6 @@ public class Act_admin_imu extends BTConnectActivity implements IMP_CMD, SqlImp 
 
     @Override
     public void onBackPressed() {
-     //   Log.e("TAG","bbbbbbbbbbbb");
         mBluetoothConnectService.send(CMD_STOP_SENS, "");
         super.onBackPressed();
 

@@ -107,6 +107,9 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
     int legtype_idx=0;  // 0:left, 1:right
     int flex_cnt=0;
 
+    int currentPostureId = -1;
+    String currentPosture = "";
+
     @Override
     protected void connected_callback()
     {
@@ -381,6 +384,13 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
                             {
                                 //  if (tickCnt % 20 == 0) bg_ctx.setImageResource(R.drawable.updown_01);
                                 //  else if (tickCnt % 10 == 0) bg_ctx.setImageResource(R.drawable.updown_02);
+                                if (tickCnt % 10 == 0) {
+                                    bg_ctx.setImageResource(currentPostureId);
+                                } else if(tickCnt%5==0) {
+                                    String resName = currentPosture.replaceAll("/res/drawable/", "");
+                                    resName = resName.replaceAll(".png", "_eff");
+                                    bg_ctx.setImageResource(getResources().getIdentifier(resName, "drawable", getPackageName()));
+                                }
                             }
                         }
                     }
@@ -684,13 +694,21 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
             {
                 if(legtype_idx==0)  //left
                 {
-                    if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_left_up);
-                    else bg_ctx.setImageResource(R.drawable.step_right_down);
+                    //if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_left_up);
+                    //else bg_ctx.setImageResource(R.drawable.step_right_down);
+
+                    if(flex_cnt%2==0) currentPostureId = R.drawable.step_left_up;
+                    else              currentPostureId = R.drawable.step_right_down;
+                    currentPosture = getResources().getString(currentPostureId);
                 }
                 else    //right
                 {
-                    if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_right_up);
-                    else bg_ctx.setImageResource(R.drawable.step_left_down);
+                    //if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_right_up);
+                    //else bg_ctx.setImageResource(R.drawable.step_left_down);
+
+                    if(flex_cnt%2==0) currentPostureId = R.drawable.step_right_up;
+                    else currentPostureId = R.drawable.step_left_down;
+                    currentPosture = getResources().getString(currentPostureId);
                 }
                 flex_cnt++;
                 runningPos=0x10;

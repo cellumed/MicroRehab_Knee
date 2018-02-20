@@ -1,11 +1,13 @@
 package com.cellumed.healthcare.microrehab.knee.Home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,10 +15,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.cellumed.healthcare.microrehab.knee.Bluetooth.BTConnectActivity;
+import com.cellumed.healthcare.microrehab.knee.DataBase.DBQuery;
 import com.cellumed.healthcare.microrehab.knee.Dialog.DialogEmsEdit;
 import com.cellumed.healthcare.microrehab.knee.R;
 import com.cellumed.healthcare.microrehab.knee.Util.BudUtil;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
@@ -25,7 +29,16 @@ public class Act_admin extends BTConnectActivity {
     private Context mContext;
     private boolean type;
 
+    //개별프로그램도 평가기록이 저장되도록
+    private String db_idx;
+    private String startTimeStr;
+
     private BackPressCloseHandler backPressCloseHandler;
+    @Bind(R.id.bt_gait1) Button bt_gait1;
+    @Bind(R.id.bt_squat1) Button bt_squat1;
+    @Bind(R.id.bt_stepbox1) Button bt_stepbox1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +51,49 @@ public class Act_admin extends BTConnectActivity {
 
         setCustomActionbar();
 
+        //걷기, 스쿼트 , 스텝박스 위해
+        startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH:mm:ss");
+        db_idx = new DBQuery(mContext).getIdxFromStartDate(startTimeStr);
+
+        Log.d("TAG","==== TEST21 ==== "+db_idx);
+
+        //걷기 스쿼트 스텝박스 각 버튼 이동
         backPressCloseHandler = new BackPressCloseHandler(this);
+        bt_gait1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Bundle bundle = new Bundle();
+                bundle.putInt("mode", 0);
+                bundle.putInt("admin_mode", 0);
+                bundle.putString("dbidx", db_idx);
+                bundle.putString("title", "gait");
+                BudUtil.goActivity(mContext, Act_EMS.class,bundle);
+                Log.d("TAG","====TEST1===="+startTimeStr);
+            }
+        });
+
+        bt_squat1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Bundle bundle = new Bundle();
+                bundle.putInt("mode", 1);
+                bundle.putInt("admin_mode", 0);
+                bundle.putString("dbidx", db_idx);
+                bundle.putString("title", "squat");
+                BudUtil.goActivity(mContext, Act_EMS.class,bundle);
+            }
+        });
+        bt_stepbox1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Bundle bundle = new Bundle();
+                bundle.putInt("mode", 2);
+                bundle.putInt("admin_mode", 0);
+                bundle.putString("dbidx", db_idx);
+                bundle.putString("title", "stairs");
+                BudUtil.goActivity(mContext, Act_EMS.class,bundle);
+            }
+        });
     }
 
     @Override
@@ -66,6 +121,9 @@ public class Act_admin extends BTConnectActivity {
 
 
     private void setCustomActionbar() {
+
+
+
         ActionBar actionBar = getSupportActionBar();
 
         actionBar.setDisplayShowCustomEnabled(true);

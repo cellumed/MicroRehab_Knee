@@ -283,5 +283,6 @@
     <string name="EMS_Program9">* 난치성 통증의 증상완화 및 관리와 관절염과 관련된 통증의 완화\n</string>
     <string name="EMS_Program10">* 무릎의 골관절염과 관련된 통증과 증상을 감소시키기 위한 보조 요법\n</string>
 
+    <string name="complete_calibration">센서 교정 완료</string>
 
 </resources>

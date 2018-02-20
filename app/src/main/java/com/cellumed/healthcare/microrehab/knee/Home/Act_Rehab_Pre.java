@@ -114,6 +114,9 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     //개별프로그램에서만 오는 데이터
     private int admin_mode=0;
 
+    int currentPostureId = -1;
+    String currentPosture = "";
+
     @Override
     protected void connected_callback()
     {
@@ -229,6 +232,8 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
         }
 
         workoutData.put(PreTime, String.valueOf(time)); // time를 string으로 변환
+        ang_min = Act_admin_imu.EXTENTION_ANGLE - ang_min;
+        ang_max = Act_admin_imu.EXTENTION_ANGLE - ang_max;
         workoutData.put(PreAngleMin, String.valueOf(ang_min));
         workoutData.put(PreAngleMax, String.valueOf(ang_max));
         workoutData.put(PreEmgAvr, String.valueOf(s_emg_amp_avr[0]));
@@ -421,6 +426,14 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                             {
                                 //  if (tickCnt % 20 == 0) bg_ctx.setImageResource(R.drawable.updown_01);
                                 //  else if (tickCnt % 10 == 0) bg_ctx.setImageResource(R.drawable.updown_02);
+                                if (tickCnt % 10 == 0) {
+                                    bg_ctx.setImageResource(currentPostureId);
+                                } else if(tickCnt%5==0) {
+                                    String resName = currentPosture.replaceAll("res/drawable/", "");
+                                    resName = resName.replaceAll(".png", "_eff");
+                                    Log.i("TAG", "resName:" + resName);
+                                    bg_ctx.setImageResource(getResources().getIdentifier(resName, "drawable", getPackageName()));
+                                }
                             }
                         }
 
@@ -715,13 +728,21 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
             {
                 if(legtype_idx==0)  //left
                 {
-                    if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_left_up);
-                    else bg_ctx.setImageResource(R.drawable.step_right_down);
+                    //if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_left_up);
+                    //else bg_ctx.setImageResource(R.drawable.step_right_down);
+
+                    if(flex_cnt%2==0) currentPostureId = R.drawable.step_left_up;
+                    else              currentPostureId = R.drawable.step_right_down;
+                    currentPosture = getResources().getString(currentPostureId);
                 }
                 else    //right
                 {
-                    if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_right_up);
-                    else bg_ctx.setImageResource(R.drawable.step_left_down);
+                    //if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_right_up);
+                    //else bg_ctx.setImageResource(R.drawable.step_left_down);
+
+                    if(flex_cnt%2==0) currentPostureId = R.drawable.step_right_up;
+                    else currentPostureId = R.drawable.step_left_down;
+                    currentPosture = getResources().getString(currentPostureId);
                 }
                 flex_cnt++;
                 runningPos=0x10;
