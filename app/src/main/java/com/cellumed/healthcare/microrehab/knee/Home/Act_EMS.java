@@ -138,6 +138,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     long ts_last_ms=0;
     int last_milli=0;
 
+    MaterialDialog.Builder checkEmsPadDialog = null;
+
     private void checkBack()
     {
         if(isAdminMode) {
@@ -231,32 +233,26 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
                     dialog.dismiss();
 
-
                 }).show();
     }
 
     public void checkEmsPad () {
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
-        builder
-                .title(getString(R.string.SystemState))
-                .titleColor(Color.parseColor("#000000"))
-                .backgroundColor(Color.parseColor("#aec7d5"))
-                .content("EMS 전극을 확인 해주세요")
-                .positiveText(getString(R.string.ok))
-                .positiveColor(Color.parseColor("#000000"))
-                .onPositive((dialog, which) -> {
 
-                    Intent intent = new Intent(this, Act_Home.class);
-                    final Bundle bundle = new Bundle();
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-
-                    dialog.dismiss();
-
-
-                }).show();
-        mBluetoothConnectService.send(CMD_REQ_STOP_EMS, "");
-        mBluetoothConnectService.send(CMD_STOP_SENS, "");
+        if(checkEmsPadDialog == null) {
+            checkEmsPadDialog = new MaterialDialog.Builder(mContext);
+            Log.i("TAG", "Check EMS Pad Dialog...!!!!");
+            checkEmsPadDialog
+                    .title(getString(R.string.SystemState))
+                    .titleColor(Color.parseColor("#000000"))
+                    .backgroundColor(Color.parseColor("#aec7d5"))
+                    .content("EMS 전극을 확인 해주세요")
+                    .positiveText(getString(R.string.ok))
+                    .positiveColor(Color.parseColor("#000000"))
+                    .onPositive((dialog, which) -> {
+                        dialog.dismiss();
+                        checkEmsPadDialog = null;
+                    }).show();
+        }
     }
 
 
@@ -491,6 +487,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             }
         }
     */
+
     private void setWorkoutData() {
 
         // 시작시 운동 기록.
@@ -588,7 +585,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 r = new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("TAG","====rehab_check 1 ====");
                         //BTConnectActivity send battery info
                         //if(time%60==0) mBluetoothConnectService.send(CMD_REQ_BATT_INFO, "");    // battery
                         // Log.e("time","0.1sec");
@@ -617,14 +613,12 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
                         // every 1sec
                         if(milli - last_milli > 900) {
-                            Log.e("diff",Integer.toString(last_milli) + " , " + Integer.toString(milli));
                             run_cnt=0;
                             last_milli+=1000;
 
                             time--;
                             //ts_last_ms = (System.currentTimeMillis());
 
-                            Log.e("time","1sec");
                             //진행바
                             //right margin 373-3
                             dpValue = (int) (3.0 + (33.0 * (double) time) / ((double) init_time_min * 6.0));
@@ -638,7 +632,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                             second.setText(formatter.format((int) time % 60));
 
                             if (time <= 0) {
-                                Log.e("TAG", "time up");
                                 whenRequestStop();
                                 if (isAdminMode) adminEmsDonePopup();
                                 else emsDonePopup();
@@ -672,16 +665,13 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
                 Log.e("TAG", "time=" + Integer.toString(time) );
 
-            } else if(isRunning==4) // 일시정지
-            {
+            } else if(isRunning==4) {
+                Log.d("TAG", "Drop EMS Pad !!!!!!!!!");
                 // 현재 시간 세팅
                 //  startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH.mm.ss");
-                //checkEmsPad();
                 whenRequestStop();
 
-            }
-            else
-            {
+            } else {
                 isRunning = 0;
                 whenRequestStop();
             }
@@ -723,6 +713,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         if(rehab_mode_idx==9) {
             screen.setBackgroundResource(R.drawable.img_stepbox);
         }
+
+        checkEmsPad();
 /*
         if(!not_started) {
             new DBQuery(mContext).endProgramData( startTimeStr, programTime - time);
@@ -895,7 +887,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 run_cnt=0;
                 timeHandler.postDelayed(r, 100);
 
-                Log.e("TAG", "ACK!  time=" + Integer.toString(time) );
+                Log.d("TAG", "ACK!  time=" + Integer.toString(time) );
             }
             else
             {
@@ -914,8 +906,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         }
         else if (cmd.equals(CMD_EMS_STATUS))
         {
-            //Todo: 디바이스와 테스트 필요
-            /*
             String com="";
             String k;
 
@@ -928,12 +918,10 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
             char status = com.charAt(9);
             if(status == '1'){
-
                 Log.d("TAG","Pad Drop status !!!");
                 isRunning = 4;
                 start.callOnClick();
             }
-            */
         }
     }
 
