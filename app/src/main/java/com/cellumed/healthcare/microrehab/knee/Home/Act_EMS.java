@@ -235,6 +235,9 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
 
                 }).show();
+
+        mBluetoothConnectService.send(CMD_REQ_STOP_EMS, "");
+        mBluetoothConnectService.send(CMD_STOP_SENS, "");
     }
 
 
@@ -637,7 +640,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             {
                 // 현재 시간 세팅
               //  startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH.mm.ss");
-                checkEmsPad();
+                //checkEmsPad();
+                whenRequestStop();
 
             }
             else
@@ -756,7 +760,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         toSend.append(String.format("%02X", width));
 
 
-        //        toSend.append(String.format("%02X", frequency));
+        //toSend.append(String.format("%02X", frequency));
         //toSend.append(makeLevelData());
 
         Log.e("TAG", toSend.toString());
@@ -860,7 +864,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         else if (cmd.equals(CMD_EMS_STATUS))
         {
             //Todo: 디바이스와 테스트 필요
-            /*
+
             String com="";
             String k;
 
@@ -878,7 +882,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 isRunning = 4;
                 start.callOnClick();
             }
-            */
+
         }
     }
 

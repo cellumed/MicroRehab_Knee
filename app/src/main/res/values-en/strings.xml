@@ -270,5 +270,7 @@
     <string name="TimeTitle">Time(sec)</string>
     <string name="AngleTitle">Angle(°)</string>
 
+    <string name="complete_calibration">Complete Calibration</string>
+
 
 </resources>

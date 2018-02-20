@@ -271,6 +271,6 @@
     <string name="TimeTitle">수행시간\n(sec)</string>
     <string name="AngleTitle">무릎각도\n(°)</string>
 
-
+    <string name="complete_calibration">센서 교정이 완료 되었습니다</string>
 
 </resources>

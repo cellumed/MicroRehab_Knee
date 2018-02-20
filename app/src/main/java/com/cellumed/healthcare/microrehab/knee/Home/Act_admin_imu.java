@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microrehab.knee.Bluetooth.BTConnectActivity;
 import com.cellumed.healthcare.microrehab.knee.Bluetooth.IMP_CMD;
 import com.cellumed.healthcare.microrehab.knee.DataBase.SqlImp;
@@ -58,6 +60,8 @@ public class Act_admin_imu extends BTConnectActivity implements IMP_CMD, SqlImp 
             R.drawable.rtv_a0011, R.drawable.rtv_a0012, R.drawable.rtv_a0013, R.drawable.rtv_a0014, R.drawable.rtv_a0015};
 */
     // 5도단위. 40도까지는 같은 이미지. 0-5도가 1. 175-180이 35.
+    /*
+    // 신전이 180도 일때
     int[] imageViewsB = { R.drawable.rtv_b0001, R.drawable.rtv_b0002, R.drawable.rtv_b0003, R.drawable.rtv_b0004, R.drawable.rtv_b0005,
             R.drawable.rtv_b0006, R.drawable.rtv_b0007, R.drawable.rtv_b0008, R.drawable.rtv_b0009, R.drawable.rtv_b0010,
             R.drawable.rtv_b0011, R.drawable.rtv_b0012, R.drawable.rtv_b0013, R.drawable.rtv_b0014, R.drawable.rtv_b0015,
@@ -65,6 +69,17 @@ public class Act_admin_imu extends BTConnectActivity implements IMP_CMD, SqlImp 
         R.drawable.rtv_b0021, R.drawable.rtv_b0022, R.drawable.rtv_b0023, R.drawable.rtv_b0024, R.drawable.rtv_b0025,
         R.drawable.rtv_b0026, R.drawable.rtv_b0027, R.drawable.rtv_b0028, R.drawable.rtv_b0029, R.drawable.rtv_b0030,
         R.drawable.rtv_b0031, R.drawable.rtv_b0032, R.drawable.rtv_b0033, R.drawable.rtv_b0034, R.drawable.rtv_b0035,};
+    */
+    // 신전이 일때 0도
+    int[] imageViewsB = {
+            R.drawable.rtv_b0035, R.drawable.rtv_b0034, R.drawable.rtv_b0033, R.drawable.rtv_b0032, R.drawable.rtv_b0031,
+            R.drawable.rtv_b0030, R.drawable.rtv_b0029, R.drawable.rtv_b0028, R.drawable.rtv_b0027, R.drawable.rtv_b0026,
+            R.drawable.rtv_b0025, R.drawable.rtv_b0024, R.drawable.rtv_b0023, R.drawable.rtv_b0022, R.drawable.rtv_b0021,
+            R.drawable.rtv_b0020, R.drawable.rtv_b0019, R.drawable.rtv_b0018, R.drawable.rtv_b0017, R.drawable.rtv_b0016,
+            R.drawable.rtv_b0015, R.drawable.rtv_b0014, R.drawable.rtv_b0013, R.drawable.rtv_b0012, R.drawable.rtv_b0011,
+            R.drawable.rtv_b0010, R.drawable.rtv_b0009, R.drawable.rtv_b0008, R.drawable.rtv_b0007, R.drawable.rtv_b0006,
+            R.drawable.rtv_b0005, R.drawable.rtv_b0004, R.drawable.rtv_b0003, R.drawable.rtv_b0002, R.drawable.rtv_b0001,
+        };
 /*
     int[] imageViewsC = { R.drawable.rtv_c0001, R.drawable.rtv_c0002, R.drawable.rtv_c0003, R.drawable.rtv_c0004, R.drawable.rtv_c0005,
             R.drawable.rtv_c0006, R.drawable.rtv_c0007, R.drawable.rtv_c0008, R.drawable.rtv_c0009, R.drawable.rtv_c0010,
@@ -76,7 +91,7 @@ public class Act_admin_imu extends BTConnectActivity implements IMP_CMD, SqlImp 
         setContentView(R.layout.act_admin_imu);
 
     //    angle1="01";
-        angle2="180";
+        angle2=Integer.toString(EXTENTION_ANGLE);
     //    torsion="01";
 
         setTitle("");
@@ -90,17 +105,18 @@ public class Act_admin_imu extends BTConnectActivity implements IMP_CMD, SqlImp 
 
         // default imu setting
 
-
-
     }
 
     @Override
     public void onResume() {
 
         super.onResume();
+        /*
         if (mBluetoothConnectService != null) {
             mBluetoothConnectService.send(CMD_START_SENS, "00020002");    // resp=ack?, type=raw, rehab_type=xx, sens_type= imu
         }
+        */
+        StartSensorCalibration();
     }
 
     @Override
@@ -112,13 +128,35 @@ public class Act_admin_imu extends BTConnectActivity implements IMP_CMD, SqlImp 
     @Override
     protected void connected_callback()
     {
+        //StartSensorCalibration();
+        /*
         if(mBluetoothConnectService!=null) {
             mBluetoothConnectService.send(CMD_START_SENS, "00020002");    // resp=ack?, type=raw, rehab_type=xx, sens_type= imu
         }
+        */
     }
 
     @Override
     protected void connectedDevice() {}
+
+    static final double STEP_ANGLE = 5.0;
+    static final int EXTENTION_ANGLE = 180;
+    public void StartSensorCalibration(){
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
+        builder
+                .title("센서를 초기화합니다")
+                .titleColor(Color.parseColor("#000000"))
+                .backgroundColor(Color.parseColor("#aec7d5"))
+                .content("잠시 정자세로 서서 기다려 주세요")
+                .positiveText(getString(R.string.ok))
+                .positiveColor(Color.parseColor("#000000"))
+                .onPositive((dialog, which) -> {
+
+                    mBluetoothConnectService.send(CMD_REQ_START_CAL,"");
+                    dialog.dismiss();
+
+                }).show();
+    }
 
     @Override
     protected void dataAvailableCheck(String data) {
@@ -130,8 +168,6 @@ public class Act_admin_imu extends BTConnectActivity implements IMP_CMD, SqlImp 
             return;
         }
 
-
-
         String cmd=sp_new[3];
         if(cmd.length()==1) cmd = "0" + cmd;
 
@@ -140,13 +176,18 @@ public class Act_admin_imu extends BTConnectActivity implements IMP_CMD, SqlImp 
         if (cmd.equals(CMD_RESP_RAW_SENS))
         {
             int tmp;
+
           /*  tmp = ((Integer.parseInt( data.split(" ")[4] ) /5));
             rtvA.setBackgroundResource(imageViewsA[tmp]);
             angle1= String.format("%02d",tmp);
 */
             tmp=((Integer.parseInt( data.split(" ")[4],16 ) ));
-            int idx = (int)((double)tmp/5.0);
+            tmp = EXTENTION_ANGLE - tmp;
+            Log.i("TAG", "Raw: " + tmp);
+;
+            int idx = (int)((double)tmp/STEP_ANGLE);
             angle2=String.format("%02d",tmp);
+
             if(idx < 1) idx=1;
             else if(idx > 35) idx=35;
             idx-=1;
@@ -162,10 +203,17 @@ public class Act_admin_imu extends BTConnectActivity implements IMP_CMD, SqlImp 
             torsion=String.format("%02d",tmp);
 */
 
-
+        }
+        else if (cmd.equals(CMD_REQ_START_CAL)) {
+            Log.e("TAG", "cal acked"  );
+            //calibration_acked = true;
+            // when it receive cal_ack, it is starting.
+            if (mBluetoothConnectService != null) {
+                mBluetoothConnectService.send(CMD_START_SENS, "00020002");    // resp=ack?, type=raw, rehab_type=xx, sens_type= imu
+            }
+            Toast.makeText(this, getResources().getString(R.string.complete_calibration),Toast.LENGTH_SHORT).show();
         }
     }
-
 
     @Override
     public void onBackPressed() {

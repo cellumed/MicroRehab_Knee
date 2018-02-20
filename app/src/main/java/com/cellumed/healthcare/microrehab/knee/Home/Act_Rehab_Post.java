@@ -159,12 +159,14 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
         }
 
         workoutData.put(PostTime, String.valueOf(time));
+
+        ang_min = Act_admin_imu.EXTENTION_ANGLE - ang_min;
+        ang_max = Act_admin_imu.EXTENTION_ANGLE - ang_max;
         workoutData.put(PostAngleMin, String.valueOf(ang_min));
         workoutData.put(PostAngleMax, String.valueOf(ang_max));
         workoutData.put(PostEmgAvr, String.valueOf(s_emg_amp_avr[0]));
         workoutData.put(PostEmgMax, String.valueOf(s_emg_amp_max[0]));
         workoutData.put(PostEmgTotal, String.valueOf(s_emg_totalWork[0]));
-
         workoutData.put(PostEmgAvr2, String.valueOf(s_emg_amp_avr[1]));
         workoutData.put(PostEmgMax2, String.valueOf(s_emg_amp_max[1]));
         workoutData.put(PostEmgTotal2, String.valueOf(s_emg_totalWork[1]));
