@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -257,12 +258,20 @@ public class DialogEmsEdit implements SqlImp {
         a8Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_SignalType.setAdapter(a8Adapter);
 
+        //스피너 터치시에 0으로 바꿔주어 같은 아이템 클릭시에도 ItemSelectedListener 거치게 구현
+        sp_SignalType.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                sp_SignalType.setSelection(0);
+                return false;
+            }
+        });
         //스피너별 값 설정
         sp_SignalType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 spTitle = sp_SignalType.getSelectedItem().toString();
-                sp_SignalType.setSelection(0);
+
                 if(i==1)    // prog1
                 {
                     //선택될 때만 다이얼로그 띄워지도록
@@ -981,7 +990,6 @@ public class DialogEmsEdit implements SqlImp {
             emsProgramTxt = emsProgramTxt + ems_explain.get(emsProgramNum-1).toString();
         }
 
-        //테스트 커밋23333
         MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
         builder
                 .title(spTitle)
