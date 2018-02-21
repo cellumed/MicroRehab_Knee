@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="SignalType">
-        <item>===== 선택 =====</item>
+        <item>------ 선택 ------</item>
         <item>프로그램1(복합)</item>
         <item>프로그램2(복합)</item>
         <item>프로그램3(복합)</item>
