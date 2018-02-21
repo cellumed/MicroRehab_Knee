@@ -1,12 +1,14 @@
 package com.cellumed.healthcare.microrehab.knee.Dialog;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microrehab.knee.DataBase.SqlImp;
 import com.cellumed.healthcare.microrehab.knee.Home.Act_EMS;
+import com.cellumed.healthcare.microrehab.knee.Home.Act_Rehab_Post;
 import com.cellumed.healthcare.microrehab.knee.R;
 import com.cellumed.healthcare.microrehab.knee.Util.BudUtil;
 
@@ -255,12 +258,21 @@ public class DialogEmsEdit implements SqlImp {
         a8Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_SignalType.setAdapter(a8Adapter);
 
+        //스피너 터치시에 0으로 바꿔주어 같은 아이템 클릭시에도 ItemSelectedListener에 거치게 구현
+        sp_SignalType.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                sp_SignalType.setSelection(0);
+                return false;
+            }
+        });
         //스피너별 값 설정
         sp_SignalType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 spTitle = sp_SignalType.getSelectedItem().toString();
-                if(i==0)    // prog1
+
+                if(i==1)    // prog1
                 {
                     //선택될 때만 다이얼로그 띄워지도록
                     if(!adapterView.toString().contains("......I.")) {
@@ -275,7 +287,7 @@ public class DialogEmsEdit implements SqlImp {
                     et_PulseWidth.setText("350");
 
                 }
-                else if(i==1)    // prog2
+                else if(i==2)    // prog2
                 {
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{1, 2, 3, 5, 6};
@@ -289,7 +301,7 @@ public class DialogEmsEdit implements SqlImp {
                     et_PulseRiseTime.setText("1");
                     et_PulseWidth.setText("350");
                 }
-                else if(i==2)    // prog3
+                else if(i==3)    // prog3
                 {
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{1, 2, 3, 5, 6};
@@ -302,7 +314,7 @@ public class DialogEmsEdit implements SqlImp {
                     et_PulseRiseTime.setText("1");
                     et_PulseWidth.setText("350");
                 }
-                else if(i==3)    // prog4
+                else if(i==4)    // prog4
                 {
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{1, 2, 3, 5, 6};
@@ -315,7 +327,7 @@ public class DialogEmsEdit implements SqlImp {
                     et_PulseRiseTime.setText("1");
                     et_PulseWidth.setText("350");
                 }
-                else if(i==4)    // prog5
+                else if(i==5)    // prog5
                 {
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{1, 2, 3, 5, 6};
@@ -328,7 +340,7 @@ public class DialogEmsEdit implements SqlImp {
                     et_PulseRiseTime.setText("1");
                     et_PulseWidth.setText("350");
                 }
-                else if(i==5)    // prog6
+                else if(i==6)    // prog6
                 {
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{1, 2, 3, 5, 6};
@@ -342,7 +354,7 @@ public class DialogEmsEdit implements SqlImp {
                     et_PulseWidth.setText("350");
 
                 }
-                else if(i==6)    // prog7
+                else if(i==7)    // prog7
                 {
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{7, 8, 9, 10};
@@ -356,7 +368,7 @@ public class DialogEmsEdit implements SqlImp {
                     et_PulseWidth.setText("200");
 
                 }
-                else if(i==7)    // prog8
+                else if(i==8)    // prog8
                 {
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{7, 8, 9};
@@ -369,7 +381,7 @@ public class DialogEmsEdit implements SqlImp {
                     et_PulseRiseTime.setText("0");
                     et_PulseWidth.setText("300");
                 }
-                else if(i==8)    // prog9
+                else if(i==9)    // prog9
                 {
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{7, 8, 9};
@@ -404,7 +416,8 @@ public class DialogEmsEdit implements SqlImp {
 
         // check and set default value if null
         int ii=sf.getInt(SignalType,0);
-        sp_SignalType.setSelection(ii);
+        //이전에 했던 프로그램이 디폴트가 아닌 0이 디폴트로 변경
+        //sp_SignalType.setSelection(ii);
 
         String t=sf.getString(ProgramTime,"");
         if( t== null || t=="")
@@ -977,13 +990,16 @@ public class DialogEmsEdit implements SqlImp {
             emsProgramTxt = emsProgramTxt + ems_explain.get(emsProgramNum-1).toString();
         }
 
-        MaterialDialog mMaterialDialog = new MaterialDialog.Builder(mContext)
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
+        builder
                 .title(spTitle)
-                .titleColor(Color.parseColor("#ffffff"))
+                .titleColor(Color.parseColor("#000000"))
+                .backgroundColor(Color.parseColor("#aec7d5"))
                 .content(emsProgramTxt)
-                .contentColor(Color.parseColor("#ffffff"))
-                .positiveColor(Color.parseColor("#ffffff"))
-                .backgroundColor(Color.parseColor("#236793"))
-                .positiveText(mContext.getString(R.string.ok)).show();
+                .positiveText(mContext.getString(R.string.ok))
+                .positiveColor(Color.parseColor("#000000"))
+                .onPositive((dialog, which) -> {
+                    dialog.dismiss();
+                }).show();
     }
 }
