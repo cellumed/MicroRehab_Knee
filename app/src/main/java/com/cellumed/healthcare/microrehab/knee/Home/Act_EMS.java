@@ -304,27 +304,27 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         Log.d("TAG","=== TEST19 ====="+db_idx);
         if(rehab_mode_idx==0)
         {
-            screen.setBackgroundResource(R.drawable.img_gait);
+            screen.setBackgroundResource(R.drawable.ring_05);
             rehab_mode_name=mContext.getResources().getString(R.string.gait);
             rehab_mode_str="0";
         }
         else if(rehab_mode_idx==1)
         {
 
-            screen.setBackgroundResource(R.drawable.img_squat);
+            screen.setBackgroundResource(R.drawable.ring_05);
             rehab_mode_name=mContext.getResources().getString(R.string.squat);
             rehab_mode_str="1";
         }
         else if(rehab_mode_idx==2)
         {
-            screen.setBackgroundResource(R.drawable.img_stepbox);
+            screen.setBackgroundResource(R.drawable.ring_05);
             rehab_mode_name=mContext.getResources().getString(R.string.stepbox);
             rehab_mode_str="2";
         }
         if(rehab_mode_idx==9)
         {
             isAdminMode=true;
-            screen.setBackgroundResource(R.drawable.img_stepbox);
+            screen.setBackgroundResource(R.drawable.ring_05);
             rehab_mode_name=mContext.getResources().getString(R.string.admin_ems);
             rehab_mode_str="9";
         }
@@ -580,6 +580,13 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                     time -= (time%60);
                     time++;
 
+                }
+
+                // reset ems levels to 0 (04/10)
+                for (int i = 0; i < customAdapter.getCount(); i++) {
+                    Custom_List_View_Item item = (Custom_List_View_Item) customAdapter.getItem(i);
+                    item.setLevelValueString(String.format("%02d", 0));
+                    customAdapter.notifyDataSetChanged();
                 }
 
                 r = new Runnable() {

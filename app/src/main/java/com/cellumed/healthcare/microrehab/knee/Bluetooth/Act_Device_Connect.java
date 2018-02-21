@@ -283,6 +283,7 @@ public class Act_Device_Connect extends BTConnectActivity implements IMP_CMD {
             }
 
             if (mScanning) {
+                Log.i("TAG", "Scan Stop...");
                 mScanning = false;
                 scanDevice(false);
             }
@@ -310,11 +311,8 @@ public class Act_Device_Connect extends BTConnectActivity implements IMP_CMD {
 
           //  mBluetoothAdapter.cancelDiscovery();
             mHandler.removeCallbacksAndMessages(null);
-
             mBluetoothConnectService.connect(deviceAddress);
-
             Log.e("TAG", "connect start " + deviceAddress);
-
         }
     };
 
@@ -448,6 +446,10 @@ public class Act_Device_Connect extends BTConnectActivity implements IMP_CMD {
 
 
             mInitStatus = 2;
+
+            // scan 동작이 멈추지 않는경우가 있어 연결 완료후 home 으로 넘어가기전에 한번더 실행
+            // // TODO: 2018. 2. 21.  실제 동작상 원이이 되는 부분 파악 필요
+            scanDevice(false);
             Intent intent = new Intent(this, Act_Home.class);
             startActivity(intent);
 
