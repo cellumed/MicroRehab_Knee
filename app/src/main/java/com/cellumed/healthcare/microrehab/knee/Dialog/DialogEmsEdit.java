@@ -258,7 +258,7 @@ public class DialogEmsEdit implements SqlImp {
         a8Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_SignalType.setAdapter(a8Adapter);
 
-        //스피너 터치시에 0으로 바꿔주어 같은 아이템 클릭시에도 ItemSelectedListener 거치게 구현
+        //스피너 터치시에 0으로 바꿔주어 같은 아이템 클릭시에도 ItemSelectedListener에 거치게 구현
         sp_SignalType.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
