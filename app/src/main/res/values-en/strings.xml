@@ -1,6 +1,6 @@
 <resources>
     <!--앱 이름-->
-    <string name="app_name">MicroRehab knee</string>
+    <string name="app_name">MicroFit knee</string>
 
     <!--운동계획-->
     <string name="exercisePlan">Training plan</string>	<!--운동계획-->

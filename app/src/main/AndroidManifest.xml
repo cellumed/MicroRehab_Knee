@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="preferExternal"
-    package="com.cellumed.healthcare.microrehab.knee">
+    package="com.cellumed.healthcare.microfit.knee">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -26,7 +26,7 @@
         android:required="true" />
 
     <application
-        android:name="com.cellumed.healthcare.microrehab.knee.Home.MainApplication"
+        android:name="com.cellumed.healthcare.microfit.knee.Home.MainApplication"
         android:largeHeap="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -35,7 +35,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name="com.cellumed.healthcare.microrehab.knee.Home.SplashActivity"
+            android:name="com.cellumed.healthcare.microfit.knee.Home.SplashActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -47,36 +47,36 @@
                 android:resource="@xml/device_filter" />
         </activity>
 
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Home.Act_Home"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_Home"
 		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Home.Act_noti"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_noti"
 		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Home.Act_Rehab_Home"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_Rehab_Home"
 		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Home.Act_Rehab_Pre"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_Rehab_Pre"
 		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Home.Act_Rehab_Post"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_Rehab_Post"
 		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Home.Act_admin"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_admin"
 		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Home.Act_admin_emg"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_admin_emg"
             android:screenOrientation="landscape"/>
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Home.Act_admin_imu"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_admin_imu"
             android:screenOrientation="landscape"/>
 
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Home.Act_EMS"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_EMS"
 		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Home.Act_history"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_history"
 		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Bluetooth.Act_Device_Connect"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Bluetooth.Act_Device_Connect"
 			android:screenOrientation="portrait"		/>
-        <activity android:name="com.cellumed.healthcare.microrehab.knee.Setting.Act_Setting"
+        <activity android:name="com.cellumed.healthcare.microfit.knee.Setting.Act_Setting"
 		  android:screenOrientation="portrait"/>
 
 
 
         <service
-            android:name="com.cellumed.healthcare.microrehab.knee.Bluetooth.BluetoothConnectService"
+            android:name="com.cellumed.healthcare.microfit.knee.Bluetooth.BluetoothConnectService"
             android:enabled="true" />
 
         <meta-data

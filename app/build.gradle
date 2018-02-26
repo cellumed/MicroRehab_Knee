@@ -24,7 +24,7 @@ android {
         disable 'InvalidPackage'
     }
     defaultConfig {
-        applicationId "com.cellumed.healthcare.microrehab.knee"
+        applicationId "com.cellumed.healthcare.microfit.knee"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1

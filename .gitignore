@@ -6,5 +6,4 @@ app/*.iml
 /build
 /captures
 .DS_Store
-app/MicroRehab knee.apk
-app/app-release.apk
+app/*.apk
