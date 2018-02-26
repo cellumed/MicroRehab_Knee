@@ -111,11 +111,12 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     int legtype_idx=0;  // 0:left, 1:right
     int flex_cnt=0;
 
-    //개별프로그램에서만 오는 데이터
-    private int admin_mode=0;
 
     int currentPostureId = -1;
     String currentPosture = "";
+
+    //재활프로그램에서 오면 1, 개별프로그램에서 오면 0
+    public static int admin_mode;
 
     @Override
     protected void connected_callback()
@@ -136,8 +137,6 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         final Bundle extras = getIntent().getExtras();
 
-        //개별프로그램에서만 오는 데이터
-        admin_mode = extras.getInt("admin_mode",1);
 
         //----------------
         startService();
@@ -216,7 +215,6 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
         }
 
         db_idx = new DBQuery(mContext).getIdxFromStartDate(startTimeStr);
-        Log.d("TAG","====TEST19===="+db_idx);
     }
 
     private void setPreData() { //사전 운동 끈나고 기록
@@ -253,9 +251,48 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
         workoutData.put(PreEmgMax5, String.valueOf(s_emg_amp_max[4]));
         workoutData.put(PreEmgTotal5, String.valueOf(s_emg_totalWork[4]));
 
+        // 개별프로그램이면
+        if(admin_mode==0){
+            //ems data
+            workoutData.put(ProgramSignalType,null);
+            workoutData.put(ProgramTime, null);
+            workoutData.put(ProgramFrequency ,null);
+            workoutData.put(ProgramPulseOperationTime , null); //자극시간
+            workoutData.put(ProgramPulsePauseTime,null) ; //휴지 시간
+            workoutData.put(ProgramPulseRiseTime ,null); //펄스 상승시
+            workoutData.put(ProgramPulseWidth,null) ;//펄스폭
+
+            //post data
+            workoutData.put(PostTime,null);
+            workoutData.put(PostAngleMin,null);
+            workoutData.put(PostAngleMax,null);
+            workoutData.put(PostEmgAvr, null);
+            workoutData.put(PostEmgMax,null);
+            workoutData.put(PostEmgTotal, null);
+            workoutData.put(PostEmgAvr2, null);
+            workoutData.put(PostEmgMax2, null);
+            workoutData.put(PostEmgTotal2, null);
+            workoutData.put(PostEmgAvr3, null);
+            workoutData.put(PostEmgMax3, null);
+            workoutData.put(PostEmgTotal3, null);
+            workoutData.put(PostEmgAvr4, null);
+            workoutData.put(PostEmgMax4, null);
+            workoutData.put(PostEmgTotal4, null);
+            workoutData.put(PostEmgAvr5, null);
+            workoutData.put(PostEmgMax5, null);
+            workoutData.put(PostEmgTotal5, null);
+
+            if (new DBQuery(mContext).endProgramData(db_idx)) {
+                Log.d("EMSPOST", "시간 저장");
+            }
+        }
+
+
         if (new DBQuery(mContext).setProgramUpdate(workoutData,db_idx)) {
             Log.d("ACT ems시작 db저장", "저장");
         }
+
+        Log.d("TAG","test 28 act pre - setPreData");
 
     }
 
@@ -271,6 +308,9 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                 .onPositive((dialog, which) -> {
                     checkOk = true;
                     dialog.dismiss();
+                    if(admin_mode==0){
+                        this.finish();
+                    }
 
 
                 }).show();
@@ -306,11 +346,13 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                 if (checkOk) {
 
                     checkOkHandler.removeCallbacksAndMessages(null);
-                    final Bundle bundle = new Bundle();
-                    bundle.putInt("mode", pre_mode);
-                    bundle.putString("dbidx", db_idx);
-                    Log.d("TAG","====  TEST22 ==== "+db_idx);
-                    BudUtil.goActivity(mContext, Act_EMS.class, bundle);
+                    if(admin_mode==1){
+                        final Bundle bundle = new Bundle();
+                        bundle.putInt("mode", pre_mode);
+                        bundle.putString("dbidx", db_idx);
+                        BudUtil.goActivity(mContext, Act_EMS.class, bundle);
+                    }
+
 
                 }
             }
@@ -322,6 +364,8 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     private void setStart() {
         final Bundle extras = getIntent().getExtras();
 
+
+        admin_mode = extras.getInt("admin_mode",1);
 
         String pre_mode_str=extras.getString("title");
 
@@ -590,8 +634,6 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
             if(isRunning==1)
             {
                 Log.d("TAG","SENS info recved");
-
-
                 if(!doneFlag) {
 
                     work_cnt++;

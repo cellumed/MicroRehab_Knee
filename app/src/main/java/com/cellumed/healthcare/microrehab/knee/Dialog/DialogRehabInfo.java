@@ -3,11 +3,13 @@ package com.cellumed.healthcare.microrehab.knee.Dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cellumed.healthcare.microrehab.knee.DAO.DAO_Program;
@@ -113,6 +115,13 @@ public class DialogRehabInfo extends Dialog implements SqlImp {
     @Bind(R.id.tv_post_emg_total5)
     TextView tvPostEmgTotal5;
 
+    //개별프로그램 위해 사후평가 레이아웃 없애기
+    @Bind(R.id.postdata)
+    LinearLayout postdata;
+    //사전평가 타이틀 변경
+    @Bind(R.id.pre_title)
+    TextView pre_title;
+
 
     @Bind(R.id.close)
     Button close;
@@ -180,6 +189,11 @@ public class DialogRehabInfo extends Dialog implements SqlImp {
         tvPreEmgAvr5.setText(program.getPreEmgAvr5());
         tvPreEmgMax5.setText(program.getPreEmgMax5());
         tvPreEmgTotal5.setText(program.getPreEmgTotal5());
+
+        if(program.getPostTime()==null){
+            postdata.setVisibility(View.GONE);
+            pre_title.setText("운동 기록");
+        }
 
         tvPostTime.setText(program.getPostTime());
         tvPostAngle1.setText(program.getPostAngleMin());

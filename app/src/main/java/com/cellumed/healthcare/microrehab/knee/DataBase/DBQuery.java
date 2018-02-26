@@ -4,8 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 
 import com.cellumed.healthcare.microrehab.knee.DAO.DAO_Program;
+import com.cellumed.healthcare.microrehab.knee.Home.Act_Rehab_Pre;
 import com.cellumed.healthcare.microrehab.knee.Util.BudUtil;
 
 import java.util.ArrayList;
@@ -42,8 +44,10 @@ public class DBQuery implements SqlImp {
             mValues.put(keyName, valueName);
 
         }
+
         final boolean b = db.setRecords(ProgramTable, mValues);
         db.close();
+
         return b;
     }
 
@@ -55,12 +59,15 @@ public class DBQuery implements SqlImp {
             mValues.put(keyName, valueName);
 
         }
+
         final String where = Idx
                 + " = '"
                 + idx
                 + "'";
-        final boolean b = db.setField(ProgramTable, mValues,where);
+
+        final boolean b= db.setField(ProgramTable, mValues,where);
         db.close();
+
         return b;
     }
 
@@ -76,8 +83,11 @@ public class DBQuery implements SqlImp {
     //    String min = formatter.format(time / 60);
      //   String sec = formatter.format(time % 60);
      //   mValues.put(ProgramTimeProgress, String.format("%s:%s", min, sec));
+
+
         final boolean b = db.setField(ProgramTable, mValues,where);
         db.close();
+
         return b;
     }
 
@@ -125,12 +135,11 @@ public class DBQuery implements SqlImp {
                 + " = '"
                 + time
                 + "'";
+        DAO_Program mDaoProgram = new DAO_Program();
 
         final Cursor mCursor = db.getField(ProgramTable, ALL_FIELD, where, null, null);
-        DAO_Program mDaoProgram = new DAO_Program();
         while (mCursor.moveToNext()) {
             try {
-
                 mDaoProgram.setIdx(mCursor.getString(mCursor
                         .getColumnIndex(Idx)));
                 mDaoProgram.setProgramType(mCursor.getString(mCursor
@@ -138,7 +147,7 @@ public class DBQuery implements SqlImp {
 
                 mDaoProgram.setProgramName(mCursor.getString(mCursor
                         .getColumnIndex(ProgramName)));
-                
+
 
 
                 mDaoProgram.setProgramStartDate(mCursor.getString(mCursor
@@ -246,14 +255,16 @@ public class DBQuery implements SqlImp {
         }
         mCursor.close();
         db.close();
+
         return mDaoProgram;
     }
 
 
     public ArrayList<DAO_Program> getALLProgram() {
 
-        final Cursor mCursor = db.getField(ProgramTable, ALL_FIELD, null, null, Idx, null);
         ArrayList<DAO_Program> mProgram = new ArrayList<>();
+        final Cursor mCursor = db.getField(ProgramTable, ALL_FIELD, null, null, Idx, null);
+
         while (mCursor.moveToNext()) {
             try {
                 DAO_Program mDaoProgram = new DAO_Program();
@@ -262,8 +273,8 @@ public class DBQuery implements SqlImp {
                 mDaoProgram.setProgramType(mCursor.getString(mCursor
                         .getColumnIndex(ProgramType)));
 
-                    mDaoProgram.setProgramName(mCursor.getString(mCursor
-                            .getColumnIndex(ProgramName)));
+                mDaoProgram.setProgramName(mCursor.getString(mCursor
+                        .getColumnIndex(ProgramName)));
 
                 mDaoProgram.setProgramState(mCursor.getString(mCursor
                         .getColumnIndex(ProgramState)));
@@ -374,17 +385,23 @@ public class DBQuery implements SqlImp {
         }
         mCursor.close();
         db.close();
+
+
         return mProgram;
     }
 
     public boolean programRemoveNotComplete() {
         final String where = ProgramEndDate + " is null";
-        return db.dataDelete(ProgramTable, where) != 0;
+        final boolean b = db.dataDelete(ProgramTable, where) != 0;
+
+        return b;
     }
 
 
     public boolean programRemove(String idx) {
+        boolean b = false;
         final String where = String.format(Idx + " = '%s'", idx);
+
         return db.dataDelete(ProgramTable, where) != 0;
     }
 

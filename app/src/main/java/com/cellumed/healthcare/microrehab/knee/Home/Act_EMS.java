@@ -123,9 +123,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
     private boolean not_started = true;
 
-    //개별프로그램에서만 오는 데이터
-    private int admin_mode=0;
-
     private boolean isAdminMode = false;    // EMS관리자 모드에서 들어온 경우
 
     int dpValue;
@@ -144,7 +141,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     {
         if(isAdminMode) {
             super.onBackPressed();
-            Log.d("TAG"," ====TEST==== "+isAdminMode);
         }
         else {
             MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
@@ -197,18 +193,13 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
                     setWorkoutData();//운동 기록 저장
 
-                    //개별프로그램에서만 오는 데이터 하나 만들어 사후로 안넘어가게 구분
-                    if(admin_mode==0){
-                        this.finish();
-                    } else {
-                        Intent intent = new Intent(this, Act_Rehab_Post.class);
-                        final Bundle bundle = new Bundle();
-                        bundle.putInt("mode", rehab_mode_idx);
-                        bundle.putString("dbidx", db_idx);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        Log.d("tag","사후로 넘어간 값 : "+rehab_mode_idx);
-                    }
+                    Intent intent = new Intent(this, Act_Rehab_Post.class);
+                    final Bundle bundle = new Bundle();
+                    bundle.putInt("mode", rehab_mode_idx);
+                    bundle.putString("dbidx", db_idx);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    Log.d("tag","사후로 넘어간 값 : "+rehab_mode_idx);
                     dialog.dismiss();
 
 
@@ -295,13 +286,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         final Bundle extras = getIntent().getExtras();
 
         rehab_mode_idx = extras.getInt("mode",9);   // 모드가 없이 오면 관리자 모드
-        Log.d("tag","사후로 : "+rehab_mode_idx);
-
-        //개별프로그램에서만 오는 데이터
-        admin_mode = extras.getInt("admin_mode",1);
 
         db_idx=extras.getString("dbidx","");
-        Log.d("TAG","=== TEST19 ====="+db_idx);
         if(rehab_mode_idx==0)
         {
             screen.setBackgroundResource(R.drawable.img_gait);
@@ -714,7 +700,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             screen.setBackgroundResource(R.drawable.img_stepbox);
         }
 
-        checkEmsPad();
+        //checkEmsPad();
 /*
         if(!not_started) {
             new DBQuery(mContext).endProgramData( startTimeStr, programTime - time);
@@ -750,17 +736,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("tag","ems ondestroy");
-        //뒤로가기를 눌러서 온 경우와 ems 끝내서 사후운동으로 넘어간 경우는 따로 체크
-//        Intent Service = new Intent(this, MainActivity.class);
-//        Service.putExtra("mode",rehab_mode_idx);
-//        Service.putExtra("time",0);
-//        startService(Service);
-
-        Log.d("tag","시간 : " + ts_last_ms);
-        Log.d("tag","시간 : " + last_milli);
-
-
 
         if(not_started ==false) {
             //  recycleBitmap(screen);
