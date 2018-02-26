@@ -28,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -558,6 +559,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 backBtn.setBackgroundResource(R.drawable.bt_back_sel);
                 minute.setEnabled(false);
                 second.setEnabled(false);
+                createNotification();
 
                 // 분단위 수정.
                 if((int)(time%60) != 0)
@@ -624,8 +626,11 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                             minute.setText(formatter.format((int) time / 60));
                             second.setText(formatter.format((int) time % 60));
 
+                            updateNotificiation(String.format("%d:%d", time/60, time%60));
+
                             if (time <= 0) {
                                 whenRequestStop();
+                                cancelNotification();
                                 if (isAdminMode) adminEmsDonePopup();
                                 else emsDonePopup();
                                 //finish();   // finish activity and go back to list
@@ -663,11 +668,13 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 // 현재 시간 세팅
                 //  startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH.mm.ss");
                 whenRequestStop();
+                cancelNotification();
                 checkEmsPad();
 
             } else {
                 isRunning = 0;
                 whenRequestStop();
+                cancelNotification();
             }
         }
     };
@@ -739,7 +746,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         super.onPause();
         Log.d("tag","ems onpause");
 
-        whenRequestStop();
+        //whenRequestStop();
     }
 
     @Override
@@ -750,6 +757,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             //  recycleBitmap(screen);
         }
         try{
+            notificationManager.cancel(ACT_EMS_NOTI_ID);
             // timer.cancel();
         } catch (Exception e) {}
         //timer = null;
@@ -945,4 +953,76 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
     }
 
+    static final int ACT_EMS_NOTI_ID = 1;
+    NotificationManager notificationManager;
+    Notification notification;
+    Notification.Builder notiBuilder;
+    RemoteViews remoteViews;
+
+    // EMS 동작에서만 notification 으로 알림을 표시 한다
+    public void createNotification(){
+
+        notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+
+        Intent intent = new Intent(Act_EMS.this, Act_EMS.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent content = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        notiBuilder = new Notification.Builder(Act_EMS.this)
+                .setTicker(getResources().getText(R.string.ems_running))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(getResources().getString(R.string.ems_running))
+                .setContentText("00:00")
+                .setOngoing(true);
+
+        notiBuilder.setContentIntent(content);
+        notification = notiBuilder.build();
+
+        notification.flags = Notification.FLAG_ONGOING_EVENT;
+        notificationManager.notify(ACT_EMS_NOTI_ID, notification);
+    }
+    public void createCustomNotification(){
+
+        notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+
+        Intent intent = new Intent(Act_EMS.this, Act_EMS.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent content = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        notiBuilder = new Notification.Builder(Act_EMS.this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                //.setContentTitle("title")
+                //.setContentText("content")
+                .setOngoing(true);
+
+        remoteViews = new RemoteViews(getPackageName(), R.layout.custom_notification);
+        remoteViews.setImageViewResource(R.id.imgMain, R.mipmap.ic_launcher);
+
+        remoteViews.setTextViewText(R.id.tvMsg, "EMS");
+        remoteViews.setTextViewText(R.id.tvTime, "0");
+
+        notiBuilder.setContent(remoteViews);
+        notiBuilder.setContentIntent(content);
+        notification = notiBuilder.build();
+
+        notification.flags = Notification.FLAG_ONGOING_EVENT;
+        notificationManager.notify(ACT_EMS_NOTI_ID, notification);
+    }
+
+    public void updateNotificiation(String time){
+        Log.d("TAG", "udateNotification");
+        notiBuilder.setContentText(time);
+        notificationManager.notify(ACT_EMS_NOTI_ID, notification);
+    }
+
+    public void updateCustomNotificiation(String time){
+        Log.d("TAG", "udateCustomNotification");
+        remoteViews.setTextViewText(R.id.tvTime, time);
+        notiBuilder.setContent(remoteViews);
+        notificationManager.notify(ACT_EMS_NOTI_ID, notification);
+    }
+
+    public void cancelNotification(){
+        notificationManager.cancel(ACT_EMS_NOTI_ID);
+    }
 }

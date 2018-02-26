@@ -270,7 +270,11 @@
     <string name="TimeTitle">Time(sec)</string>
     <string name="AngleTitle">Angle(°)</string>
 
+    <!-- Act IMU -->
     <string name="complete_calibration">Complete Calibration</string>
+
+    <!-- Act EMS -->
+    <string name="ems_running">EMS Running</string>
 
 
 </resources>
