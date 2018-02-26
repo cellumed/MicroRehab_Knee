@@ -95,6 +95,7 @@
             android:gravity="center_vertical"
             android:textColor="@color/white"
             android:text="사전평가"
+            android:id="@+id/pre_title"
             android:background="#0f223a"/>
 
         <LinearLayout
@@ -102,8 +103,7 @@
             android:layout_height="35dp"
             android:orientation="horizontal"
             android:background="#454545"
-            android:padding="1dp"
-            >
+            android:padding="1dp">
 
             <TextView
                 android:layout_marginRight="1dp"
@@ -647,6 +647,11 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/postdata">
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
@@ -1204,6 +1209,7 @@
                 tools:ignore="NestedWeights,RtlHardcoded" />
 
 
+        </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout

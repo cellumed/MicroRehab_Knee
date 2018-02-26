@@ -3,6 +3,7 @@ package com.cellumed.healthcare.microrehab.knee.DataBase;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 
 public class DataBases extends SQLiteOpenHelper implements SqlImp {
@@ -15,9 +16,9 @@ public class DataBases extends SQLiteOpenHelper implements SqlImp {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db) {//초기화시, 앱 설치 후 처음 프로그램 시작시
 
-
+        //사전,ems,사후 기록 다 포함 되어있는 테이블
         String program_create_sql = "CREATE TABLE IF NOT EXISTS "+ ProgramTable +"("
                 + "idx Integer PRIMARY KEY AUTOINCREMENT,"
                 +  PreTime+" TEXT  ," // in sec
@@ -76,25 +77,25 @@ public class DataBases extends SQLiteOpenHelper implements SqlImp {
                 + ProgramPulseRiseTimeProgress+" TEXT,"
                 + ProgramPulseWidth+" TEXT,"
                 + ProgramPulseWidthProgress+" TEXT );";
+
         db.execSQL(program_create_sql);
-
-
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d("tag","test 28  database - onUpgrade");
         dropAllTables(db);
         onCreate(db);
     }
 
     public void dropAllTables(SQLiteDatabase db) {
-
+        Log.d("tag","test 28 database - dropAllTables");
         String drop_program = "DROP TABLE IF EXISTS "+ ProgramTable +" ;";
         db.execSQL(drop_program);
-
     }
     public void reset(){
+        Log.d("tag","test 28 database - reset");
         SQLiteDatabase db = this.getWritableDatabase();
         dropAllTables(db);
         onCreate(db);

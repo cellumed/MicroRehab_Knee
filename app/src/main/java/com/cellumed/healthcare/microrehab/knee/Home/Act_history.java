@@ -84,7 +84,6 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
         final DBQuery dbQuery = new DBQuery(mContext);
 
         dbQuery.programRemoveNotComplete();
-        //Log.d("TAG","==== TEST8 ==== "+dbQuery.programRemoveNotComplete());
 
         final ArrayList<DAO_Program> progList = dbQuery.getALLProgram();
         int i;
@@ -92,7 +91,9 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
             n= new History_List_View_Item();
             n.setHistoryName(progList.get(i).getProgramName());
             n.setHistoryTime(progList.get(i).getProgramStartDate());
+            n.setHistoryTimePre(progList.get(i).getPostTime());
             mHistoryListAdapter.addHistory(n);
+            Log.d("tag","test 29 act_history - onresume "+n);
         }
 
         historyList.setAdapter( mHistoryListAdapter);
@@ -149,9 +150,6 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
             updated = view;
             selectedTimeName = hh.getHistoryTimeName();
             selectedTime = hh.getHistoryTime();
-            Log.d("TAG","==== TEST11 ==== "+selectedTimeName); // 2018.01.25 09:44:25 걷기
-            Log.d("TAG","==== TEST11 ==== "+selectedTime); //2018.01.25 09:44:25
-            Log.e("TAG", hh.getHistoryTimeName());
             view.setBackgroundColor(Color.GRAY);
         }
     };
@@ -220,6 +218,7 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
 
     public class History_List_View_Item  {
         private String historyTime;
+        private String historyTimePre;
         private String historyName;
 
         private boolean touched = false;
@@ -234,13 +233,26 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
             historyTime = t;
         }
 
+        public void setHistoryTimePre(String p) {
+            historyTimePre = p;
+        }
+
         public void setHistoryName(String n) {
             historyName = n;
         }
 
         public String getHistoryTimeName()
         {
-            return historyTime + " " + historyName;
+            return historyTime + " " + historyName ;
+        }
+
+        public String getHistoryTimeNamePre()
+        {
+            if(historyTimePre==null){
+                return historyTime + " " + historyName +"-개별";
+            }else{
+                return historyTime + " " + historyName;
+            }
         }
 
         public String getHistoryTime()
@@ -297,17 +309,25 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
                 convertView = mInflater.inflate(R.layout.listitem_history, null);
                 viewHolder = new Act_history.ViewHolder();
                 viewHolder.historyName = (TextView) convertView.findViewById(R.id.history_timename);
+
+
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (Act_history.ViewHolder) convertView.getTag();
             }
 
             History_List_View_Item hh = mHistories.get(position);
-            final String historyTimeName = hh.getHistoryTimeName();
-            if (historyTimeName != null && historyTimeName.length() > 0)
+            final String historyTimeName = hh.getHistoryTimeNamePre();
+            Log.d("tag","position : "+hh.getHistoryTimeNamePre());
+
+            if (historyTimeName != null && historyTimeName.length() > 0) {
                 viewHolder.historyName.setText(historyTimeName);
-            else
+                viewHolder.historyName.setTextSize(17);
+            }
+            else {
                 viewHolder.historyName.setText("Unknown");  //error
+                viewHolder.historyName.setTextSize(17);
+            }
 
             return convertView;
         }

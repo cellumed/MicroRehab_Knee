@@ -185,8 +185,11 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
     public void go_history(View view) {
         final DBQuery dbQuery = new DBQuery(mContext);
         final ArrayList<DAO_Program> progList = dbQuery.getALLProgram();
-
+        for(int i=0;i<progList.size();i++){
+            Log.d("tag","test 28 act_home - gohistory : "+progList.get(i));
+        }
         if (0 == progList.size()) {
+
             MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
             builder
                     .title(getString(R.string.notice))

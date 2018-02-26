@@ -51,12 +51,6 @@ public class Act_admin extends BTConnectActivity {
 
         setCustomActionbar();
 
-        //걷기, 스쿼트 , 스텝박스 위해
-        startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH:mm:ss");
-        db_idx = new DBQuery(mContext).getIdxFromStartDate(startTimeStr);
-
-        Log.d("TAG","==== TEST21 ==== "+db_idx);
-
         //걷기 스쿼트 스텝박스 각 버튼 이동
         backPressCloseHandler = new BackPressCloseHandler(this);
         bt_gait1.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +61,7 @@ public class Act_admin extends BTConnectActivity {
                 bundle.putInt("admin_mode", 0);
                 bundle.putString("dbidx", db_idx);
                 bundle.putString("title", "gait");
-                BudUtil.goActivity(mContext, Act_EMS.class,bundle);
-                Log.d("TAG","====TEST1===="+startTimeStr);
+                BudUtil.goActivity(mContext, Act_Rehab_Pre.class,bundle);
             }
         });
 
@@ -80,7 +73,7 @@ public class Act_admin extends BTConnectActivity {
                 bundle.putInt("admin_mode", 0);
                 bundle.putString("dbidx", db_idx);
                 bundle.putString("title", "squat");
-                BudUtil.goActivity(mContext, Act_EMS.class,bundle);
+                BudUtil.goActivity(mContext, Act_Rehab_Pre.class,bundle);
             }
         });
         bt_stepbox1.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +84,7 @@ public class Act_admin extends BTConnectActivity {
                 bundle.putInt("admin_mode", 0);
                 bundle.putString("dbidx", db_idx);
                 bundle.putString("title", "stairs");
-                BudUtil.goActivity(mContext, Act_EMS.class,bundle);
+                BudUtil.goActivity(mContext, Act_Rehab_Pre.class,bundle);
             }
         });
     }
@@ -121,9 +114,6 @@ public class Act_admin extends BTConnectActivity {
 
 
     private void setCustomActionbar() {
-
-
-
         ActionBar actionBar = getSupportActionBar();
 
         actionBar.setDisplayShowCustomEnabled(true);
@@ -137,8 +127,6 @@ public class Act_admin extends BTConnectActivity {
         //((ImageButton) findViewById(R.id.custom_back_btn)).setBackground(null);
         //((ImageButton) findViewById(R.id.custom_back_btn)).setEnabled(false);
         ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_06);
-
-
 
         Toolbar parent = (Toolbar) mCustomView.getParent();
         parent.setContentInsetsAbsolute(0, 0);
