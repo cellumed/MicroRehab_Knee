@@ -696,7 +696,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             Custom_List_View_Item item = (Custom_List_View_Item) customAdapter.getItem(i);
             item.setLevelValueString(String.format("%02d", 0));
             customAdapter.notifyDataSetChanged();
-
         }
 
         if(rehab_mode_idx==0)
@@ -714,8 +713,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         if(rehab_mode_idx==9) {
             screen.setBackgroundResource(R.drawable.img_stepbox);
         }
-
-        checkEmsPad();
 
 /*
         if(!not_started) {
