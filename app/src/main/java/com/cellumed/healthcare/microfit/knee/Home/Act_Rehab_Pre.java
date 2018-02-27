@@ -113,6 +113,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
 
 
     int currentPostureId = -1;
+    int leftOrRight = 0;            // left: -1, none: 0, right: 1
     String currentPosture = "";
 
     //재활프로그램에서 오면 1, 개별프로그램에서 오면 0
@@ -478,9 +479,22 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                                     Log.i("TAG", "resName:" + resName);
                                     bg_ctx.setImageResource(getResources().getIdentifier(resName, "drawable", getPackageName()));
                                 }
+                            } else if(runningPos == 0x20) {
+                                if (tickCnt % 10 == 0) {
+                                    bg_ctx.setImageResource(currentPostureId);
+                                } else if(tickCnt%5==0) {
+                                    String resName = currentPosture.replaceAll("res/drawable/", "");
+
+                                    if(leftOrRight == -1){
+                                        resName = resName.replaceAll(".png", "_right");
+                                    } else if(leftOrRight == 1) {
+                                        resName = resName.replaceAll(".png", "_left");
+                                    }
+                                    Log.i("TAG", "resName:" + resName);
+                                    bg_ctx.setImageResource(getResources().getIdentifier(resName, "drawable", getPackageName()));
+                                }
                             }
                         }
-
                     }
                 };
 
@@ -773,8 +787,13 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                     //if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_left_up);
                     //else bg_ctx.setImageResource(R.drawable.step_right_down);
 
-                    if(flex_cnt%2==0) currentPostureId = R.drawable.step_left_up;
-                    else              currentPostureId = R.drawable.step_right_down;
+                    if(flex_cnt%2==0) {
+                        currentPostureId = R.drawable.step_left_up;
+                        leftOrRight = -1;
+                    } else {
+                        currentPostureId = R.drawable.step_right_down;
+                        leftOrRight = 1;
+                    }
                     currentPosture = getResources().getString(currentPostureId);
                 }
                 else    //right
@@ -782,18 +801,23 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                     //if(flex_cnt%2==0) bg_ctx.setImageResource(R.drawable.step_right_up);
                     //else bg_ctx.setImageResource(R.drawable.step_left_down);
 
-                    if(flex_cnt%2==0) currentPostureId = R.drawable.step_right_up;
-                    else currentPostureId = R.drawable.step_left_down;
+                    if(flex_cnt%2==0) {
+                        currentPostureId = R.drawable.step_right_up;
+                        leftOrRight = -1;
+                    } else {
+                        currentPostureId = R.drawable.step_left_down;
+                        leftOrRight = 1;
+                    }
                     currentPosture = getResources().getString(currentPostureId);
                 }
                 flex_cnt++;
                 runningPos=0x10;
 
-            }
-            else if(pos.equals("20"))   // flection step
-            {
+            } else if(pos.equals("20")) {
                 runningPos=0x20;
-                bg_ctx.setImageResource(R.drawable.step_stand_up);
+                //bg_ctx.setImageResource(R.drawable.step_stand_up);
+                currentPostureId = R.drawable.step_stand_up;
+                currentPosture = getResources().getString(currentPostureId);
             }
 
 
