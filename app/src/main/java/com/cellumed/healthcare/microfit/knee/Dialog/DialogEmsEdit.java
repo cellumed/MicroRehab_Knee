@@ -1,6 +1,7 @@
 package com.cellumed.healthcare.microfit.knee.Dialog;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -19,13 +20,17 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Spinner;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microfit.knee.DataBase.SqlImp;
 import com.cellumed.healthcare.microfit.knee.Home.Act_EMS;
 import com.cellumed.healthcare.microfit.knee.R;
 import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
+
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,6 +73,8 @@ public class DialogEmsEdit implements SqlImp {
     String emsProgramTxt="";
     //각 프로그램별 적용증 번호
     int emsProgramNum;
+
+    Boolean spCheck = false;
 
 
     /*
@@ -145,6 +152,7 @@ public class DialogEmsEdit implements SqlImp {
 
 
     private void showEditProgram() {
+
         ems_explain.add(mContext.getString(R.string.EMS_Program1));
         ems_explain.add(mContext.getString(R.string.EMS_Program2));
         ems_explain.add(mContext.getString(R.string.EMS_Program3));
@@ -156,10 +164,6 @@ public class DialogEmsEdit implements SqlImp {
         ems_explain.add(mContext.getString(R.string.EMS_Program9));
         ems_explain.add(mContext.getString(R.string.EMS_Program10));
 
-        for(int i=0;i<ems_explain.size();i++){
-            Log.d("tag","설명 배열 : "+ ems_explain.get(i));
-        }
-
         MaterialDialog mMaterialDialog = new MaterialDialog.Builder(mContext)
                 .title(mContext.getString(R.string.EMS_Setting))
                 .titleColor(Color.parseColor("#ffffff"))
@@ -169,55 +173,72 @@ public class DialogEmsEdit implements SqlImp {
                 .customView(R.layout.dialog_ems_edit, false)
                 .positiveText(mContext.getString(R.string.start))
                 .negativeText(mContext.getString(R.string.cancel))
-                .onPositive((dialog, which) -> {
-                    if (isCheckDialog(dialog)) {
-                        final Spinner sp_SignalType = (Spinner)dialog.findViewById(R.id.sp_signal_type);
-                        final EditText et_WorkingTime = (EditText) dialog.findViewById(R.id.et_WorkingTime);
-                        final EditText et_PulseOperationTime = (EditText) dialog.findViewById(R.id.et_PulseOperationTime);
-                        final EditText et_PulsePauseTime = (EditText) dialog.findViewById(R.id.et_PulsePauseTime);
-                        final EditText et_Frequency = (EditText) dialog.findViewById(R.id.et_Frequency);
-                        final EditText et_PulseWidth = (EditText) dialog.findViewById(R.id.et_PulseWidth);
-                        final EditText et_PulseRiseTime = (EditText) dialog.findViewById(R.id.et_PulseRiseTime);
-                        final SeekBar sb_WorkingTime = (SeekBar) dialog.findViewById(R.id.sb_WorkingTime);
-                        final SeekBar sb_PulseOperationTime = (SeekBar) dialog.findViewById(R.id.sb_PulseOperationTime);
-                        final SeekBar sb_PulsePauseTime = (SeekBar) dialog.findViewById(R.id.sb_PulsePauseTime);
-                        final SeekBar sb_Frequency = (SeekBar) dialog.findViewById(R.id.sb_Frequency);
-                        final SeekBar sb_PulseWidth = (SeekBar) dialog.findViewById(R.id.sb_PulseWidth);
-                        final SeekBar sb_PulseRiseTime = (SeekBar) dialog.findViewById(R.id.sb_PulseRiseTime);
-                        final HashMap<String, String> programMap = new HashMap<>();
-                        final HashMap<String, String>favoritesMap = new HashMap<>();
+                .onPositive((MaterialDialog dialog, DialogAction which) -> {
+                    if(spCheck==false){
+                        dialog.dismiss();
+                        MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
+                        builder
+                                .title("프로그램 선택")
+                                .titleColor(Color.parseColor("#000000"))
+                                .backgroundColor(Color.parseColor("#aec7d5"))
+                                .content("프로그램을 선택해주세요.")
+                                .positiveText(mContext.getString(R.string.ok))
+                                .positiveColor(Color.parseColor("#000000"))
+                                .onPositive((dialog1, which1) -> {
+                                    dialog1.dismiss();
+                                    new DialogEmsEdit(mContext);
+                                }).show();
+                    }else{
+                        if (isCheckDialog(dialog)) {
+                            final Spinner sp_SignalType = (Spinner)dialog.findViewById(R.id.sp_signal_type);
+                            final EditText et_WorkingTime = (EditText) dialog.findViewById(R.id.et_WorkingTime);
+                            final EditText et_PulseOperationTime = (EditText) dialog.findViewById(R.id.et_PulseOperationTime);
+                            final EditText et_PulsePauseTime = (EditText) dialog.findViewById(R.id.et_PulsePauseTime);
+                            final EditText et_Frequency = (EditText) dialog.findViewById(R.id.et_Frequency);
+                            final EditText et_PulseWidth = (EditText) dialog.findViewById(R.id.et_PulseWidth);
+                            final EditText et_PulseRiseTime = (EditText) dialog.findViewById(R.id.et_PulseRiseTime);
+                            final SeekBar sb_WorkingTime = (SeekBar) dialog.findViewById(R.id.sb_WorkingTime);
+                            final SeekBar sb_PulseOperationTime = (SeekBar) dialog.findViewById(R.id.sb_PulseOperationTime);
+                            final SeekBar sb_PulsePauseTime = (SeekBar) dialog.findViewById(R.id.sb_PulsePauseTime);
+                            final SeekBar sb_Frequency = (SeekBar) dialog.findViewById(R.id.sb_Frequency);
+                            final SeekBar sb_PulseWidth = (SeekBar) dialog.findViewById(R.id.sb_PulseWidth);
+                            final SeekBar sb_PulseRiseTime = (SeekBar) dialog.findViewById(R.id.sb_PulseRiseTime);
+                            final HashMap<String, String> programMap = new HashMap<>();
+                            final HashMap<String, String>favoritesMap = new HashMap<>();
 
+                            // 선택된 저장
+                            SharedPreferences sf = mContext.getSharedPreferences(sfName, 0);
 
+                            SharedPreferences.Editor editor = sf.edit();
 
+                            editor.putInt(SignalType, sp_SignalType.getSelectedItemPosition());
+                            editor.putString(ProgramFrequency, et_Frequency.getText().toString());
+                            editor.putString(ProgramTime, et_WorkingTime.getText().toString());
+                            editor.putString(ProgramPulseOperationTime, et_PulseOperationTime.getText().toString());
+                            editor.putString(ProgramPulsePauseTime, et_PulsePauseTime.getText().toString());
+                            editor.putString(ProgramPulseRiseTime, et_PulseRiseTime.getText().toString());
+                            editor.putString(ProgramPulseWidth, et_PulseWidth.getText().toString());
 
+                            editor.commit();
 
-                        // 선택된 저장
-                        SharedPreferences sf = mContext.getSharedPreferences(sfName, 0);
+                            // ems로 이동
+                            final Bundle bundle = new Bundle();
+                            bundle.putInt("mode", 9);
+                            BudUtil.goActivity(mContext, Act_EMS.class, bundle);
 
-                        SharedPreferences.Editor editor = sf.edit();
-
-                        editor.putInt(SignalType, sp_SignalType.getSelectedItemPosition());
-                        editor.putString(ProgramFrequency, et_Frequency.getText().toString());
-                        editor.putString(ProgramTime, et_WorkingTime.getText().toString());
-                        editor.putString(ProgramPulseOperationTime, et_PulseOperationTime.getText().toString());
-                        editor.putString(ProgramPulsePauseTime, et_PulsePauseTime.getText().toString());
-                        editor.putString(ProgramPulseRiseTime, et_PulseRiseTime.getText().toString());
-                        editor.putString(ProgramPulseWidth, et_PulseWidth.getText().toString());
-
-                        editor.commit();
-
-                        // ems로 이동
-                        final Bundle bundle = new Bundle();
-                        bundle.putInt("mode", 9);
-                        BudUtil.goActivity(mContext, Act_EMS.class, bundle);
-
-                    } else {
-                        dialog.show();
+                        } else {
+                            dialog.show();
+                        }
                     }
 
-                }).onNegative((dialog, which) ->
-                        dialog.dismiss()
+
+                }).onNegative((dialog, which) -> {
+                            dialog.dismiss();
+                        }
                 ).show();
+
+
+
         mMaterialDialog.setCanceledOnTouchOutside(false);
         //setGlobalFont(mMaterialDialog.getCustomView());
 
@@ -268,8 +289,24 @@ public class DialogEmsEdit implements SqlImp {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 spTitle = sp_SignalType.getSelectedItem().toString();
 
-                if(i==1)    // prog1
+                if(i==0){
+                    spCheck = false;
+
+                    et_WorkingTime.setText("0");
+                    et_Frequency.setText("0");
+                    et_PulseOperationTime.setText("0");
+                    et_PulsePauseTime.setText("0");
+                    et_PulseRiseTime.setText("0");
+                    et_PulseWidth.setText("0");
+                    sb_WorkingTime.setProgress(0);
+                    sb_Frequency.setProgress(0);
+                    sb_PulseOperationTime.setProgress(0);
+                    sb_PulsePauseTime.setProgress(0);
+                    sb_PulseWidth.setProgress(0);
+                    sb_PulseRiseTime.setProgress(0);
+                } else if(i==1)    // prog1
                 {
+                    spCheck = true;
                     //선택될 때만 다이얼로그 띄워지도록
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{1, 2, 3, 5, 6};
@@ -285,6 +322,7 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==2)    // prog2
                 {
+                    spCheck = true;
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{1, 2, 3, 5, 6};
                         emsProgramDialog(spTitle, emsNum);
@@ -299,6 +337,7 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==3)    // prog3
                 {
+                    spCheck = true;
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{1, 2, 3, 5, 6};
                         emsProgramDialog(spTitle, emsNum);
@@ -312,6 +351,7 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==4)    // prog4
                 {
+                    spCheck = true;
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{1, 2, 3, 5, 6};
                         emsProgramDialog(spTitle, emsNum);
@@ -325,6 +365,7 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==5)    // prog5
                 {
+                    spCheck = true;
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{1, 2, 3, 5, 6};
                         emsProgramDialog(spTitle, emsNum);
@@ -338,6 +379,7 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==6)    // prog6
                 {
+                    spCheck = true;
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{1, 2, 3, 5, 6};
                         emsProgramDialog(spTitle, emsNum);
@@ -352,6 +394,7 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==7)    // prog7
                 {
+                    spCheck = true;
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{7, 8, 9, 10};
                         emsProgramDialog(spTitle, emsNum);
@@ -366,6 +409,7 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==8)    // prog8
                 {
+                    spCheck = true;
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{7, 8, 9};
                         emsProgramDialog(spTitle, emsNum);
@@ -379,6 +423,7 @@ public class DialogEmsEdit implements SqlImp {
                 }
                 else if(i==9)    // prog9
                 {
+                    spCheck = true;
                     if(!adapterView.toString().contains("......I.")) {
                         emsNum = new int[]{7, 8, 9};
                         emsProgramDialog(spTitle, emsNum);
@@ -415,133 +460,149 @@ public class DialogEmsEdit implements SqlImp {
         //이전에 했던 프로그램이 디폴트가 아닌 0이 디폴트로 변경
         //sp_SignalType.setSelection(ii);
 
-        String t=sf.getString(ProgramTime,"");
-        if( t== null || t=="")
-        {
-            t="20";
-            editor.putString(ProgramTime, t);
-        }
-        et_WorkingTime.setText(t);
+        Log.d("tag","spcheck : "+ spCheck);
+        if(spCheck==false){
+            //초기화
+            et_WorkingTime.setText("0");
+            et_Frequency.setText("0");
+            et_PulseOperationTime.setText("0");
+            et_PulsePauseTime.setText("0");
+            et_PulseRiseTime.setText("0");
+            et_PulseWidth.setText("0");
+            sb_WorkingTime.setProgress(0);
+            sb_Frequency.setProgress(0);
+            sb_PulseOperationTime.setProgress(0);
+            sb_PulsePauseTime.setProgress(0);
+            sb_PulseWidth.setProgress(0);
+            sb_PulseRiseTime.setProgress(0);
+        }else{
+            String t=sf.getString(ProgramTime,"");
+            if( t== null || t=="")
+            {
+                t="20";
+                editor.putString(ProgramTime, t);
+            }
+            et_WorkingTime.setText(t);
 
-        // 2-150
-        t=sf.getString(ProgramFrequency,"");
-        if(t==null  || t=="") { t="35"; editor.putString(ProgramFrequency, t);  }
-        et_Frequency.setText(t);
+            // 2-150
+            t=sf.getString(ProgramFrequency,"");
+            if(t==null  || t=="") { t="35"; editor.putString(ProgramFrequency, t);  }
+            et_Frequency.setText(t);
 
-        //1-10
-        t=sf.getString(ProgramPulseOperationTime,"");
-        if(t==null  || t=="") { t="5"; editor.putString(ProgramPulseOperationTime, t);  }
-        et_PulseOperationTime.setText(t);
+            //1-10
+            t=sf.getString(ProgramPulseOperationTime,"");
+            if(t==null  || t=="") { t="5"; editor.putString(ProgramPulseOperationTime, t);  }
+            et_PulseOperationTime.setText(t);
 
-        //0-10
-        t=sf.getString(ProgramPulsePauseTime,"");
-        if(t==null  || t=="") { t="5"; editor.putString(ProgramPulsePauseTime, t);  }
-        et_PulsePauseTime.setText(t);
+            //0-10
+            t=sf.getString(ProgramPulsePauseTime,"");
+            if(t==null  || t=="") { t="5"; editor.putString(ProgramPulsePauseTime, t);  }
+            et_PulsePauseTime.setText(t);
 
-        // 0-1
-        t=sf.getString(ProgramPulseRiseTime,"");
-        if(t==null  || t=="") { t="1"; editor.putString(ProgramPulseRiseTime, t);  }
-        et_PulseRiseTime.setText(t);
+            // 0-1
+            t=sf.getString(ProgramPulseRiseTime,"");
+            if(t==null  || t=="") { t="1"; editor.putString(ProgramPulseRiseTime, t);  }
+            et_PulseRiseTime.setText(t);
 
-        //50-400. 25us
-        t=sf.getString(ProgramPulseWidth,"");
-        if(t==null  || t=="") { t="350"; editor.putString(ProgramPulseWidth, t);  }
-        et_PulseWidth.setText(t);
+            //50-400. 25us
+            t=sf.getString(ProgramPulseWidth,"");
+            if(t==null  || t=="") { t="350"; editor.putString(ProgramPulseWidth, t);  }
+            et_PulseWidth.setText(t);
 
-        // sync
-        editor.commit();
-
-
-        // check and set default value if null
+            // sync
+            editor.commit();
 
 
+            // check and set default value if null
 
 
 
-        et_WorkingTime.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        et_WorkingTime.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        et_WorkingTime.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    downKeyboard(mContext, et_WorkingTime);
-                    return true;
+
+
+            et_WorkingTime.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            et_WorkingTime.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            et_WorkingTime.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                        downKeyboard(mContext, et_WorkingTime);
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
 
-        et_PulseOperationTime.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        et_PulseOperationTime.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        et_PulseOperationTime.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    downKeyboard(mContext, et_PulseOperationTime);
-                    return true;
+            et_PulseOperationTime.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            et_PulseOperationTime.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            et_PulseOperationTime.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                        downKeyboard(mContext, et_PulseOperationTime);
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        et_PulsePauseTime.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        et_PulsePauseTime.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        et_PulsePauseTime.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    downKeyboard(mContext, et_PulsePauseTime);
-                    return true;
+            et_PulsePauseTime.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            et_PulsePauseTime.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            et_PulsePauseTime.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                        downKeyboard(mContext, et_PulsePauseTime);
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
-        et_PulseRiseTime.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        et_PulseRiseTime.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        et_PulseRiseTime.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    downKeyboard(mContext, et_PulseRiseTime);
-                    return true;
+            });
+            et_PulseRiseTime.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            et_PulseRiseTime.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            et_PulseRiseTime.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                        downKeyboard(mContext, et_PulseRiseTime);
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
-        et_Frequency.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        et_Frequency.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        et_Frequency.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    downKeyboard(mContext, et_Frequency);
-                    return true;
+            });
+            et_Frequency.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            et_Frequency.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            et_Frequency.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                        downKeyboard(mContext, et_Frequency);
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        et_PulseWidth.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        et_PulseWidth.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        et_PulseWidth.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    downKeyboard(mContext, et_PulseWidth);
-                    return true;
+            et_PulseWidth.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            et_PulseWidth.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            et_PulseWidth.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                        downKeyboard(mContext, et_PulseWidth);
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
 
 
-        et_WorkingTime.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                et_WorkingTime.setSelection(et_WorkingTime.getText().length());
-            }
-        });
+            et_WorkingTime.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    et_WorkingTime.setSelection(et_WorkingTime.getText().length());
+                }
+            });
         /*
         et_WorkingTime.addTextChangedListener(new TextWatcher() {
             @Override
@@ -567,56 +628,56 @@ public class DialogEmsEdit implements SqlImp {
 */
 
 
-        et_PulseOperationTime.setOnFocusChangeListener((v, hasFocus) -> {
-            et_PulseOperationTimeFocus = hasFocus;
-            if (hasFocus) {
-                et_PulseOperationTime.setSelection(et_PulseOperationTime.length());
-            }
-        });
-        et_PulsePauseTime.setOnFocusChangeListener((v, hasFocus) -> {
-            et_PulsePauseTimeFocus = hasFocus;
-            if (hasFocus) {
-                et_PulsePauseTime.setSelection(et_PulsePauseTime.getText().length());
-            }
-        });
+            et_PulseOperationTime.setOnFocusChangeListener((v, hasFocus) -> {
+                et_PulseOperationTimeFocus = hasFocus;
+                if (hasFocus) {
+                    et_PulseOperationTime.setSelection(et_PulseOperationTime.length());
+                }
+            });
+            et_PulsePauseTime.setOnFocusChangeListener((v, hasFocus) -> {
+                et_PulsePauseTimeFocus = hasFocus;
+                if (hasFocus) {
+                    et_PulsePauseTime.setSelection(et_PulsePauseTime.getText().length());
+                }
+            });
 
-        et_Frequency.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                et_Frequency.setSelection(et_Frequency.getText().length());
-            }
-        });
-        et_PulseRiseTime.setOnFocusChangeListener((v, hasFocus) -> {
-            et_PulseRiseTimeFocus = hasFocus;
-            if (hasFocus) {
-                et_PulseRiseTime.setSelection(et_PulseRiseTime.getText().length());
-            }
-        });
-        et_PulseWidth.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                et_PulseWidth.setSelection(et_PulseWidth.getText().length());
-            }
-        });
-        sb_WorkingTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //  Log.d("DialogEditProgram", "progress:" + progress);
-                et_WorkingTime.setText(String.valueOf(progress+ workingTimeMin));
-            }
+            et_Frequency.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    et_Frequency.setSelection(et_Frequency.getText().length());
+                }
+            });
+            et_PulseRiseTime.setOnFocusChangeListener((v, hasFocus) -> {
+                et_PulseRiseTimeFocus = hasFocus;
+                if (hasFocus) {
+                    et_PulseRiseTime.setSelection(et_PulseRiseTime.getText().length());
+                }
+            });
+            et_PulseWidth.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    et_PulseWidth.setSelection(et_PulseWidth.getText().length());
+                }
+            });
+            sb_WorkingTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    //  Log.d("DialogEditProgram", "progress:" + progress);
+                    et_WorkingTime.setText(String.valueOf(progress+ workingTimeMin));
+                }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
 
-            }
+                }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
 
-            }
-        });
+                }
+            });
 
-        sb_WorkingTime.setProgress(Integer.parseInt( sf.getString(ProgramTime,"") ) - workingTimeMin);
-        add_WorkingTime.setOnClickListener(v -> sb_WorkingTime.setProgress(sb_WorkingTime.getProgress() + 1));
-        remove_WorkingTime.setOnClickListener(v -> sb_WorkingTime.setProgress(sb_WorkingTime.getProgress() - 1));
+            sb_WorkingTime.setProgress(Integer.parseInt( sf.getString(ProgramTime,"") ) - workingTimeMin);
+            add_WorkingTime.setOnClickListener(v -> sb_WorkingTime.setProgress(sb_WorkingTime.getProgress() + 1));
+            remove_WorkingTime.setOnClickListener(v -> sb_WorkingTime.setProgress(sb_WorkingTime.getProgress() - 1));
 
 /*
         et_PulseOperationTime.addTextChangedListener(new TextWatcher() {
@@ -650,35 +711,35 @@ public class DialogEmsEdit implements SqlImp {
         });
 */
 
-        sb_PulseOperationTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            private boolean sb_pulseOperationTimeTracking;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            sb_PulseOperationTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                private boolean sb_pulseOperationTimeTracking;
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
 
-                //               if (!et_PulseOperationTimeFocus || sb_pulseOperationTimeTracking) {
-                int value=operMin + (progress*operStep);
-                //     float value = (float) (progress / 10.0);
-                et_PulseOperationTime.setText(String.valueOf((int) value));
+                    //               if (!et_PulseOperationTimeFocus || sb_pulseOperationTimeTracking) {
+                    int value=operMin + (progress*operStep);
+                    //     float value = (float) (progress / 10.0);
+                    et_PulseOperationTime.setText(String.valueOf((int) value));
 
 
-                //      }
-            }
+                    //      }
+                }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                sb_pulseOperationTimeTracking = true;
-            }
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    sb_pulseOperationTimeTracking = true;
+                }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                sb_pulseOperationTimeTracking = false;
-            }
-        });
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    sb_pulseOperationTimeTracking = false;
+                }
+            });
 
-        sb_PulseOperationTime.setProgress(  Integer.parseInt( sf.getString(ProgramPulseOperationTime,"")) - operMin   );
-        add_PulseOperationTime.setOnClickListener(v -> sb_PulseOperationTime.setProgress(sb_PulseOperationTime.getProgress() + 1));
-        remove_PulseOperationTime.setOnClickListener(v -> sb_PulseOperationTime.setProgress(sb_PulseOperationTime.getProgress() - 1));
+            sb_PulseOperationTime.setProgress(  Integer.parseInt( sf.getString(ProgramPulseOperationTime,"")) - operMin   );
+            add_PulseOperationTime.setOnClickListener(v -> sb_PulseOperationTime.setProgress(sb_PulseOperationTime.getProgress() + 1));
+            remove_PulseOperationTime.setOnClickListener(v -> sb_PulseOperationTime.setProgress(sb_PulseOperationTime.getProgress() - 1));
         /*
         add_PulseOperationTime.setOnClickListener(v -> {
             float v1 = Float.parseFloat(et_PulseOperationTime.getText().toString()) + 0.1f;
@@ -697,29 +758,29 @@ public class DialogEmsEdit implements SqlImp {
         */
 
 
-        sb_PulsePauseTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            sb_PulsePauseTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-            private boolean sb_pulsePauseTimeTracking;
+                private boolean sb_pulsePauseTimeTracking;
 
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
          /*       if (!et_PulsePauseTimeFocus || sb_pulsePauseTimeTracking) {
                     float value = (float) (progress / 10.0);
                     et_PulsePauseTime.setText(String.valueOf((int) value));
 */
-                et_PulsePauseTime.setText(String.valueOf((int) progress));
-            }
+                    et_PulsePauseTime.setText(String.valueOf((int) progress));
+                }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                sb_pulsePauseTimeTracking = true;
-            }
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    sb_pulsePauseTimeTracking = true;
+                }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                sb_pulsePauseTimeTracking = false;
-            }
-        });
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    sb_pulsePauseTimeTracking = false;
+                }
+            });
         /*
         et_PulsePauseTime.addTextChangedListener(new TextWatcher() {
             @Override
@@ -755,33 +816,33 @@ public class DialogEmsEdit implements SqlImp {
         */
 
 
-        sb_PulsePauseTime.setProgress( Integer.parseInt( sf.getString(ProgramPulsePauseTime,"")) );
-        add_PulsePauseTime.setOnClickListener(v -> sb_PulsePauseTime.setProgress(sb_PulsePauseTime.getProgress() + 1));
-        remove_PulsePauseTime.setOnClickListener(v -> sb_PulsePauseTime.setProgress(sb_PulsePauseTime.getProgress() - 1));
+            sb_PulsePauseTime.setProgress( Integer.parseInt( sf.getString(ProgramPulsePauseTime,"")) );
+            add_PulsePauseTime.setOnClickListener(v -> sb_PulsePauseTime.setProgress(sb_PulsePauseTime.getProgress() + 1));
+            remove_PulsePauseTime.setOnClickListener(v -> sb_PulsePauseTime.setProgress(sb_PulsePauseTime.getProgress() - 1));
 
 
-        //********** FREQ
+            //********** FREQ
 
-        sb_Frequency.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int value = freqMin + (progress * freqStep);
-                if (value > 150) {
-                    value = 150;
+            sb_Frequency.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    int value = freqMin + (progress * freqStep);
+                    if (value > 150) {
+                        value = 150;
+                    }
+                    et_Frequency.setText(String.valueOf(value));
                 }
-                et_Frequency.setText(String.valueOf(value));
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
 
-            }
+                }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
 
-            }
-        });
+                }
+            });
         /*
         et_Frequency.addTextChangedListener(new TextWatcher() {
             @Override
@@ -819,34 +880,34 @@ public class DialogEmsEdit implements SqlImp {
         });
 */
 
-        // check
-        sb_Frequency.setProgress(Integer.parseInt(sf.getString(ProgramFrequency,"")) - freqMin);
-        add_Frequency.setOnClickListener(v -> sb_Frequency.setProgress(sb_Frequency.getProgress() + 1));
-        removeFrequency.setOnClickListener(v -> sb_Frequency.setProgress(sb_Frequency.getProgress() - 1));
+            // check
+            sb_Frequency.setProgress(Integer.parseInt(sf.getString(ProgramFrequency,"")) - freqMin);
+            add_Frequency.setOnClickListener(v -> sb_Frequency.setProgress(sb_Frequency.getProgress() + 1));
+            removeFrequency.setOnClickListener(v -> sb_Frequency.setProgress(sb_Frequency.getProgress() - 1));
 
 
-        //********** PULSE WIDTH
+            //********** PULSE WIDTH
 
-        sb_PulseWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int value = pulseWidthMin + (progress * pulseWidthStep);
-                if (value >500) {
-                    value = 500;
+            sb_PulseWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    int value = pulseWidthMin + (progress * pulseWidthStep);
+                    if (value >500) {
+                        value = 500;
+                    }
+                    et_PulseWidth.setText(String.valueOf(value));
                 }
-                et_PulseWidth.setText(String.valueOf(value));
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
 
-            }
+                }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
 
-            }
-        });
+                }
+            });
         /*
         et_PulseWidth.addTextChangedListener(new TextWatcher() {
             @Override
@@ -891,16 +952,16 @@ public class DialogEmsEdit implements SqlImp {
             return false;
         });
 */
-        sb_PulseWidth.setProgress((Integer.parseInt(sf.getString(ProgramPulseWidth,""))-pulseWidthMin)/pulseWidthStep);
-        add_PulseWidth.setOnClickListener(v -> sb_PulseWidth.setProgress(sb_PulseWidth.getProgress() + 1));
-        removePulseWidth.setOnClickListener(v -> sb_PulseWidth.setProgress(sb_PulseWidth.getProgress() - 1));
+            sb_PulseWidth.setProgress((Integer.parseInt(sf.getString(ProgramPulseWidth,""))-pulseWidthMin)/pulseWidthStep);
+            add_PulseWidth.setOnClickListener(v -> sb_PulseWidth.setProgress(sb_PulseWidth.getProgress() + 1));
+            removePulseWidth.setOnClickListener(v -> sb_PulseWidth.setProgress(sb_PulseWidth.getProgress() - 1));
 
 
-        //*********** Pulse Riseing
-        sb_PulseRiseTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            private boolean sb_pulseRiseTimeTracking;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            //*********** Pulse Riseing
+            sb_PulseRiseTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                private boolean sb_pulseRiseTimeTracking;
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
    /*             if (!et_PulseRiseTimeFocus || sb_pulseRiseTimeTracking) {
                     //final String pattern = "#.#";
                     //final DecimalFormat decimalFormat = new DecimalFormat(pattern);
@@ -910,22 +971,22 @@ public class DialogEmsEdit implements SqlImp {
                     et_PulseRiseTime.setText(String.valueOf(v));
                 }
                 */
-                et_PulseRiseTime.setText(String.valueOf(progress));
-            }
+                    et_PulseRiseTime.setText(String.valueOf(progress));
+                }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                sb_pulseRiseTimeTracking = true;
-            }
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    sb_pulseRiseTimeTracking = true;
+                }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                sb_pulseRiseTimeTracking = false;
-            }
-        });
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    sb_pulseRiseTimeTracking = false;
+                }
+            });
 
 
-        sb_PulseRiseTime.setProgress( Integer.parseInt(   sf.getString(ProgramPulseRiseTime,"")) );
+            sb_PulseRiseTime.setProgress( Integer.parseInt(   sf.getString(ProgramPulseRiseTime,"")) );
         /*
         et_PulseRiseTime.addTextChangedListener(new TextWatcher() {
             @Override
@@ -958,8 +1019,10 @@ public class DialogEmsEdit implements SqlImp {
             }
         });
         */
-        add_PulseRiseTime.setOnClickListener(v -> sb_PulseRiseTime.setProgress(sb_PulseRiseTime.getProgress() + 1));
-        remove_PulseRiseTime.setOnClickListener(v -> sb_PulseRiseTime.setProgress(sb_PulseRiseTime.getProgress() - 1));
+            add_PulseRiseTime.setOnClickListener(v -> sb_PulseRiseTime.setProgress(sb_PulseRiseTime.getProgress() + 1));
+            remove_PulseRiseTime.setOnClickListener(v -> sb_PulseRiseTime.setProgress(sb_PulseRiseTime.getProgress() - 1));
+        }
+
     }
 
 
@@ -982,7 +1045,6 @@ public class DialogEmsEdit implements SqlImp {
         emsProgramTxt="";
         for(int i=0; i< emsNum.length; i++){
             emsProgramNum = emsNum[i];
-            Log.d("tag","ems string : "+emsProgramNum);
             emsProgramTxt = emsProgramTxt + ems_explain.get(emsProgramNum-1).toString();
         }
 
@@ -995,7 +1057,9 @@ public class DialogEmsEdit implements SqlImp {
                 .positiveText(mContext.getString(R.string.ok))
                 .positiveColor(Color.parseColor("#000000"))
                 .onPositive((dialog, which) -> {
+
                     dialog.dismiss();
+
                 }).show();
     }
 }

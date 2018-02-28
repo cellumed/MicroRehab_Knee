@@ -130,13 +130,6 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
         String cmd = data.split(" ")[3];
         if (cmd.length() == 1) cmd = "0" + cmd;
 
-
-        //임시
-        for(int i=0 ; i<sp.length;i++){
-            Log.d("TAG","==== TEST3 ==== : "+sp[i]);
-        }
-        Log.d("TAG","==== TEST4 ==== : "+cmd);
-        Log.d("TAG","==== TEST5 ==== : "+data);
         int interval;
 
 
@@ -185,9 +178,7 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
     public void go_history(View view) {
         final DBQuery dbQuery = new DBQuery(mContext);
         final ArrayList<DAO_Program> progList = dbQuery.getALLProgram();
-        for(int i=0;i<progList.size();i++){
-            Log.d("tag","test 28 act_home - gohistory : "+progList.get(i));
-        }
+
         if (0 == progList.size()) {
 
             MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);

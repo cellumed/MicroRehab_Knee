@@ -283,7 +283,6 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
         pre_mode = extras.getInt("mode",1);
         //String pre_mode_str=extras.getString("title");
         db_idx=extras.getString("dbidx","");
-        Log.d("TAG","사후로 넘어온 값 : "+pre_mode);
 
         if (pre_mode==1) {
 
@@ -322,8 +321,6 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
             total_cnt_int=10;
         }
     }
-
-
 
 
     Button.OnClickListener startClickListener = new View.OnClickListener() {
