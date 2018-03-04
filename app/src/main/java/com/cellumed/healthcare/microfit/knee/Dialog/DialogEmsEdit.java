@@ -475,49 +475,68 @@ public class DialogEmsEdit implements SqlImp {
             sb_PulsePauseTime.setProgress(0);
             sb_PulseWidth.setProgress(0);
             sb_PulseRiseTime.setProgress(0);
-        }else{
-            String t=sf.getString(ProgramTime,"");
-            if( t== null || t=="")
-            {
-                t="20";
+        }else {
+            String t = sf.getString(ProgramTime, "");
+            if (t == null || t == "") {
+                t = "20";
                 editor.putString(ProgramTime, t);
             }
             et_WorkingTime.setText(t);
 
             // 2-150
-            t=sf.getString(ProgramFrequency,"");
-            if(t==null  || t=="") { t="35"; editor.putString(ProgramFrequency, t);  }
+            t = sf.getString(ProgramFrequency, "");
+            if (t == null || t == "") {
+                t = "35";
+                editor.putString(ProgramFrequency, t);
+            }
             et_Frequency.setText(t);
 
             //1-10
-            t=sf.getString(ProgramPulseOperationTime,"");
-            if(t==null  || t=="") { t="5"; editor.putString(ProgramPulseOperationTime, t);  }
+            t = sf.getString(ProgramPulseOperationTime, "");
+            if (t == null || t == "") {
+                t = "5";
+                editor.putString(ProgramPulseOperationTime, t);
+            }
             et_PulseOperationTime.setText(t);
 
             //0-10
-            t=sf.getString(ProgramPulsePauseTime,"");
-            if(t==null  || t=="") { t="5"; editor.putString(ProgramPulsePauseTime, t);  }
+            t = sf.getString(ProgramPulsePauseTime, "");
+            if (t == null || t == "") {
+                t = "5";
+                editor.putString(ProgramPulsePauseTime, t);
+            }
             et_PulsePauseTime.setText(t);
 
             // 0-1
-            t=sf.getString(ProgramPulseRiseTime,"");
-            if(t==null  || t=="") { t="1"; editor.putString(ProgramPulseRiseTime, t);  }
+            t = sf.getString(ProgramPulseRiseTime, "");
+            if (t == null || t == "") {
+                t = "1";
+                editor.putString(ProgramPulseRiseTime, t);
+            }
             et_PulseRiseTime.setText(t);
 
             //50-400. 25us
-            t=sf.getString(ProgramPulseWidth,"");
-            if(t==null  || t=="") { t="350"; editor.putString(ProgramPulseWidth, t);  }
+            t = sf.getString(ProgramPulseWidth, "");
+            if (t == null || t == "") {
+                t = "350";
+                editor.putString(ProgramPulseWidth, t);
+            }
             et_PulseWidth.setText(t);
 
             // sync
             editor.commit();
 
+            sb_WorkingTime.setProgress(Integer.parseInt( sf.getString(ProgramTime,"") ) - workingTimeMin);
+            sb_PulseOperationTime.setProgress(  Integer.parseInt( sf.getString(ProgramPulseOperationTime,"")) - operMin   );
+            sb_PulsePauseTime.setProgress( Integer.parseInt( sf.getString(ProgramPulsePauseTime,"")) );
+            sb_Frequency.setProgress(Integer.parseInt(sf.getString(ProgramFrequency,"")) - freqMin);
+            sb_PulseWidth.setProgress((Integer.parseInt(sf.getString(ProgramPulseWidth,""))-pulseWidthMin)/pulseWidthStep);
+            sb_PulseRiseTime.setProgress( Integer.parseInt(   sf.getString(ProgramPulseRiseTime,"")) );
+
+        }
+
 
             // check and set default value if null
-
-
-
-
 
             et_WorkingTime.setImeOptions(EditorInfo.IME_ACTION_DONE);
             et_WorkingTime.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -661,7 +680,11 @@ public class DialogEmsEdit implements SqlImp {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     //  Log.d("DialogEditProgram", "progress:" + progress);
-                    et_WorkingTime.setText(String.valueOf(progress+ workingTimeMin));
+                    if(spCheck==false){
+                        et_WorkingTime.setText("0");
+                    }else{
+                        et_WorkingTime.setText(String.valueOf(progress+ workingTimeMin));
+                    }
                 }
 
                 @Override
@@ -675,7 +698,7 @@ public class DialogEmsEdit implements SqlImp {
                 }
             });
 
-            sb_WorkingTime.setProgress(Integer.parseInt( sf.getString(ProgramTime,"") ) - workingTimeMin);
+
             add_WorkingTime.setOnClickListener(v -> sb_WorkingTime.setProgress(sb_WorkingTime.getProgress() + 1));
             remove_WorkingTime.setOnClickListener(v -> sb_WorkingTime.setProgress(sb_WorkingTime.getProgress() - 1));
 
@@ -716,14 +739,13 @@ public class DialogEmsEdit implements SqlImp {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-
-                    //               if (!et_PulseOperationTimeFocus || sb_pulseOperationTimeTracking) {
-                    int value=operMin + (progress*operStep);
-                    //     float value = (float) (progress / 10.0);
-                    et_PulseOperationTime.setText(String.valueOf((int) value));
-
-
-                    //      }
+                    if(spCheck==false){
+                        et_PulseOperationTime.setText("0");
+                    }else{
+                        int value=operMin + (progress*operStep);
+                        //     float value = (float) (progress / 10.0);
+                        et_PulseOperationTime.setText(String.valueOf((int) value));
+                    }
                 }
 
                 @Override
@@ -737,7 +759,7 @@ public class DialogEmsEdit implements SqlImp {
                 }
             });
 
-            sb_PulseOperationTime.setProgress(  Integer.parseInt( sf.getString(ProgramPulseOperationTime,"")) - operMin   );
+
             add_PulseOperationTime.setOnClickListener(v -> sb_PulseOperationTime.setProgress(sb_PulseOperationTime.getProgress() + 1));
             remove_PulseOperationTime.setOnClickListener(v -> sb_PulseOperationTime.setProgress(sb_PulseOperationTime.getProgress() - 1));
         /*
@@ -767,8 +789,15 @@ public class DialogEmsEdit implements SqlImp {
          /*       if (!et_PulsePauseTimeFocus || sb_pulsePauseTimeTracking) {
                     float value = (float) (progress / 10.0);
                     et_PulsePauseTime.setText(String.valueOf((int) value));
+
 */
-                    et_PulsePauseTime.setText(String.valueOf((int) progress));
+                    if(spCheck==false){
+                        et_PulsePauseTime.setText("0");
+                    }else{
+                        et_PulsePauseTime.setText(String.valueOf((int) progress));
+                    }
+
+
                 }
 
                 @Override
@@ -816,7 +845,7 @@ public class DialogEmsEdit implements SqlImp {
         */
 
 
-            sb_PulsePauseTime.setProgress( Integer.parseInt( sf.getString(ProgramPulsePauseTime,"")) );
+
             add_PulsePauseTime.setOnClickListener(v -> sb_PulsePauseTime.setProgress(sb_PulsePauseTime.getProgress() + 1));
             remove_PulsePauseTime.setOnClickListener(v -> sb_PulsePauseTime.setProgress(sb_PulsePauseTime.getProgress() - 1));
 
@@ -826,11 +855,17 @@ public class DialogEmsEdit implements SqlImp {
             sb_Frequency.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    int value = freqMin + (progress * freqStep);
-                    if (value > 150) {
-                        value = 150;
+                    if(spCheck==false){
+                        et_Frequency.setText("0");
+                    }else{
+                        int value = freqMin + (progress * freqStep);
+                        if (value > 150) {
+                            value = 150;
+                        }
+                        et_Frequency.setText(String.valueOf(value));
                     }
-                    et_Frequency.setText(String.valueOf(value));
+
+
                 }
 
                 @Override
@@ -881,7 +916,7 @@ public class DialogEmsEdit implements SqlImp {
 */
 
             // check
-            sb_Frequency.setProgress(Integer.parseInt(sf.getString(ProgramFrequency,"")) - freqMin);
+
             add_Frequency.setOnClickListener(v -> sb_Frequency.setProgress(sb_Frequency.getProgress() + 1));
             removeFrequency.setOnClickListener(v -> sb_Frequency.setProgress(sb_Frequency.getProgress() - 1));
 
@@ -891,11 +926,17 @@ public class DialogEmsEdit implements SqlImp {
             sb_PulseWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    int value = pulseWidthMin + (progress * pulseWidthStep);
-                    if (value >500) {
-                        value = 500;
+                    if(spCheck==false){
+                        et_PulseWidth.setText("0");
+                    }else{
+                        int value = pulseWidthMin + (progress * pulseWidthStep);
+                        if (value >500) {
+                            value = 500;
+                        }
+                        et_PulseWidth.setText(String.valueOf(value));
                     }
-                    et_PulseWidth.setText(String.valueOf(value));
+
+
                 }
 
                 @Override
@@ -952,7 +993,7 @@ public class DialogEmsEdit implements SqlImp {
             return false;
         });
 */
-            sb_PulseWidth.setProgress((Integer.parseInt(sf.getString(ProgramPulseWidth,""))-pulseWidthMin)/pulseWidthStep);
+
             add_PulseWidth.setOnClickListener(v -> sb_PulseWidth.setProgress(sb_PulseWidth.getProgress() + 1));
             removePulseWidth.setOnClickListener(v -> sb_PulseWidth.setProgress(sb_PulseWidth.getProgress() - 1));
 
@@ -971,7 +1012,13 @@ public class DialogEmsEdit implements SqlImp {
                     et_PulseRiseTime.setText(String.valueOf(v));
                 }
                 */
-                    et_PulseRiseTime.setText(String.valueOf(progress));
+                    if(spCheck==false){
+                        et_PulseRiseTime.setText("0");
+                    }else{
+                        et_PulseRiseTime.setText(String.valueOf(progress));
+                    }
+
+
                 }
 
                 @Override
@@ -986,7 +1033,7 @@ public class DialogEmsEdit implements SqlImp {
             });
 
 
-            sb_PulseRiseTime.setProgress( Integer.parseInt(   sf.getString(ProgramPulseRiseTime,"")) );
+
         /*
         et_PulseRiseTime.addTextChangedListener(new TextWatcher() {
             @Override
@@ -1022,8 +1069,6 @@ public class DialogEmsEdit implements SqlImp {
             add_PulseRiseTime.setOnClickListener(v -> sb_PulseRiseTime.setProgress(sb_PulseRiseTime.getProgress() + 1));
             remove_PulseRiseTime.setOnClickListener(v -> sb_PulseRiseTime.setProgress(sb_PulseRiseTime.getProgress() - 1));
         }
-
-    }
 
 
     public int secondToMinute(int num) {
