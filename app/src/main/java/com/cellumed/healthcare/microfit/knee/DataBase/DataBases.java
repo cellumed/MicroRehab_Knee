@@ -84,18 +84,15 @@ public class DataBases extends SQLiteOpenHelper implements SqlImp {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d("tag","test 28  database - onUpgrade");
         dropAllTables(db);
         onCreate(db);
     }
 
     public void dropAllTables(SQLiteDatabase db) {
-        Log.d("tag","test 28 database - dropAllTables");
         String drop_program = "DROP TABLE IF EXISTS "+ ProgramTable +" ;";
         db.execSQL(drop_program);
     }
     public void reset(){
-        Log.d("tag","test 28 database - reset");
         SQLiteDatabase db = this.getWritableDatabase();
         dropAllTables(db);
         onCreate(db);

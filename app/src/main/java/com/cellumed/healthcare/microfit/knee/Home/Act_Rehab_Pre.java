@@ -293,7 +293,6 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
             Log.d("ACT ems시작 db저장", "저장");
         }
 
-        Log.d("TAG","test 28 act pre - setPreData");
 
     }
 
@@ -838,7 +837,9 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
 
         //  ((ImageButton) findViewById(R.id.custom_back_btn)).setBackground(null);
         //  ((ImageButton) findViewById(R.id.custom_back_btn)).setEnabled(false);
-        ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_03);
+        if(admin_mode!=0) {
+            ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_03);
+        }
 
 
 

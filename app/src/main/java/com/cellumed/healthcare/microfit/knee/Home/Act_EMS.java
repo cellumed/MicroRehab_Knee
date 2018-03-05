@@ -196,7 +196,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                     bundle.putString("dbidx", db_idx);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                    Log.d("tag","사후로 넘어간 값 : "+rehab_mode_idx);
                     dialog.dismiss();
 
 
@@ -484,8 +483,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         workoutData.put(ProgramPulseRiseTime , pulse_rising_time.getText().toString()); //펄스 상승시
         workoutData.put(ProgramPulseWidth,pulse_width.getText().toString()) ;//펄스폭
 
-
-        Log.d("TAG","----TEST----- "+ db_idx);
 
         if (new DBQuery(mContext).setProgramUpdate(workoutData,db_idx)) {
 
