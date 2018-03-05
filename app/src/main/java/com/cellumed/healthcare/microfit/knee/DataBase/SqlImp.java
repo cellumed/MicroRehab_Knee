@@ -78,6 +78,15 @@ public interface SqlImp {
     String PostEmgMax5 ="post_emg_max5";
     String PostEmgTotal5="post_emg_total5";
 
+    // with user_info
+    String UserInfoTable = "user_info";
+    String UserInfoName = "name";
+    String UserInfoBirthday = "birthday";
+    String UserInfoGender = "gender";
+    String UserInfoLegPart = "leg_part";
+
+    String UserInfoId = "user_info_id_fk";
+
     String WorkoutDataStartDate = "start_date"; //시작시간
     String WorkoutDataEndDate = "end_date"; //종료시간
     String WorkoutDataTime = "time"; //운동시간

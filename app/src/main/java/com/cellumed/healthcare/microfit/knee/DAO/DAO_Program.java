@@ -312,48 +312,25 @@ public class DAO_Program {
 
 
 
-    public String getProgramPulseOperationTimeProgress() {
-        return ProgramPulseOperationTimeProgress;
-    }
 
     public void setProgramPulseOperationTimeProgress(String programPulseOperationTimeProgress) {
         ProgramPulseOperationTimeProgress = programPulseOperationTimeProgress;
-    }
-
-    public String getProgramPulsePauseTimeProgress() {
-        return ProgramPulsePauseTimeProgress;
     }
 
     public void setProgramPulsePauseTimeProgress(String programPulsePauseTimeProgress) {
         ProgramPulsePauseTimeProgress = programPulsePauseTimeProgress;
     }
 
-    public String getProgramFrequencyProgress() {
-        return ProgramFrequencyProgress;
-    }
-
     public void setProgramFrequencyProgress(String programFrequencyProgress) {
         ProgramFrequencyProgress = programFrequencyProgress;
-    }
-
-    public String getProgramPulseWidthProgress() {
-        return ProgramPulseWidthProgress;
     }
 
     public void setProgramPulseWidthProgress(String programPulseWidthProgress) {
         ProgramPulseWidthProgress = programPulseWidthProgress;
     }
 
-    public String getProgramPulseRiseTimeProgress() {
-        return ProgramPulseRiseTimeProgress;
-    }
-
     public void setProgramPulseRiseTimeProgress(String programPulseRiseTimeProgress) {
         ProgramPulseRiseTimeProgress = programPulseRiseTimeProgress;
-    }
-
-    public String getIdx() {
-        return Idx;
     }
 
     public void setIdx(String idx) {
@@ -368,25 +345,8 @@ public class DAO_Program {
         ProgramStartDate = programDate;
     }
 
-    public String getProgramEndDate() {
-        return ProgramEndDate;
-    }
-
     public void setProgramEndDate(String programDate) {
         ProgramEndDate = programDate;
-    }
-
-    public String getProgramSignalType() {
-        return ProgramSignalType;
-    }
-
-    public void setProgramSignalType(String programStartTime) {
-        ProgramSignalType = programStartTime;
-    }
-
-
-    public String getProgramType() {
-        return ProgramType;
     }
 
     public void setProgramType(String programType) {
@@ -401,64 +361,24 @@ public class DAO_Program {
         ProgramName = programName;
     }
 
-    public String getProgramState() {
-        return ProgramState;
-    }
-
     public void setProgramState(String programState) {
         ProgramState = programState;
-    }
-
-    public String getProgramTime() {
-        return ProgramTime;
-    }
-
-    public void setProgramTime(String programTime) {
-        ProgramTime = programTime;
-    }
-
-    public String getProgramTimeProgress() {
-        return ProgramTimeProgress;
-    }
-
-    public void setProgramTimeProgress(String programTimeProgress) {
-        ProgramTimeProgress = programTimeProgress;
-    }
-
-    public String getProgramPulseOperationTime() {
-        return ProgramPulseOperationTime;
     }
 
     public void setProgramPulseOperationTime(String programPulseOperationTime) {
         ProgramPulseOperationTime = programPulseOperationTime;
     }
 
-    public String getProgramPulsePauseTime() {
-        return ProgramPulsePauseTime;
-    }
-
     public void setProgramPulsePauseTime(String programPulsePauseTime) {
         ProgramPulsePauseTime = programPulsePauseTime;
-    }
-
-    public String getProgramFrequency() {
-        return ProgramFrequency;
     }
 
     public void setProgramFrequency(String programFrequency) {
         ProgramFrequency = programFrequency;
     }
 
-    public String getProgramPulseWidth() {
-        return ProgramPulseWidth;
-    }
-
     public void setProgramPulseWidth(String programPulseWidth) {
         ProgramPulseWidth = programPulseWidth;
-    }
-
-    public String getProgramPulseRiseTime() {
-        return ProgramPulseRiseTime;
     }
 
     public void setProgramPulseRiseTime(String programPulseRiseTime) {

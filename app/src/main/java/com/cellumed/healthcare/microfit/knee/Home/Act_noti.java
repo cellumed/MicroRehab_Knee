@@ -106,8 +106,8 @@ public class Act_noti extends BTConnectActivity implements  IMP_CMD, SqlImp {
 
     public void go_next(View view) {
         final Bundle bundle = new Bundle();
-        BudUtil.goActivity(mContext, Act_Device_Connect.class,bundle);
-        //BudUtil.goActivity(mContext, Act_Home.class,bundle);
+        //BudUtil.goActivity(mContext, Act_Device_Connect.class,bundle);
+        BudUtil.goActivity(mContext, Act_Home.class,bundle);
 
         this.finish();
     }

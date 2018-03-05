@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:installLocation="preferExternal"
-    package="com.cellumed.healthcare.microfit.knee">
+    package="com.cellumed.healthcare.microfit.knee"
+    android:installLocation="preferExternal">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -26,65 +26,81 @@
         android:required="true" />
 
     <application
-        android:name="com.cellumed.healthcare.microfit.knee.Home.MainApplication"
-        android:largeHeap="true"
+        android:name=".Home.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name="com.cellumed.healthcare.microfit.knee.Home.SplashActivity"
+            android:name=".Home.SplashActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
                 android:resource="@xml/device_filter" />
         </activity>
-
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_Home"
-		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_noti"
-		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_Rehab_Home"
-		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_Rehab_Pre"
-		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_Rehab_Post"
-		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_admin"
-		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_admin_emg"
-            android:screenOrientation="landscape"/>
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_admin_imu"
-            android:screenOrientation="landscape"/>
-
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_EMS"
-		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Home.Act_history"
-		  android:screenOrientation="portrait"/>
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Bluetooth.Act_Device_Connect"
-			android:screenOrientation="portrait"		/>
-        <activity android:name="com.cellumed.healthcare.microfit.knee.Setting.Act_Setting"
-		  android:screenOrientation="portrait"/>
-
-
+        <activity
+            android:name=".Home.Act_Home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Home.Act_noti"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Home.Act_Rehab_Home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Home.Act_Rehab_Pre"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Home.Act_Rehab_Post"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Home.Act_admin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Home.Act_admin_emg"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Home.Act_admin_imu"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Home.Act_EMS"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Home.Act_history"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Bluetooth.Act_Device_Connect"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Setting.Act_Setting"
+            android:screenOrientation="portrait" />
 
         <service
-            android:name="com.cellumed.healthcare.microfit.knee.Bluetooth.BluetoothConnectService"
+            android:name=".Bluetooth.BluetoothConnectService"
             android:enabled="true" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="f033df22175cc95c499c83611ec171839c4a44c8" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+            android:value="f033df22175cc95c499c83611ec171839c4a44c8" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".Home.Act_user_info"></activity>
     </application>
+
 </manifest>
