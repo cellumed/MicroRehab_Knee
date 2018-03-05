@@ -23,7 +23,7 @@ public class DataBases extends SQLiteOpenHelper implements SqlImp {
                 "       CREATE TABLE IF NOT EXISTS "+ UserInfoTable +" (\n"
                         + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                         + UserInfoName + " TEXT NOT NULL,\n"
-                        + UserInfoBirthday + " DATE NOT NULL,\n"
+                        + UserInfoBirth + " TEXT NOT NULL,\n"
                         + UserInfoGender +" TEXT NOT NULL,\n"
                         + UserInfoLegPart + " TEXT NOT NULL\n"
                         + ");";
@@ -89,7 +89,7 @@ public class DataBases extends SQLiteOpenHelper implements SqlImp {
                 + ProgramPulseRiseTimeProgress+" TEXT,"
                 + ProgramPulseWidth+" TEXT,"
                 + ProgramPulseWidthProgress+" TEXT,"
-                + UserInfoId+"INTEGER NOT NULL REFERENCES user_info(id) on delete cascade);";
+                + UserInfoIdFk+"INTEGER NOT NULL REFERENCES user_info(id) on delete cascade);";
 
         db.execSQL(program_create_sql);
 

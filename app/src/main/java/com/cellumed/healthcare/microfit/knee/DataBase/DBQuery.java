@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 
 import com.cellumed.healthcare.microfit.knee.DAO.DAO_Program;
 import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
@@ -33,6 +34,20 @@ public class DBQuery implements SqlImp {
 
     }
 
+    public boolean newUserInfoInsert(HashMap<String, String> programInfo) {
+        ContentValues mValues = new ContentValues();
+        final Set<String> key = programInfo.keySet();
+        for (String keyName : key) {
+            String valueName = programInfo.get(keyName);
+            mValues.put(keyName, valueName);
+
+        }
+
+        final boolean b = db.setRecords(UserInfoTable, mValues);
+        db.close();
+
+        return b;
+    }
 
     public boolean newProgramInsert(HashMap<String, String> programInfo) {
         ContentValues mValues = new ContentValues();
@@ -89,7 +104,10 @@ public class DBQuery implements SqlImp {
         return b;
     }
 
-
+    public String getUserInfoId(String name, String birth) {
+        final String where = UserInfoName + " = '" + name + "' AND " + UserInfoBirth + " = '" + birth + "'";
+        return db.getField(UserInfoTable, UserInfoId, where, null, null);
+    }
 
 
     public String getProgramTime(String name) {
@@ -257,6 +275,26 @@ public class DBQuery implements SqlImp {
         return mDaoProgram;
     }
 
+    public ArrayList<String> getALLUserInfo() {
+
+        ArrayList<String> userinfo = new ArrayList<>();
+        final Cursor mCursor = db.getField(UserInfoTable, ALL_FIELD, null, null, UserInfoId, null);
+
+        String result = "";
+
+        while (mCursor.moveToNext()) {
+            try {
+                result = mCursor.getString(mCursor.getColumnIndex(UserInfoId));
+                userinfo.add(result);
+            } catch (SQLiteException | IllegalStateException | NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+
+        mCursor.close();
+        db.close();
+        return userinfo;
+    }
 
     public ArrayList<DAO_Program> getALLProgram() {
 

@@ -52,6 +52,9 @@
     <!--처음설치시 로그인화면에서 기기관리자 화면 메세지-->
     <string name="devicePolicyManagerMessage">관리자 권한을 신청합니다.</string>
 
+    // toast message
+    <string name="noneUserInfo">사용자 정보가 없습니다</string>
+
     <!--사용자 추가시  MSG-->
     <string name="NewUserRegistration">새 사용자 등록</string>
     <string name="same_name">동일한 사용자 이름이 존재합니다. 계속하시겠습니까?</string>

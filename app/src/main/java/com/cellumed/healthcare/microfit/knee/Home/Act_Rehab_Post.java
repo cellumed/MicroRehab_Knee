@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microfit.knee.Bluetooth.BTConnectActivity;
@@ -30,6 +31,7 @@ import com.cellumed.healthcare.microfit.knee.DataBase.DBQuery;
 import com.cellumed.healthcare.microfit.knee.DataBase.SqlImp;
 import com.cellumed.healthcare.microfit.knee.R;
 import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
+import com.cellumed.healthcare.microfit.knee.Util.CustomToast;
 
 import java.util.HashMap;
 
@@ -136,11 +138,21 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
         // set for each extras
         setStart();
 
+        /*
         // leg
         String sfName="EMS_USER_INFO";   // 사용자 정보 저장
         SharedPreferences sf = mContext.getSharedPreferences(sfName, Context.MODE_MULTI_PROCESS);
         SharedPreferences.Editor editor = sf.edit();
         legtype_idx=sf.getInt(UserLegType,0);
+        */
+        // 사용자 다리 정보가 없으면 오른쪽 다리 기본
+        if( ManageDeviceConfiguration.getInstance().getUserLegPart().equals("LL") ){
+            // Left Leg (LL)
+            legtype_idx = 0;
+        } else {
+            // Rigth Leg (RL)
+            legtype_idx = 1;
+        }
 
         isRunning=0;
 
@@ -155,6 +167,11 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
     private void setPostData() {
         // 시작시 운동 기록.
         final HashMap<String, String> workoutData = new HashMap<>();
+
+        if(ManageDeviceConfiguration.getInstance().getUserId().isEmpty()) {
+            CustomToast.makeText(this, getResources().getText(R.string.noneUserInfo).toString(), Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if(db_idx.length()==0)
         {

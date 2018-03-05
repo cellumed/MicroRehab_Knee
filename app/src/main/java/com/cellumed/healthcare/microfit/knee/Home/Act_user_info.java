@@ -4,10 +4,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cellumed.healthcare.microfit.knee.DataBase.DBQuery;
+import com.cellumed.healthcare.microfit.knee.Dialog.DialogUserInfoEdit;
 import com.cellumed.healthcare.microfit.knee.R;
 
 import java.util.ArrayList;
@@ -26,10 +31,14 @@ import butterknife.ButterKnife;
 
 public class Act_user_info extends AppCompatActivity {
 
+    final String TAG = "Act_user_info";
+
     //@Bind(R.id.bt_check_user);
     ImageButton btCheck;
 
     ImageButton backBtn;
+    ListView userList;
+    UserInfoListViewAdapter userInfoListViewAdapter;
 
     private Context context;
 
@@ -41,11 +50,31 @@ public class Act_user_info extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setCustomActionbar();
+
+        userList = (ListView)findViewById(R.id.user_list);
+        userList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        userInfoListViewAdapter = new UserInfoListViewAdapter();
+
+        userList.setAdapter(userInfoListViewAdapter);
     }
 
     @Override
     protected void onResume(){
         super.onResume();
+
+        // Load DB user info table
+        ArrayList<String> user_list = new DBQuery(context).getALLUserInfo();
+        Log.v(TAG, "User count:" + user_list.size());
+
+        for(int i=0; i<user_list.size(); i++) {
+            if (ManageDeviceConfiguration.getInstance().getUserId().equals(user_list.get(i))) {
+                userInfoListViewAdapter.addItem(ContextCompat.getDrawable(this,R.mipmap.ic_done), "selected user");
+                Log.v(TAG, "selected user");
+            } else {
+                userInfoListViewAdapter.addItem(null, "non selected user");
+                Log.v(TAG, "none selected user");
+            }
+        }
     }
 
     public void onClickDelete(View v){
@@ -53,7 +82,7 @@ public class Act_user_info extends AppCompatActivity {
     }
 
     public void onClickAdd(View v){
-
+        new DialogUserInfoEdit(this);
     }
 
     private void setCustomActionbar() {
@@ -116,15 +145,16 @@ public class Act_user_info extends AppCompatActivity {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.custom_userinfo_listview, parent, false);
             }
-                ImageView icon = (ImageView)convertView.findViewById(R.id.ivIcon);
-                TextView content = (TextView)convertView.findViewById(R.id.tvContent);
 
-                UserInfoListViewItem userInfoListViewItem = listViewItems.get(position);
+            ImageView icon = (ImageView)convertView.findViewById(R.id.ivIcon);
+            TextView content = (TextView)convertView.findViewById(R.id.tvContent);
 
-                icon.setImageDrawable(userInfoListViewItem.getIcon());
-                content.setText(userInfoListViewItem.getContent());
+            UserInfoListViewItem userInfoListViewItem = listViewItems.get(position);
 
-                return convertView;
+            icon.setImageDrawable(userInfoListViewItem.getIcon());
+            content.setText(userInfoListViewItem.getContent());
+
+            return convertView;
         }
 
         @Override
@@ -137,6 +167,8 @@ public class Act_user_info extends AppCompatActivity {
             UserInfoListViewItem item = new UserInfoListViewItem();
             item.setIcon(icon);
             item.setContent(content);
+
+            listViewItems.add(item);
         }
     }
 }

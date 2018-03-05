@@ -53,6 +53,8 @@
     <string name="guest">GUEST</string>
     <string name="login">LOGIN</string>
 
+    // toast message
+    <string name="noneUserInfo">There is not infomation of user</string>
 
     <!--사용자 추가시  MSG-->
     <string name="NewUserRegistration">User registration</string>		<!--새 사용자 등록-->

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,10 +17,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cellumed.healthcare.microfit.knee.DataBase.DBQuery;
 import com.cellumed.healthcare.microfit.knee.DataBase.SqlImp;
+import com.cellumed.healthcare.microfit.knee.Home.ManageDeviceConfiguration;
 import com.cellumed.healthcare.microfit.knee.R;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -51,7 +55,7 @@ public class DialogUserInfoEdit extends Dialog implements  SqlImp {
     private Context mContext;
 
     public static boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         try {
             dateFormat.parse(inDate.trim());
@@ -182,12 +186,43 @@ public class DialogUserInfoEdit extends Dialog implements  SqlImp {
 
             }
             else {
+                /*
                 editor.putString(UserName, etUserName.getText().toString());
                 editor.putString(UserBirthday, etUserBirth.getText().toString());
                 editor.putInt(UserGender, cbFemale.isChecked() ? 1 : 0);
                 editor.putInt(UserLegType, cbRight.isChecked() ? 1 : 0);
-
                 editor.commit();
+                */
+
+
+                String name = etUserName.getText().toString();
+                String birth = etUserBirth.getText().toString();
+                String gender = cbFemale.isChecked() ? "FM":"M";
+                String leg = cbRight.isChecked() ? "RL":"LL";
+
+                // DB에 사용자정보 저장
+                final HashMap<String, String> workoutData = new HashMap<>();
+                workoutData.put(UserInfoName, name);
+                workoutData.put(UserInfoBirth, birth);
+                workoutData.put(UserInfoGender, gender);
+                workoutData.put(UserInfoLegPart, leg);
+
+                if (new DBQuery(mContext).newUserInfoInsert(workoutData)) {
+                    Log.d("add user info", "저장");
+                }
+
+                // DB 저장후 id 값을 가지고 온다
+                String id = new DBQuery(mContext).getUserInfoId(name, birth);
+
+                Log.i("DialoguserInfoEdit", "User ID:" + id + ", " + name + birth + gender + leg);
+
+                // SharedPreference 도 저장
+                ManageDeviceConfiguration.getInstance().updateUserId(id);
+                ManageDeviceConfiguration.getInstance().updateUserName(name);
+                ManageDeviceConfiguration.getInstance().updateUserBirth(birth);
+                ManageDeviceConfiguration.getInstance().updateUserGender(gender);
+                ManageDeviceConfiguration.getInstance().updateUserLegPart(leg);
+
                 dismiss();
             }
         });
@@ -195,9 +230,6 @@ public class DialogUserInfoEdit extends Dialog implements  SqlImp {
 
         show();
     }
-
-
-
 
     public static void downKeyboard(Context context, EditText editText) {
         InputMethodManager mInputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
