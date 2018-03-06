@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microfit.knee.Bluetooth.BTConnectActivity;
@@ -518,9 +519,24 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
 
 
     public void posturePopup () {
+        final Bundle extras = getIntent().getExtras();
+
+        String pre_mode_str1=extras.getString("title");
+        String a = "";
+        if(admin_mode==0){
+             if(pre_mode_str1.equals("gait")){
+                 a = "걷기";
+             }else if(pre_mode_str1.equals("squat")){
+                 a = "스쿼트";
+             }else{
+                 a = "스텝박스";
+             }
+        }else{
+            a = getResources().getString(R.string.PreRehab);
+        }
         MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
         builder
-                .title(R.string.PreRehab)
+                .title(a)
                 .titleColor(Color.parseColor("#000000"))
                 .backgroundColor(Color.parseColor("#aec7d5"))
                 .content("자리에 앉은 상태에서 시작을 눌러 주시기 바랍니다")

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cellumed.healthcare.microfit.knee.Bluetooth.BTConnectActivity;
@@ -31,9 +32,9 @@ public class Act_admin extends BTConnectActivity {
     private String startTimeStr;
 
     private BackPressCloseHandler backPressCloseHandler;
-    @Bind(R.id.bt_gait1) Button bt_gait1;
-    @Bind(R.id.bt_squat1) Button bt_squat1;
-    @Bind(R.id.bt_stepbox1) Button bt_stepbox1;
+    @Bind(R.id.bt_gait1) RelativeLayout bt_gait1;
+    @Bind(R.id.bt_squat1) RelativeLayout bt_squat1;
+    @Bind(R.id.bt_stepbox1) RelativeLayout bt_stepbox1;
 
 
 
