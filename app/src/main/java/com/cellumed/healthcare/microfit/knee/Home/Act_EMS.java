@@ -378,7 +378,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         {
             SignalTypeIdx = 0;
             signal_type.setText(SignalTypeStr[SignalTypeIdx]);
-            
+
             String t = "30";
             // String t = "1";
             working_time.setText(t);
