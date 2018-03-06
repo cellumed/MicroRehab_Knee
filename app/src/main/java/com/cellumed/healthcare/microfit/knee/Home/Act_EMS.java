@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microfit.knee.Bluetooth.BTConnectActivity;
@@ -36,6 +37,8 @@ import com.cellumed.healthcare.microfit.knee.DataBase.SqlImp;
 import com.cellumed.healthcare.microfit.knee.R;
 import com.cellumed.healthcare.microfit.knee.Setting.OnAdapterClick;
 import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
+
+import org.apache.poi.ss.formula.functions.T;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -919,9 +922,10 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         View mCustomView = LayoutInflater.from(this).inflate(R.layout.layout_actionbar, null);
         actionBar.setCustomView(mCustomView);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff6669")));
-        ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_04);
 
-
+        if(rehab_mode_idx!=9){
+            ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_04);
+        }
 
         Toolbar parent = (Toolbar) mCustomView.getParent();
         parent.setContentInsetsAbsolute(0, 0);

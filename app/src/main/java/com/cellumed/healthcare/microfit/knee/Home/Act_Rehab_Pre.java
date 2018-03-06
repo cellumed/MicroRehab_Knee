@@ -297,12 +297,33 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     }
 
     public void checkDonePopup () {
+        final Bundle extras = getIntent().getExtras();
+
+        String pre_mode_str1=extras.getString("title");
+        String title = "";
+        String content = "";
+        if(admin_mode==0){
+            if(pre_mode_str1.equals("gait")){
+                title = "걷기";
+                content = "걷기 운동이 완료되었습니다.";
+            }else if(pre_mode_str1.equals("squat")){
+                title = "스쿼트";
+                content = "스쿼트 운동이 완료되었습니다.";
+            }else{
+                title = "스탭박스";
+                content = "스탭박스 운동이 완료되었습니다.";
+            }
+        }else{
+            title = getString(R.string.PreRehab);
+            content = "사전평가가 완료되었습니다.";
+        }
+
         MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
         builder
-                .title(getString(R.string.PreRehab))
-                .titleColor(Color.parseColor("#000000"))
+                .title(title)
+               .titleColor(Color.parseColor("#000000"))
                 .backgroundColor(Color.parseColor("#aec7d5"))
-                .content("사전평가가 완료되었습니다.")
+                .content(content)
                 .positiveText(getString(R.string.ok))
                 .positiveColor(Color.parseColor("#000000"))
                 .onPositive((dialog, which) -> {
@@ -311,15 +332,12 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                     if(admin_mode==0){
                         this.finish();
                     }
-
-
                 }).show();
     }
 
     public void checkComplete() {
         // if complete go to EMS
         //if(sensing_cnt > 50) {
-        Log.d("TAG","====rehab_check 1 ====");
         checkOk = false;
         checkDonePopup();
 
@@ -522,21 +540,21 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
         final Bundle extras = getIntent().getExtras();
 
         String pre_mode_str1=extras.getString("title");
-        String a = "";
+        String title = "";
         if(admin_mode==0){
              if(pre_mode_str1.equals("gait")){
-                 a = "걷기";
+                 title = "걷기";
              }else if(pre_mode_str1.equals("squat")){
-                 a = "스쿼트";
+                 title = "스쿼트";
              }else{
-                 a = "스텝박스";
+                  title= "스텝박스";
              }
         }else{
-            a = getResources().getString(R.string.PreRehab);
+            title = getResources().getString(R.string.PreRehab);
         }
         MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
         builder
-                .title(a)
+                .title(title)
                 .titleColor(Color.parseColor("#000000"))
                 .backgroundColor(Color.parseColor("#aec7d5"))
                 .content("자리에 앉은 상태에서 시작을 눌러 주시기 바랍니다")
