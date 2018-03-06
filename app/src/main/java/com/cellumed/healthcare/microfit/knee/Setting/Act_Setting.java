@@ -26,8 +26,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microfit.knee.Bluetooth.BTConnectActivity;
 import com.cellumed.healthcare.microfit.knee.DAO.DAO_Program;
 import com.cellumed.healthcare.microfit.knee.DataBase.DBQuery;
-import com.cellumed.healthcare.microfit.knee.Dialog.DialogUserInfoEdit;
-import com.cellumed.healthcare.microfit.knee.Home.Act_user_info;
+import com.cellumed.healthcare.microfit.knee.Home.Act_UserInfo;
 import com.cellumed.healthcare.microfit.knee.R;
 import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
 import com.cellumed.healthcare.microfit.knee.Util.SqliteToExcel;
@@ -66,7 +65,7 @@ public class Act_Setting extends BTConnectActivity implements OnAdapterClick {
 
     public void userInfoEdit (View view) {
         //new DialogUserInfoEdit(mContext);
-        Intent intent = new Intent(this, Act_user_info.class);
+        Intent intent = new Intent(this, Act_UserInfo.class);
         startActivity(intent);
     }
 

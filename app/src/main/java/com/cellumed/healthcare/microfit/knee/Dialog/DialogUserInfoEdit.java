@@ -69,8 +69,6 @@ public class DialogUserInfoEdit extends Dialog implements  SqlImp {
         super(mContext);
         this.mContext = mContext;
 
-
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setTitle(mContext.getString(R.string.SettingUser));
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -208,7 +206,7 @@ public class DialogUserInfoEdit extends Dialog implements  SqlImp {
                 workoutData.put(UserInfoLegPart, leg);
 
                 if (new DBQuery(mContext).newUserInfoInsert(workoutData)) {
-                    Log.d("add user info", "저장");
+                    Log.d("DialogUserInfoEdit", "저장");
                 }
 
                 // DB 저장후 id 값을 가지고 온다

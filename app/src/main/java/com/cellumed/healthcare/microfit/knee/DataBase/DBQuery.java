@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import com.cellumed.healthcare.microfit.knee.DAO.DAO_Program;
+import com.cellumed.healthcare.microfit.knee.DAO.DAO_UserInfo;
 import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
 
 import java.util.ArrayList;
@@ -102,6 +103,28 @@ public class DBQuery implements SqlImp {
         db.close();
 
         return b;
+    }
+
+    public DAO_UserInfo getUserInfoFromId(String id) {
+        final String where = UserInfoId + " = " + id;
+        DAO_UserInfo userInfo = new DAO_UserInfo();
+
+        final Cursor mCursor = db.getField(UserInfoTable, ALL_FIELD, where, null, null);
+
+        while (mCursor.moveToNext()) {
+            try {
+
+                userInfo.setId(mCursor.getString(mCursor.getColumnIndex(UserInfoId)));
+                userInfo.setName(mCursor.getString(mCursor.getColumnIndex(UserInfoName)));
+                userInfo.setBirth(mCursor.getString(mCursor.getColumnIndex(UserInfoBirth)));
+                userInfo.setGender(mCursor.getString(mCursor.getColumnIndex(UserInfoGender)));
+                userInfo.setLegPart(mCursor.getString(mCursor.getColumnIndex(UserInfoLegPart)));
+
+            } catch (SQLiteException | IllegalStateException | NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return userInfo;
     }
 
     public String getUserInfoId(String name, String birth) {
@@ -275,17 +298,22 @@ public class DBQuery implements SqlImp {
         return mDaoProgram;
     }
 
-    public ArrayList<String> getALLUserInfo() {
+    public ArrayList<DAO_UserInfo> getALLUserInfo() {
 
-        ArrayList<String> userinfo = new ArrayList<>();
+        ArrayList<DAO_UserInfo> userinfo = new ArrayList<>();
         final Cursor mCursor = db.getField(UserInfoTable, ALL_FIELD, null, null, UserInfoId, null);
-
-        String result = "";
 
         while (mCursor.moveToNext()) {
             try {
-                result = mCursor.getString(mCursor.getColumnIndex(UserInfoId));
-                userinfo.add(result);
+
+                DAO_UserInfo user = new DAO_UserInfo();
+                user.setId(mCursor.getString(mCursor.getColumnIndex(UserInfoId)));
+                user.setName(mCursor.getString(mCursor.getColumnIndex(UserInfoName)));
+                user.setBirth(mCursor.getString(mCursor.getColumnIndex(UserInfoBirth)));
+                user.setGender(mCursor.getString(mCursor.getColumnIndex(UserInfoGender)));
+                user.setLegPart(mCursor.getString(mCursor.getColumnIndex(UserInfoLegPart)));
+                userinfo.add(user);
+
             } catch (SQLiteException | IllegalStateException | NullPointerException e) {
                 e.printStackTrace();
             }
@@ -293,6 +321,7 @@ public class DBQuery implements SqlImp {
 
         mCursor.close();
         db.close();
+
         return userinfo;
     }
 
@@ -433,7 +462,6 @@ public class DBQuery implements SqlImp {
         return b;
     }
 
-
     public boolean programRemove(String idx) {
         boolean b = false;
         final String where = String.format(Idx + " = '%s'", idx);
@@ -441,4 +469,10 @@ public class DBQuery implements SqlImp {
         return db.dataDelete(ProgramTable, where) != 0;
     }
 
+    public boolean deleteUserInfo(String id) {
+        boolean b = false;
+        final String where = String.format(UserInfoId + " = '%s'", id);
+
+        return db.dataDelete(UserInfoTable, where) != 0;
+    }
 }
