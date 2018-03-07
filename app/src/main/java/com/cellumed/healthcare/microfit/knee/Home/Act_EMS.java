@@ -139,6 +139,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
     private void checkBack()
     {
+        /*
         if(isAdminMode) {
             super.onBackPressed();
         }
@@ -169,15 +170,50 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                     }).onNegative((dialog1, which1) -> dialog1.dismiss()
             ).show();
         }
+        */
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
+        builder
+                .title(getString(R.string.warning))
+                .titleColor(Color.parseColor("#000000"))
+                .backgroundColor(Color.parseColor("#aec7d5"))
+                .content("운동을 종료하시겠습니까? 운동정보는 모두 삭제됩니다.")
+                .positiveText(getString(R.string.ok))
+                .positiveColor(Color.parseColor("#000000"))
+                .negativeColor(Color.DKGRAY)
+                .negativeText(getString(R.string.cancel))
+                .onPositive((dialog, which) -> {
+                    //   int i= BudUtil.actList.size();
+                    //   BudUtil.actList.get(i-1).finish();  // 이전것(사전운동) 종료
+                    for (int i = 0; i < BudUtil.actList.size(); i++) {
+                        BudUtil.actList.get(i).finish();
+                    }
+
+                    //if (isAdminMode == false) if (db_idx.length() != 0) new DBQuery(mContext).programRemove(db_idx);
+                    whenRequestStop();
+                    cancelNotification();
+                    finish();   // 현재 종료
+                    Intent intent = new Intent(this, Act_Home.class);
+                    startActivity(intent);
+                    dialog.dismiss();
+
+                }).onNegative((dialog1, which1) -> {
+
+                    dialog1.dismiss();
+                }
+        ).show();
     }
     @Override
     public void onBackPressed() {
+
+
+        /*
         if(isAdminMode)
         {
             super.onBackPressed();
         }
         else checkBack();
-
+        */
+        checkBack();
     }
 
     public void emsDonePopup () {
@@ -283,10 +319,10 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         d= mContext.getResources().getDisplayMetrics().density;
         // 사전운동에서 넘어온 데이터 세팅
         final Bundle extras = getIntent().getExtras();
-
-        rehab_mode_idx = extras.getInt("mode",9);   // 모드가 없이 오면 관리자 모드
-
         db_idx=extras.getString("dbidx","");
+
+        /*
+        rehab_mode_idx = extras.getInt("mode",9);   // 모드가 없이 오면 관리자 모드
         if(rehab_mode_idx==0)
         {
             screen.setBackgroundResource(R.drawable.ring_05);
@@ -313,11 +349,12 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             rehab_mode_name=mContext.getResources().getString(R.string.admin_ems);
             rehab_mode_str="9";
         }
+        */
 
 
 
 //****//
-        if(isAdminMode) {
+        //if(isAdminMode) {
             // 현재 ems설정 가져올 값
             String sfName = "EMS_TEMP_SETTING";   // 임시 shared 저장용
             SharedPreferences sf = mContext.getSharedPreferences(sfName, Context.MODE_MULTI_PROCESS);
@@ -376,6 +413,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
             // sync
             editor.commit();
+            /*
         }
         else    // default
         {
@@ -408,6 +446,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             pulse_width.setText(t);
 
         }
+        */
 
         //----------------
         startService();
@@ -627,8 +666,9 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                             if (time <= 0) {
                                 whenRequestStop();
                                 cancelNotification();
-                                if (isAdminMode) adminEmsDonePopup();
-                                else emsDonePopup();
+                                //if (isAdminMode) adminEmsDonePopup();
+                                //else emsDonePopup();
+                                adminEmsDonePopup();
                                 //finish();   // finish activity and go back to list
                             }
                         }
@@ -730,6 +770,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        cancelNotification();
 
         if(not_started ==false) {
             //  recycleBitmap(screen);
@@ -909,9 +951,13 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         actionBar.setCustomView(mCustomView);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff6669")));
 
+        /*
         if(rehab_mode_idx!=9){
             ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_04);
         }
+        */
+
+        ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_04);
 
         Toolbar parent = (Toolbar) mCustomView.getParent();
         parent.setContentInsetsAbsolute(0, 0);
@@ -992,6 +1038,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
     public void updateNotificiation(String time){
         Log.d("TAG", "udateNotification: " + time);
+        if(notificationManager == null) return;
+
         notiBuilder.setContentText(time);
         notification = notiBuilder.build();
         notificationManager.notify(ACT_EMS_NOTI_ID, notification);
@@ -1005,6 +1053,9 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     }
 
     public void cancelNotification(){
+        Log.d("TAG", "cancelNotification");
+        if(notificationManager == null) return;
+
         notificationManager.cancel(ACT_EMS_NOTI_ID);
     }
 }
