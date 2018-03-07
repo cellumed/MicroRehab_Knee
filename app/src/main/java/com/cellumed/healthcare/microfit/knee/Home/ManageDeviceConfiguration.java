@@ -3,6 +3,8 @@ package com.cellumed.healthcare.microfit.knee.Home;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.cellumed.healthcare.microfit.knee.DAO.DAO_UserInfo;
+
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -97,6 +99,17 @@ public class ManageDeviceConfiguration {
     public void updateUserLegPart(String bodyPart){
         spEditor.putString(USER_LEGPART, bodyPart);
         spEditor.commit();
+    }
+
+    public void updateUser(DAO_UserInfo user){
+        spEditor.putString(USER_ID, user.getId());
+        spEditor.putString(USER_NAME, user.getName());
+        spEditor.putString(USER_BIRTH, user.getBirth());
+        spEditor.putString(USER_GENDER, user.getGender());
+        spEditor.putString(USER_LEGPART, user.getLegPart());
+        spEditor.commit();
+
+        loadUserInfo();
     }
 
     private static ManageDeviceConfiguration manageConfiguration;

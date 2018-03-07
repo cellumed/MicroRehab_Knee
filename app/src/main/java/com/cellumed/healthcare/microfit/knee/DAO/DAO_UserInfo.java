@@ -13,6 +13,15 @@ public class DAO_UserInfo {
     String Gender;
     String LegPart;
 
+    public DAO_UserInfo init(){
+        Id = "";
+        Name = "";
+        Birth = "";
+        Gender = "";
+        LegPart = "";
+        return this;
+    }
+
     public String getId(){
         return Id;
     }

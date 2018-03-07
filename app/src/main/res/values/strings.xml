@@ -292,4 +292,7 @@
     <!-- Act EMS -->
     <string name="ems_running">EMS 동작중</string>
 
+    <!-- Dialog Add User -->
+    <string name="input_birthday">생년월일을 입력 해주세요</string>
+
 </resources>

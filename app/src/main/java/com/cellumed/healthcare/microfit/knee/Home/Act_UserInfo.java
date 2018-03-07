@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.cellumed.healthcare.microfit.knee.DAO.DAO_UserInfo;
 import com.cellumed.healthcare.microfit.knee.DataBase.DBQuery;
+import com.cellumed.healthcare.microfit.knee.Dialog.CallbackDialog;
 import com.cellumed.healthcare.microfit.knee.Dialog.DialogUserInfoEdit;
 import com.cellumed.healthcare.microfit.knee.R;
 
@@ -63,7 +64,7 @@ public class Act_UserInfo extends AppCompatActivity {
 
     @Override
     protected void onStart(){
-        super.onPause();
+        super.onStart();
         Log.d(TAG, "onStart");
     }
 
@@ -71,7 +72,6 @@ public class Act_UserInfo extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
 
-        Log.d(TAG, "Reload ListView");
         if(ManageDeviceConfiguration.getInstance().getUserId().isEmpty()){
             currentUserId = "";
         } else {
@@ -79,7 +79,7 @@ public class Act_UserInfo extends AppCompatActivity {
         }
 
         userInfoListViewAdapter.notifyDataSetChanged();
-        reloadDatabaseUserInfoTable();
+        loadUserInfoTable();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Act_UserInfo extends AppCompatActivity {
 
     @Override
     protected void onStop(){
-        super.onPause();
+        super.onStop();
         Log.d(TAG, "onTop");
     }
 
@@ -100,33 +100,38 @@ public class Act_UserInfo extends AppCompatActivity {
             Log.d(TAG, "Delete UserInfo ID: " + currentUserId);
         }
 
+        DAO_UserInfo user = new DAO_UserInfo().init();
+
         // SharedPreference Update
-        ManageDeviceConfiguration.getInstance().updateUserId("");
-        ManageDeviceConfiguration.getInstance().updateUserName("");
-        ManageDeviceConfiguration.getInstance().updateUserBirth("");
-        ManageDeviceConfiguration.getInstance().updateUserGender("");
-        ManageDeviceConfiguration.getInstance().updateUserLegPart("");
-        ManageDeviceConfiguration.getInstance().loadUserInfo();
+        ManageDeviceConfiguration.getInstance().updateUser(user);
 
         userInfoListViewAdapter.removeItem();
         userInfoListViewAdapter.notifyDataSetChanged();
-        reloadDatabaseUserInfoTable();
+        loadUserInfoTable();
     }
 
     public void onClickAdd(View v) {
-        new DialogUserInfoEdit(this);
+        new DialogUserInfoEdit(this, new CallbackDialog() {
+            @Override
+            public void onPositive() {
+                currentUserId = ManageDeviceConfiguration.getInstance().getUserId();
+                userInfoListViewAdapter.removeItem();
+                userInfoListViewAdapter.notifyDataSetChanged();
+                loadUserInfoTable();
+            }
 
-        //currentUserId = ManageDeviceConfiguration.getInstance().getUserId();
-        //userInfoListViewAdapter.removeItem();
-        //userInfoListViewAdapter.notifyDataSetChanged();
-        //reloadDatabaseUserInfoTable();
+            @Override
+            public void onNegative() {
+
+            }
+        });
+
+
 
         Log.v(TAG, "onClickAdd");
-
     }
 
-
-    public void reloadDatabaseUserInfoTable(){
+    public void loadUserInfoTable(){
 
         // Load DB user info table
         ArrayList<DAO_UserInfo> user_list = new DBQuery(context).getALLUserInfo();
@@ -170,19 +175,14 @@ public class Act_UserInfo extends AppCompatActivity {
 
         DAO_UserInfo userInfo = new DBQuery(context).getUserInfoFromId(currentUserId);
 
-        // SharedPreference 도 저장
-        ManageDeviceConfiguration.getInstance().updateUserId(userInfo.getId());
-        ManageDeviceConfiguration.getInstance().updateUserName(userInfo.getName());
-        ManageDeviceConfiguration.getInstance().updateUserBirth(userInfo.getBirth());
-        ManageDeviceConfiguration.getInstance().updateUserGender(userInfo.getGender());
-        ManageDeviceConfiguration.getInstance().updateUserLegPart(userInfo.getLegPart());
-        ManageDeviceConfiguration.getInstance().loadUserInfo();
-
         Log.d(TAG, "id:" + ManageDeviceConfiguration.getInstance().getUserId());
         Log.d(TAG, "name" + ManageDeviceConfiguration.getInstance().getUserName());
         Log.d(TAG, "birth" + ManageDeviceConfiguration.getInstance().getUserBirth());
         Log.d(TAG, "gender" + ManageDeviceConfiguration.getInstance().getUserGender());
         Log.d(TAG, "leg" + ManageDeviceConfiguration.getInstance().getUserLegPart());
+
+        // SharedPreference 도 저장
+        ManageDeviceConfiguration.getInstance().updateUser(userInfo);
     }
 
     ListView.OnItemClickListener onItemClickListener = new ListView.OnItemClickListener() {

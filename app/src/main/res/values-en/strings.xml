@@ -278,5 +278,8 @@
     <!-- Act EMS -->
     <string name="ems_running">EMS Running</string>
 
+    <!-- Dialog Add User -->
+    <string name="input_birthday">please input your birthday</string>
+
 
 </resources>
