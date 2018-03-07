@@ -742,7 +742,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 */
     }
 
-
     private void setCustomList() {
         customAdapter.addItem(mContext.getResources().getString(R.string.Fem_Up), formatter.format(stimulusIntensity));
         customAdapter.addItem(mContext.getResources().getString(R.string.Fem_Down), formatter.format(stimulusIntensity));
@@ -771,13 +770,11 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     protected void onDestroy() {
         super.onDestroy();
 
-        cancelNotification();
-
         if(not_started ==false) {
             //  recycleBitmap(screen);
         }
         try{
-            notificationManager.cancel(ACT_EMS_NOTI_ID);
+            cancelNotification();
             // timer.cancel();
         } catch (Exception e) {}
         //timer = null;
