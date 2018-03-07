@@ -932,7 +932,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
     }
 
-    static final int ACT_EMS_NOTI_ID = 1;
+    static final int ACT_EMS_NOTI_ID = 1234567890;
     NotificationManager notificationManager;
     Notification notification;
     Notification.Builder notiBuilder;
@@ -940,6 +940,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
     // EMS 동작에서만 notification 으로 알림을 표시 한다
     public void createNotification(){
+
+        Log.d("tag", "create Notification");
 
         notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
@@ -989,13 +991,14 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     }
 
     public void updateNotificiation(String time){
-        Log.d("TAG", "udateNotification");
+        Log.d("TAG", "udateNotification: " + time);
         notiBuilder.setContentText(time);
+        notification = notiBuilder.build();
         notificationManager.notify(ACT_EMS_NOTI_ID, notification);
     }
 
     public void updateCustomNotificiation(String time){
-        Log.d("TAG", "udateCustomNotification");
+        Log.d("TAG", "udateCustomNotification" + time);
         remoteViews.setTextViewText(R.id.tvTime, time);
         notiBuilder.setContent(remoteViews);
         notificationManager.notify(ACT_EMS_NOTI_ID, notification);
