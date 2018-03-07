@@ -93,7 +93,6 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
             n.setHistoryTime(progList.get(i).getProgramStartDate());
             n.setHistoryTimePre(progList.get(i).getPostTime());
             mHistoryListAdapter.addHistory(n);
-            Log.d("tag","test 29 act_history - onresume "+n);
         }
 
         historyList.setAdapter( mHistoryListAdapter);

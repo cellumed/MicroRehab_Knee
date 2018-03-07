@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg_img03"
+    android:background="@drawable/bg_admin"
     android:orientation="vertical"
     tools:context=".Home.Act_Rehab_Home">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="3.5"></LinearLayout>
+        android:layout_weight="3.1"></LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -76,76 +76,94 @@
             android:layout_centerVertical="true" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="2.35"
-        android:orientation="horizontal"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="45dp">
-
-        <Button
-            android:id="@+id/bt_gait1"
+        android:paddingLeft="26dp"
+        android:paddingRight="58dp"
+        android:id="@+id/bt_gait1"
+        android:clickable="true">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bt_gait_nor"
+                android:scaleType="fitXY"/>
+        </FrameLayout>
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/program"
-            android:scaleType="fitXY"
             android:text="걷기"
+            android:textSize="17sp"
             android:textColor="@color/white"
-            android:layout_centerVertical="true" />
-    </LinearLayout>
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="2.35"
-        android:orientation="horizontal"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="45dp">
-
-        <Button
-            android:id="@+id/bt_squat1"
+        android:paddingLeft="26dp"
+        android:paddingRight="58dp"
+        android:id="@+id/bt_squat1"
+        android:clickable="true">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bt_squat_nor"
+                android:scaleType="fitXY"/>
+        </FrameLayout>
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/program"
-            android:scaleType="fitXY"
             android:text="스쿼트"
+            android:textSize="17sp"
             android:textColor="@color/white"
-            android:layout_centerVertical="true" />
-    </LinearLayout>
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="2.35"
-        android:orientation="horizontal"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="45dp">
-
-        <Button
-            android:id="@+id/bt_stepbox1"
+        android:paddingLeft="26dp"
+        android:paddingRight="58dp"
+        android:id="@+id/bt_stepbox1"
+        android:clickable="true">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bt_stepbox_nor"
+                android:scaleType="fitXY"/>
+        </FrameLayout>
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/program"
-            android:scaleType="fitXY"
-            android:text="스텝박스"
+            android:text="스탭박스"
+            android:textSize="17sp"
             android:textColor="@color/white"
-            android:layout_centerVertical="true" />
-    </LinearLayout>
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="3.3"></LinearLayout>
+        android:layout_weight="2.7"></LinearLayout>
     <LinearLayout
 
         android:layout_width="fill_parent"
@@ -161,6 +179,7 @@
 
             android:src="@drawable/cellumed_logo"
             android:layout_centerVertical="true" />
+
 
     </LinearLayout>
 

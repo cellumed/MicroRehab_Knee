@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microfit.knee.Bluetooth.BTConnectActivity;
@@ -36,6 +37,8 @@ import com.cellumed.healthcare.microfit.knee.DataBase.SqlImp;
 import com.cellumed.healthcare.microfit.knee.R;
 import com.cellumed.healthcare.microfit.knee.Setting.OnAdapterClick;
 import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
+
+import org.apache.poi.ss.formula.functions.T;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -196,7 +199,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                     bundle.putString("dbidx", db_idx);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                    Log.d("tag","사후로 넘어간 값 : "+rehab_mode_idx);
                     dialog.dismiss();
 
 
@@ -214,7 +216,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 .positiveColor(Color.parseColor("#000000"))
                 .onPositive((dialog, which) -> {
 
-                    Intent intent = new Intent(this, Act_Home.class);
+                    Intent intent = new Intent(this, Act_admin.class);
                     final Bundle bundle = new Bundle();
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -380,7 +382,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             SignalTypeIdx = 0;
             signal_type.setText(SignalTypeStr[SignalTypeIdx]);
 
-            // 시간 30분 임시로 3분
+            //임시 3분 원래 30분
             String t = "3";
             // String t = "1";
             working_time.setText(t);
@@ -484,8 +486,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         workoutData.put(ProgramPulseRiseTime , pulse_rising_time.getText().toString()); //펄스 상승시
         workoutData.put(ProgramPulseWidth,pulse_width.getText().toString()) ;//펄스폭
 
-
-        Log.d("TAG","----TEST----- "+ db_idx);
 
         if (new DBQuery(mContext).setProgramUpdate(workoutData,db_idx)) {
 
@@ -679,6 +679,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         isRunning = 0;
         ts_last_ms=0;
         //if(timer!=null) timer.cancel();
+        Log.d("tag","stop===");
         start.setBackgroundResource(R.drawable.btn_continue );
         backBtn.setClickable(true);
         backBtn.setSelected(false);
@@ -692,22 +693,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             Custom_List_View_Item item = (Custom_List_View_Item) customAdapter.getItem(i);
             item.setLevelValueString(String.format("%02d", 0));
             customAdapter.notifyDataSetChanged();
-        }
-
-        if(rehab_mode_idx==0)
-        {
-            screen.setBackgroundResource(R.drawable.img_gait);
-        }
-        else if(rehab_mode_idx==1)
-        {
-            screen.setBackgroundResource(R.drawable.img_squat);
-        }
-        else if(rehab_mode_idx==2)
-        {
-            screen.setBackgroundResource(R.drawable.img_stepbox);
-        }
-        if(rehab_mode_idx==9) {
-            screen.setBackgroundResource(R.drawable.img_stepbox);
         }
 
 /*
@@ -923,9 +908,10 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         View mCustomView = LayoutInflater.from(this).inflate(R.layout.layout_actionbar, null);
         actionBar.setCustomView(mCustomView);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff6669")));
-        ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_04);
 
-
+        if(rehab_mode_idx!=9){
+            ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_04);
+        }
 
         Toolbar parent = (Toolbar) mCustomView.getParent();
         parent.setContentInsetsAbsolute(0, 0);
