@@ -211,12 +211,12 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 .title(getString(R.string.SystemState))
                 .titleColor(Color.parseColor("#000000"))
                 .backgroundColor(Color.parseColor("#aec7d5"))
-                .content("재활훈련이 완료되었습니다.")
+                .content("EMS 동작이 완료되었습니다.")
                 .positiveText(getString(R.string.ok))
                 .positiveColor(Color.parseColor("#000000"))
                 .onPositive((dialog, which) -> {
 
-                    Intent intent = new Intent(this, Act_admin.class);
+                    Intent intent = new Intent(this, Act_Home.class);
                     final Bundle bundle = new Bundle();
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -285,7 +285,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         rehab_mode_idx = extras.getInt("mode",9);   // 모드가 없이 오면 관리자 모드
         screen.setBackgroundResource(R.drawable.ring_05);
         rehab_mode_name=mContext.getResources().getString(R.string.admin_ems);
-        rehab_mode_str="9";
 
         if(rehab_mode_idx == 9){
             isAdminMode=true;
@@ -689,12 +688,15 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.e("Act_EMS", "onDestroy");
+
+        cancelNotification();
+        finish();
 
         if(not_started ==false) {
             //  recycleBitmap(screen);
         }
         try{
-            cancelNotification();
             // timer.cancel();
         } catch (Exception e) {}
         //timer = null;
@@ -954,9 +956,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     }
 
     public void updateNotificiation(String time){
-        Log.d("TAG", "udateNotification: " + time);
         if(notificationManager == null) return;
-
+        Log.d("TAG", "udateNotification: " + time);
         notiBuilder.setContentText(time);
         notification = notiBuilder.build();
         notificationManager.notify(ACT_EMS_NOTI_ID, notification);
@@ -970,9 +971,16 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     }
 
     public void cancelNotification(){
-        Log.d("TAG", "cancelNotification");
-        if(notificationManager == null) return;
+
+        if(notificationManager == null) {
+            Log.d("TAG", "notificationManager Null");
+            return;
+        }
 
         notificationManager.cancel(ACT_EMS_NOTI_ID);
+        notificationManager.cancelAll();
+        notificationManager = null;
+        Log.d("TAG", "notificationManager cancel");
+
     }
 }
