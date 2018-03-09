@@ -438,7 +438,10 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
                 //stop
                 Log.e("TAG", "STop button");
                 isRunning = 0;
+                //Todo: 프로톰콜에 일시정지를 추하해서 처리 해야 데이터 처리에 용이함
+                // 프로토콜 추가후 스톱 요청이 아닌 일시정시 요청으로 변경 필요
                 whenRequestStop();
+                //checkBack();
             }
         }
     };
