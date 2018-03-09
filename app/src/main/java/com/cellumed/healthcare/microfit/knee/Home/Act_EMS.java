@@ -139,7 +139,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
     private void checkBack()
     {
-        /*
         if(isAdminMode) {
             super.onBackPressed();
         }
@@ -170,50 +169,15 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                     }).onNegative((dialog1, which1) -> dialog1.dismiss()
             ).show();
         }
-        */
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
-        builder
-                .title(getString(R.string.warning))
-                .titleColor(Color.parseColor("#000000"))
-                .backgroundColor(Color.parseColor("#aec7d5"))
-                .content("운동을 종료하시겠습니까? 운동정보는 모두 삭제됩니다.")
-                .positiveText(getString(R.string.ok))
-                .positiveColor(Color.parseColor("#000000"))
-                .negativeColor(Color.DKGRAY)
-                .negativeText(getString(R.string.cancel))
-                .onPositive((dialog, which) -> {
-                    //   int i= BudUtil.actList.size();
-                    //   BudUtil.actList.get(i-1).finish();  // 이전것(사전운동) 종료
-                    for (int i = 0; i < BudUtil.actList.size(); i++) {
-                        BudUtil.actList.get(i).finish();
-                    }
-
-                    //if (isAdminMode == false) if (db_idx.length() != 0) new DBQuery(mContext).programRemove(db_idx);
-                    whenRequestStop();
-                    cancelNotification();
-                    finish();   // 현재 종료
-                    Intent intent = new Intent(this, Act_Home.class);
-                    startActivity(intent);
-                    dialog.dismiss();
-
-                }).onNegative((dialog1, which1) -> {
-
-                    dialog1.dismiss();
-                }
-        ).show();
     }
     @Override
     public void onBackPressed() {
 
-
-        /*
         if(isAdminMode)
         {
             super.onBackPressed();
         }
         else checkBack();
-        */
-        checkBack();
     }
 
     public void emsDonePopup () {
@@ -314,47 +278,20 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         pulse_rising_time.setVisibility(View.GONE);
         pulse_width.setVisibility(View.GONE);
 
-
-
         d= mContext.getResources().getDisplayMetrics().density;
         // 사전운동에서 넘어온 데이터 세팅
         final Bundle extras = getIntent().getExtras();
         db_idx=extras.getString("dbidx","");
-
-        /*
         rehab_mode_idx = extras.getInt("mode",9);   // 모드가 없이 오면 관리자 모드
-        if(rehab_mode_idx==0)
-        {
-            screen.setBackgroundResource(R.drawable.ring_05);
-            rehab_mode_name=mContext.getResources().getString(R.string.gait);
-            rehab_mode_str="0";
-        }
-        else if(rehab_mode_idx==1)
-        {
+        screen.setBackgroundResource(R.drawable.ring_05);
+        rehab_mode_name=mContext.getResources().getString(R.string.admin_ems);
+        rehab_mode_str="9";
 
-            screen.setBackgroundResource(R.drawable.ring_05);
-            rehab_mode_name=mContext.getResources().getString(R.string.squat);
-            rehab_mode_str="1";
-        }
-        else if(rehab_mode_idx==2)
-        {
-            screen.setBackgroundResource(R.drawable.ring_05);
-            rehab_mode_name=mContext.getResources().getString(R.string.stepbox);
-            rehab_mode_str="2";
-        }
-        if(rehab_mode_idx==9)
-        {
+        if(rehab_mode_idx == 9){
             isAdminMode=true;
-            screen.setBackgroundResource(R.drawable.ring_05);
-            rehab_mode_name=mContext.getResources().getString(R.string.admin_ems);
-            rehab_mode_str="9";
         }
-        */
 
-
-
-//****//
-        //if(isAdminMode) {
+        if(isAdminMode) {
             // 현재 ems설정 가져올 값
             String sfName = "EMS_TEMP_SETTING";   // 임시 shared 저장용
             SharedPreferences sf = mContext.getSharedPreferences(sfName, Context.MODE_MULTI_PROCESS);
@@ -413,7 +350,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
             // sync
             editor.commit();
-            /*
         }
         else    // default
         {
@@ -444,22 +380,17 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             //50-400. 25us
             t = "350";
             pulse_width.setText(t);
-
         }
-        */
 
         //----------------
         startService();
         setStart();
-
 
         formatter = new DecimalFormat("00");
         String minuteDefault = formatter.format((int) programTime );
         String secondDefault = formatter.format((int) 0);
         minute.setText(minuteDefault);
         second.setText(secondDefault);
-
-
 
         start.setOnClickListener(startClickListener);
         customAdapter = new Custom_List_Adapter(this,new Custom_List_Adapter.OnItemValueChangedListener() {
@@ -474,6 +405,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         listView.setAdapter(customAdapter);
         setCustomList();
     }
+
     /*
         private void startCountDownTimer() {
             not_started=false;
@@ -525,17 +457,10 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         workoutData.put(ProgramPulseRiseTime , pulse_rising_time.getText().toString()); //펄스 상승시
         workoutData.put(ProgramPulseWidth,pulse_width.getText().toString()) ;//펄스폭
 
-
         if (new DBQuery(mContext).setProgramUpdate(workoutData,db_idx)) {
-
             Log.d("ACT ems시작 db 업데이트", "ems db update success");
-
         }
-
-
     }
-
-
 
     private void setStart() {
         final Bundle extras = getIntent().getExtras();
@@ -576,9 +501,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             width = 0;
         }
         width = width / 50;
-
-
-
     }
 
     Button.OnClickListener startClickListener = new View.OnClickListener() {
@@ -602,7 +524,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                     Log.e("TAG","TIME CUT");
                     time -= (time%60);
                     time++;
-
                 }
 
                 // reset ems levels to 0 (04/10)
@@ -666,9 +587,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                             if (time <= 0) {
                                 whenRequestStop();
                                 cancelNotification();
-                                //if (isAdminMode) adminEmsDonePopup();
-                                //else emsDonePopup();
-                                adminEmsDonePopup();
+                                if (isAdminMode) adminEmsDonePopup();
+                                else emsDonePopup();
                                 //finish();   // finish activity and go back to list
                             }
                         }
@@ -743,10 +663,10 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     }
 
     private void setCustomList() {
-        customAdapter.addItem(mContext.getResources().getString(R.string.Fem_Up), formatter.format(stimulusIntensity));
-        customAdapter.addItem(mContext.getResources().getString(R.string.Fem_Down), formatter.format(stimulusIntensity));
-        customAdapter.addItem(mContext.getResources().getString(R.string.Ham_In), formatter.format(stimulusIntensity));
-        customAdapter.addItem(mContext.getResources().getString(R.string.Ham_Out), formatter.format(stimulusIntensity));
+        customAdapter.addItem(mContext.getResources().getString(R.string.Fem_Up), formatter.format((int)stimulusIntensity));
+        customAdapter.addItem(mContext.getResources().getString(R.string.Fem_Down), formatter.format((int)stimulusIntensity));
+        customAdapter.addItem(mContext.getResources().getString(R.string.Ham_In), formatter.format((int)stimulusIntensity));
+        customAdapter.addItem(mContext.getResources().getString(R.string.Ham_Out), formatter.format((int)stimulusIntensity));
     }
 
     @Override
