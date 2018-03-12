@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microfit.knee.Bluetooth.BTConnectActivity;
@@ -30,6 +31,7 @@ import com.cellumed.healthcare.microfit.knee.DataBase.DBQuery;
 import com.cellumed.healthcare.microfit.knee.DataBase.SqlImp;
 import com.cellumed.healthcare.microfit.knee.R;
 import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
+import com.cellumed.healthcare.microfit.knee.Util.CustomToast;
 
 import java.util.HashMap;
 
