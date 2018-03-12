@@ -10,8 +10,11 @@ public class DBOpenHelper implements SqlImp {
     private SQLiteDatabase db;
 
     public DBOpenHelper(Context mContext){
-        helper = new DataBases(mContext);
-        db = helper.getWritableDatabase();
+
+        if(helper == null) {
+            helper = new DataBases(mContext);
+            db = helper.getWritableDatabase();
+        }
     }
 
     public void close(){

@@ -48,6 +48,16 @@ public class ManageDeviceConfiguration {
         getInstance().loadUserInfo();
     }
 
+    public void reset(){
+        spEditor.putString(USER_ID, "");
+        spEditor.putString(USER_NAME, "");
+        spEditor.putString(USER_BIRTH, "");
+        spEditor.putString(USER_GENDER, "");
+        spEditor.putString(USER_LEGPART, "");
+        spEditor.commit();
+        getInstance().loadUserInfo();
+    }
+
     public ManageDeviceConfiguration loadUserInfo(){
         userId = spref.getString(USER_ID, "");
         userName = spref.getString(USER_NAME, "");

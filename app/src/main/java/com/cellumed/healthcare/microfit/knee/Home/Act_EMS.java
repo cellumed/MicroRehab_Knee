@@ -173,11 +173,14 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     @Override
     public void onBackPressed() {
 
+        /*
         if(isAdminMode)
         {
             super.onBackPressed();
         }
         else checkBack();
+        */
+        checkBack();
     }
 
     public void emsDonePopup () {
@@ -215,6 +218,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 .positiveText(getString(R.string.ok))
                 .positiveColor(Color.parseColor("#000000"))
                 .onPositive((dialog, which) -> {
+
+                    setWorkoutData();//운동 기록 저장
 
                     Intent intent = new Intent(this, Act_Home.class);
                     final Bundle bundle = new Bundle();
@@ -686,12 +691,18 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     }
 
     @Override
+    protected void onStop(){
+        super.onStop();
+        cancelNotification();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.e("Act_EMS", "onDestroy");
 
-        cancelNotification();
         finish();
+
 
         if(not_started ==false) {
             //  recycleBitmap(screen);

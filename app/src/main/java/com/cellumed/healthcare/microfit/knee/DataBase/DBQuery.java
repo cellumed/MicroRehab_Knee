@@ -23,7 +23,6 @@ public class DBQuery implements SqlImp {
         return db;
     }
 
-
     public DBQuery(Context mContext) {
         db = new DBOpenHelper(mContext);
     }
@@ -325,10 +324,13 @@ public class DBQuery implements SqlImp {
         return userinfo;
     }
 
-    public ArrayList<DAO_Program> getALLProgram() {
+    public ArrayList<DAO_Program> getALLProgram(String user_id) {
 
         ArrayList<DAO_Program> mProgram = new ArrayList<>();
-        final Cursor mCursor = db.getField(ProgramTable, ALL_FIELD, null, null, Idx, null);
+        String where = UserInfoIdFk + " = " + user_id;
+        String temp = "";
+
+        final Cursor mCursor = db.getField(ProgramTable, ALL_FIELD, where, null, Idx, null);
 
         while (mCursor.moveToNext()) {
             try {

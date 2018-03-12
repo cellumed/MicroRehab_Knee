@@ -27,7 +27,7 @@ android {
         applicationId "com.cellumed.healthcare.microfit.knee"
         minSdkVersion 21
         versionCode 1
-        versionName '1.0.6'
+        versionName '1.1.0'
 
     }
     compileOptions {

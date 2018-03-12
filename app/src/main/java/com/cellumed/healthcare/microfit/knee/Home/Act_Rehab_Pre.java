@@ -388,16 +388,23 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
             workoutData.put(PostEmgMax5, null);
             workoutData.put(PostEmgTotal5, null);
 
-            if (new DBQuery(mContext).endProgramData(db_idx)) {
-                Log.d("EMSPOST", "시간 저장");
-            }
+            //if (new DBQuery(mContext).endProgramData(db_idx)) {
+            //    Log.d("EMSPOST", "시간 저장");
+            //}
         }
+
 
         if (new DBQuery(mContext).newProgramInsert(workoutData)) {
             Log.d("ACT ems시작 db저장", "저장");
         }
 
         db_idx = new DBQuery(mContext).getIdxFromStartDate(startTimeStr);
+        Log.d("Act_Rehab_Pre", "DB index >>>>>>>>>>>>> " + db_idx);
+
+        if (new DBQuery(mContext).endProgramData(db_idx)) {
+            Log.d("EMSPOST", "시간 저장");
+        }
+
     }
 
     public void checkDonePopup () {

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cellumed.healthcare.microfit.knee.Bluetooth.BTConnectActivity;
@@ -28,6 +29,7 @@ import com.cellumed.healthcare.microfit.knee.DataBase.SqlImp;
 import com.cellumed.healthcare.microfit.knee.Dialog.DialogRehabInfo;
 import com.cellumed.healthcare.microfit.knee.R;
 import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
+import com.cellumed.healthcare.microfit.knee.Util.CustomToast;
 
 import java.util.ArrayList;
 
@@ -85,7 +87,12 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
 
         dbQuery.programRemoveNotComplete();
 
-        final ArrayList<DAO_Program> progList = dbQuery.getALLProgram();
+        if(ManageDeviceConfiguration.getInstance().getUserId().isEmpty()){
+            CustomToast.makeText(this, getResources().getString(R.string.noneUserInfo),Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        final ArrayList<DAO_Program> progList = dbQuery.getALLProgram(ManageDeviceConfiguration.getInstance().getUserId());
         int i;
         for (i = 0; i < progList.size(); i++) {
             n= new History_List_View_Item();

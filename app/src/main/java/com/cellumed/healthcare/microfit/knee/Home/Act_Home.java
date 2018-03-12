@@ -73,7 +73,7 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
         checkUserInfo();
 
         //Toast.makeText(this, "Ver " + BudUtil.getInstance().FWVersion, Toast.LENGTH_SHORT).show();
-        CustomToast.getInstance(this).showToast(BudUtil.getInstance().FWVersion, Toast.LENGTH_SHORT);
+        //CustomToast.getInstance(this).showToast(BudUtil.getInstance().FWVersion, Toast.LENGTH_SHORT);
     }
 
     @Override
@@ -179,8 +179,15 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
     }
 
     public void go_history(View view) {
+
+        if(ManageDeviceConfiguration.getInstance().getUserId().isEmpty()){
+            CustomToast.makeText(this, getResources().getString(R.string.noneUserInfo),Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        /*
         final DBQuery dbQuery = new DBQuery(mContext);
-        final ArrayList<DAO_Program> progList = dbQuery.getALLProgram();
+        final ArrayList<DAO_Program> progList = dbQuery.getALLProgram(ManageDeviceConfiguration.getInstance().getUserId());
 
         if (0 == progList.size()) {
 
@@ -200,6 +207,9 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
             final Bundle bundle = new Bundle();
             BudUtil.goActivity(mContext, Act_history.class, bundle);
         }
+        */
+        final Bundle bundle = new Bundle();
+        BudUtil.goActivity(mContext, Act_history.class, bundle);
     }
 
     public void setting(View view) {

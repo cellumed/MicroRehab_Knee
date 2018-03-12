@@ -27,8 +27,10 @@ import com.cellumed.healthcare.microfit.knee.Bluetooth.BTConnectActivity;
 import com.cellumed.healthcare.microfit.knee.DAO.DAO_Program;
 import com.cellumed.healthcare.microfit.knee.DataBase.DBQuery;
 import com.cellumed.healthcare.microfit.knee.Home.Act_UserInfo;
+import com.cellumed.healthcare.microfit.knee.Home.ManageDeviceConfiguration;
 import com.cellumed.healthcare.microfit.knee.R;
 import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
+import com.cellumed.healthcare.microfit.knee.Util.CustomToast;
 import com.cellumed.healthcare.microfit.knee.Util.SqliteToExcel;
 
 import java.io.File;
@@ -75,7 +77,12 @@ public class Act_Setting extends BTConnectActivity implements OnAdapterClick {
 
         dbQuery.programRemoveNotComplete();
 
-        final ArrayList<DAO_Program> progList = dbQuery.getALLProgram();
+        if(ManageDeviceConfiguration.getInstance().getUserId().isEmpty()){
+            CustomToast.makeText(this, getResources().getString(R.string.noneUserInfo),Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        final ArrayList<DAO_Program> progList = dbQuery.getALLProgram(ManageDeviceConfiguration.getInstance().getUserId());
 
         if (0 == progList.size()) {
             MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext);
@@ -207,7 +214,10 @@ public class Act_Setting extends BTConnectActivity implements OnAdapterClick {
                             .content("초기화 되었습니다.")
                             .positiveColor(Color.parseColor("#000000"))
                             .positiveText(getString(R.string.ok))
-                            .onPositive((dialog2, which2) -> dialog2.dismiss()).show();
+                            .onPositive((dialog2, which2) -> {
+                                ManageDeviceConfiguration.getInstance().reset();
+                                dialog2.dismiss();
+                            }).show();
                 })  .onNegative((dialog1, which1) -> dialog1.dismiss()
         ).show();
     }

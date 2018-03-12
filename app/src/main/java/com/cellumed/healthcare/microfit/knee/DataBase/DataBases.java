@@ -3,6 +3,7 @@ package com.cellumed.healthcare.microfit.knee.DataBase;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.util.Log;
 
 
@@ -89,10 +90,10 @@ public class DataBases extends SQLiteOpenHelper implements SqlImp {
                 + ProgramPulseRiseTimeProgress+" TEXT,"
                 + ProgramPulseWidth+" TEXT,"
                 + ProgramPulseWidthProgress+" TEXT,"
-                + UserInfoIdFk+"INTEGER NOT NULL REFERENCES user_info(id) on delete cascade);";
+                + UserInfoIdFk+" INTEGER NOT NULL REFERENCES user_info(id) on delete cascade);";
 
+        Log.i("DB Query", ":: " + program_create_sql);
         db.execSQL(program_create_sql);
-
 
 
 
@@ -199,6 +200,20 @@ public class DataBases extends SQLiteOpenHelper implements SqlImp {
         Log.d("tag","test 28  database - onUpgrade");
         dropAllTables(db);
         onCreate(db);
+    }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        if(!db.isReadOnly()) {
+            Log.d("tag", "DB Configuration....");
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                String query = String.format("PRAGMA foreign_keys = %s", "ON");
+                db.execSQL(query);
+            } else {
+                db.setForeignKeyConstraintsEnabled(true);
+            }
+        }
     }
 
     public void dropAllTables(SQLiteDatabase db) {

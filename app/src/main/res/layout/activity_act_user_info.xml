@@ -40,6 +40,8 @@
             android:layout_height="fill_parent"
             android:layout_marginLeft="40dp"
             android:layout_weight="1"
+            android:scaleX="0.9"
+            android:scaleY="0.8"
             android:background="@drawable/bt_delete_nor"
             android:onClick="onClickDelete"/>
 
@@ -49,6 +51,8 @@
             android:layout_height="fill_parent"
             android:layout_marginRight="40dp"
             android:layout_weight="1"
+            android:scaleX="0.9"
+            android:scaleY="0.8"
             android:background="@drawable/bt_register_nor"
             android:onClick="onClickAdd"/>
 
