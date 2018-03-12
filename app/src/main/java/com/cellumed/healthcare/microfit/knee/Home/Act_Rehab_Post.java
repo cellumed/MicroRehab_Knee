@@ -63,7 +63,7 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
 
     ImageButton backBtn;
     private Context mContext;
-    private int isRunning = 0;  // 0: stopped. 1: running. 2: sent start_sens.
+    private int isRunning = Act_Rehab_Pre.REHAB_WORKOUT_STOP;  // 0: stopped. 1: running. 2: sent start_sens.
     private int runningPos=0;
 
     private String userId = null;   // updated by  mBluetoothConnectService.getUserId();
@@ -146,7 +146,7 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
         legtype_idx=sf.getInt(UserLegType,0);
         */
         // 사용자 다리 정보가 없으면 오른쪽 다리 기본
-        if( ManageDeviceConfiguration.getInstance().getUserLegPart().equals("LL") ){
+        if( ManageDeviceConfiguration.getInstance().getUserLegPart().equals(LEFT_LEG) ){
             // Left Leg (LL)
             legtype_idx = 0;
         } else {
@@ -154,7 +154,7 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
             legtype_idx = 1;
         }
 
-        isRunning=0;
+        isRunning = Act_Rehab_Pre.REHAB_WORKOUT_STOP;
 
         start.setOnClickListener(startClickListener);
 
@@ -346,8 +346,8 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
         public void onClick(View v) {
             int interval;
 
-            if (isRunning == 0) {
-                isRunning = 2;
+            if (isRunning == Act_Rehab_Pre.REHAB_WORKOUT_STOP) {
+                isRunning = Act_Rehab_Pre.REHAB_WORKOUT_START_SENS;
                 start.setBackgroundResource(R.drawable.btn_stop);
                 backBtn.setClickable(false);
                 backBtn.setSelected(true);
@@ -371,7 +371,7 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
                          }
                         */
 
-                        if(isRunning==2)    // request sent but no response recieved in a sec.
+                        if(isRunning == Act_Rehab_Pre.REHAB_WORKOUT_START_SENS)    // request sent but no response recieved in a sec.
                         {
                     /*        if(tickCnt>100) {
                                 whenRequestStop();
@@ -380,7 +380,7 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
                             }
                             */
                         }
-                        else if(isRunning==1)
+                        else if(isRunning == Act_Rehab_Pre.REHAB_WORKOUT_WORKING)
                         {
 
                             if (runningPos == 0x1) {
@@ -435,17 +435,17 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
                 Log.e("TAG", "timer started");
 
 
-            } else if(isRunning==1){
+            } else if(isRunning == Act_Rehab_Pre.REHAB_WORKOUT_WORKING || isRunning == Act_Rehab_Pre.REHAB_WORKOUT_START_SENS){
                 //stop
                 Log.e("TAG", "STop button");
-                isRunning = 0;
+                isRunning = Act_Rehab_Pre.REHAB_WORKOUT_STOP;
                 whenRequestStop();
             }
         }
     };
 
     private void whenRequestStop() {
-        isRunning = 0;
+        isRunning = Act_Rehab_Pre.REHAB_WORKOUT_STOP;
         // if(timer!=null) timer.cancel();
         start.setBackgroundResource(R.drawable.btn_start);
         backBtn.setClickable(true);
@@ -511,7 +511,7 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
                     for (int i = 0; i < BudUtil.actList.size(); i++) {
                         BudUtil.actList.get(i).finish();
                     }
-                    if(db_idx.length()!=0) new DBQuery(mContext).programRemove(db_idx);
+                    //if(db_idx.length()!=0) new DBQuery(mContext).programRemove(db_idx);
                     finish();   // 현재 종료
                     Intent intent = new Intent(this, Act_Home.class);
                     startActivity(intent);
@@ -586,7 +586,7 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
         else if (cmd.equals(CMD_RESP_NOR_SENS))
         {
             //
-            if(isRunning==1)
+            if(isRunning == Act_Rehab_Pre.REHAB_WORKOUT_WORKING)
             {
                 Log.d("TAG","SENS info recved");
 
@@ -619,13 +619,13 @@ public class Act_Rehab_Post extends BTConnectActivity implements IMP_CMD, SqlImp
         else if(cmd.equals(CMD_START_SENS))
         {
             String ack=data.split(" ")[4];
-            if(isRunning==2 && ack.equals("6"))
+            if(isRunning == Act_Rehab_Pre.REHAB_WORKOUT_START_SENS && ack.equals("6"))
             {
                 Log.d("TAG", "StartSens Ack recved");
-                isRunning=1;    // recv first ack
+                isRunning = Act_Rehab_Pre.REHAB_WORKOUT_WORKING;    // recv first ack
             }
             //
-            if(isRunning==1) {
+            if(isRunning == Act_Rehab_Pre.REHAB_WORKOUT_WORKING) {
 
             }
         }

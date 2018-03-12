@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cellumed.healthcare.microfit.knee.DAO.DAO_UserInfo;
 import com.cellumed.healthcare.microfit.knee.DataBase.DBQuery;
 import com.cellumed.healthcare.microfit.knee.DataBase.SqlImp;
 import com.cellumed.healthcare.microfit.knee.Home.ManageDeviceConfiguration;
@@ -157,8 +158,8 @@ public class DialogUserInfoEdit extends Dialog implements  SqlImp {
 
                 String name = etUserName.getText().toString();
                 String birth = currentDate;
-                String gender = cbFemale.isChecked() ? "FM":"M";
-                String leg = cbRight.isChecked() ? "RL":"LL";
+                String gender = cbFemale.isChecked() ? GENDER_FEMALE:GENDER_MALE;
+                String leg = cbRight.isChecked() ? RIGHT_LEG:LEFT_LEG;
 
                 // DB에 사용자정보 저장
                 final HashMap<String, String> workoutData = new HashMap<>();
@@ -177,12 +178,13 @@ public class DialogUserInfoEdit extends Dialog implements  SqlImp {
                 Log.i("DialoguserInfoEdit", "User ID:" + id + ", " + name + birth + gender + leg);
 
                 // SharedPreference 도 저장
-                ManageDeviceConfiguration.getInstance().updateUserId(id);
-                ManageDeviceConfiguration.getInstance().updateUserName(name);
-                ManageDeviceConfiguration.getInstance().updateUserBirth(birth);
-                ManageDeviceConfiguration.getInstance().updateUserGender(gender);
-                ManageDeviceConfiguration.getInstance().updateUserLegPart(leg);
-                ManageDeviceConfiguration.getInstance().loadUserInfo();
+                DAO_UserInfo dao_userInfo = new DAO_UserInfo();
+                dao_userInfo.setId(id);
+                dao_userInfo.setName(name);
+                dao_userInfo.setBirth(birth);
+                dao_userInfo.setGender(gender);
+                dao_userInfo.setLegPart(leg);
+                ManageDeviceConfiguration.getInstance().updateUser(dao_userInfo);
 
                 this.callback.onPositive();
                 dismiss();

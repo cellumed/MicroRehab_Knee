@@ -58,12 +58,15 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     @Bind(R.id.bg_context)
     ImageView bg_ctx;
 
+    public static final int REHAB_WORKOUT_STOP = 0;
+    public static final int REHAB_WORKOUT_WORKING = 1;
+    public static final int REHAB_WORKOUT_START_SENS = 2;
 
     boolean checkOk=false;
 
     ImageButton backBtn;
     private Context mContext;
-    private int isRunning = 0;  // 0: stopped. 1: running. 2: sent start_sens.
+    private int isRunning = REHAB_WORKOUT_STOP;  // 0: stopped. 1: running. 2: sent start_sens.
 
     private int runningPos=0;
 
@@ -155,7 +158,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
         legtype_idx=sf.getInt(UserLegType,0);
         */
         // 사용자 다리 정보가 없으면 오른쪽 다리 기본
-        if( ManageDeviceConfiguration.getInstance().getUserLegPart().equals("LL") ){
+        if( ManageDeviceConfiguration.getInstance().getUserLegPart().equals(LEFT_LEG) ){
             // Left Leg (LL)
             legtype_idx = 0;
         } else {
@@ -163,7 +166,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
             legtype_idx = 1;
         }
 
-        isRunning=0;
+        isRunning = REHAB_WORKOUT_STOP;
 
         start.setOnClickListener(startClickListener);
 
@@ -197,7 +200,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                     }
 
                     // 시작해서 db기록이 된 경우 삭제
-                    if(db_idx.length()!=0) new DBQuery(mContext).programRemove(db_idx);
+                    //if(db_idx.length()!=0) new DBQuery(mContext).programRemove(db_idx);
                     finish();   // 현재 종료
                     Intent intent = new Intent(this, Act_Home.class);
                     startActivity(intent);
@@ -319,6 +322,84 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
 
     }
 
+    public void saveRehabPreData(){
+        final HashMap<String, String> workoutData = new HashMap<>();
+
+        // user id 가 없으면 저장 하지 않는다.
+        if(ManageDeviceConfiguration.getInstance().getUserId().isEmpty()) {
+            CustomToast.makeText(this, getResources().getText(R.string.noneUserInfo).toString(), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        startTimeStr=   BudUtil.getInstance().getToday("yyyy.MM.dd HH:mm:ss");
+        workoutData.put(ProgramStartDate, startTimeStr);
+        workoutData.put(ProgramType, rehab_mode_str);
+        workoutData.put(ProgramName, rehab_mode_name);
+        workoutData.put(PreTime, String.valueOf(time)); // time를 string으로 변환
+        ang_min = Act_admin_imu.EXTENTION_ANGLE - ang_min;
+        ang_max = Act_admin_imu.EXTENTION_ANGLE - ang_max;
+        workoutData.put(PreAngleMin, String.valueOf(ang_min));
+        workoutData.put(PreAngleMax, String.valueOf(ang_max));
+        workoutData.put(PreEmgAvr, String.valueOf(s_emg_amp_avr[0]));
+        workoutData.put(PreEmgMax, String.valueOf(s_emg_amp_max[0]));
+        workoutData.put(PreEmgTotal, String.valueOf(s_emg_totalWork[0]));
+        workoutData.put(PreEmgAvr2, String.valueOf(s_emg_amp_avr[1]));
+        workoutData.put(PreEmgMax2, String.valueOf(s_emg_amp_max[1]));
+        workoutData.put(PreEmgTotal2, String.valueOf(s_emg_totalWork[1]));
+        workoutData.put(PreEmgAvr3, String.valueOf(s_emg_amp_avr[2]));
+        workoutData.put(PreEmgMax3, String.valueOf(s_emg_amp_max[2]));
+        workoutData.put(PreEmgTotal3, String.valueOf(s_emg_totalWork[2]));
+        workoutData.put(PreEmgAvr4, String.valueOf(s_emg_amp_avr[3]));
+        workoutData.put(PreEmgMax4, String.valueOf(s_emg_amp_max[3]));
+        workoutData.put(PreEmgTotal4, String.valueOf(s_emg_totalWork[3]));
+        workoutData.put(PreEmgAvr5, String.valueOf(s_emg_amp_avr[4]));
+        workoutData.put(PreEmgMax5, String.valueOf(s_emg_amp_max[4]));
+        workoutData.put(PreEmgTotal5, String.valueOf(s_emg_totalWork[4]));
+        workoutData.put(UserInfoIdFk, ManageDeviceConfiguration.getInstance().getUserId());
+
+        // 개별프로그램이면
+        if(admin_mode==0){
+            //ems data
+            workoutData.put(ProgramSignalType,null);
+            workoutData.put(ProgramTime, null);
+            workoutData.put(ProgramFrequency ,null);
+            workoutData.put(ProgramPulseOperationTime , null); //자극시간
+            workoutData.put(ProgramPulsePauseTime,null) ; //휴지 시간
+            workoutData.put(ProgramPulseRiseTime ,null); //펄스 상승시
+            workoutData.put(ProgramPulseWidth,null) ;//펄스폭
+
+            //post data
+            workoutData.put(PostTime,null);
+            workoutData.put(PostAngleMin,null);
+            workoutData.put(PostAngleMax,null);
+            workoutData.put(PostEmgAvr, null);
+            workoutData.put(PostEmgMax,null);
+            workoutData.put(PostEmgTotal, null);
+            workoutData.put(PostEmgAvr2, null);
+            workoutData.put(PostEmgMax2, null);
+            workoutData.put(PostEmgTotal2, null);
+            workoutData.put(PostEmgAvr3, null);
+            workoutData.put(PostEmgMax3, null);
+            workoutData.put(PostEmgTotal3, null);
+            workoutData.put(PostEmgAvr4, null);
+            workoutData.put(PostEmgMax4, null);
+            workoutData.put(PostEmgTotal4, null);
+            workoutData.put(PostEmgAvr5, null);
+            workoutData.put(PostEmgMax5, null);
+            workoutData.put(PostEmgTotal5, null);
+
+            if (new DBQuery(mContext).endProgramData(db_idx)) {
+                Log.d("EMSPOST", "시간 저장");
+            }
+        }
+
+        if (new DBQuery(mContext).newProgramInsert(workoutData)) {
+            Log.d("ACT ems시작 db저장", "저장");
+        }
+
+        db_idx = new DBQuery(mContext).getIdxFromStartDate(startTimeStr);
+    }
+
     public void checkDonePopup () {
         final Bundle extras = getIntent().getExtras();
 
@@ -378,7 +459,8 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     public void reportDone()
     {
         // predata저장
-        setPreData();
+        //setPreData();
+        saveRehabPreData();
 
         checkOkHandler.postDelayed(new Runnable() {
             @Override
@@ -457,8 +539,8 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
 
             int interval;
 
-            if (isRunning == 0) {
-                isRunning = 2;
+            if (isRunning == REHAB_WORKOUT_STOP) {
+                isRunning = REHAB_WORKOUT_START_SENS;
                 start.setBackgroundResource(R.drawable.btn_stop);
                 backBtn.setClickable(false);
                 backBtn.setSelected(true);
@@ -482,7 +564,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                          }
                         */
 
-                        if (isRunning == 2)    // request sent but no response recieved in a sec.
+                        if (isRunning == REHAB_WORKOUT_START_SENS)    // request sent but no response recieved in a sec.
                         {
                             /*
                             if(tickCnt>100) {
@@ -491,7 +573,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                                 //TODO err
                             }
                             */
-                        } else if (isRunning == 1)   // running
+                        } else if (isRunning == REHAB_WORKOUT_WORKING)   // running
                         {
                             // change img if needed
 
@@ -539,7 +621,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                 };
 
                 // 맨 처음 버튼이 눌리면 db에 기록하고 db_idx세팅
-                setWorkoutData();
+                //setWorkoutData();
 
                 //send ems info first
                 mBluetoothConnectService.send(CMD_START_SENS, "0001" + rehab_send_txt+"03");    // resp=ack?, type=normal, rehab_type=(1,2,3), sens_type= xx
@@ -550,7 +632,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                 Log.e("TAG", "timer started");
 
 
-            } else if(isRunning==1){
+            } else if(isRunning == REHAB_WORKOUT_WORKING || isRunning == REHAB_WORKOUT_START_SENS){
                 //stop
                 Log.e("TAG", "STop button");
                 isRunning = 0;
@@ -560,7 +642,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
     };
 
     private void whenRequestStop() {
-        isRunning = 0;
+        isRunning = REHAB_WORKOUT_STOP;
         //if(timer!=null) timer.cancel();
         start.setBackgroundResource(R.drawable.btn_start);
         backBtn.setClickable(true);
@@ -700,7 +782,7 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
         else if (cmd.equals(CMD_RESP_NOR_SENS))
         {
             //
-            if(isRunning==1)
+            if(isRunning == REHAB_WORKOUT_WORKING)
             {
                 Log.d("TAG","SENS info recved");
                 if(!doneFlag) {
@@ -733,13 +815,13 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
         else if(cmd.equals(CMD_START_SENS))
         {
             String ack=data.split(" ")[4];
-            if(isRunning==2 && ack.equals("6"))
+            if(isRunning == REHAB_WORKOUT_START_SENS && ack.equals("6"))
             {
                 Log.d("TAG", "StartSens Ack recved");
-                isRunning=1;    // recv first ack
+                isRunning = REHAB_WORKOUT_WORKING;    // recv first ack
             }
             //
-            if(isRunning==1) {
+            if(isRunning == REHAB_WORKOUT_WORKING) {
 
             }
         }

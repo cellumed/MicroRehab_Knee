@@ -49,7 +49,7 @@
             android:layout_height="fill_parent"
             android:layout_marginRight="40dp"
             android:layout_weight="1"
-            android:background="@drawable/bt_add_nor"
+            android:background="@drawable/bt_register_nor"
             android:onClick="onClickAdd"/>
 
         </LinearLayout>

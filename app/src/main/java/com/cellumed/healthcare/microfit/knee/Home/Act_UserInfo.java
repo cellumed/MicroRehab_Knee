@@ -175,14 +175,13 @@ public class Act_UserInfo extends AppCompatActivity {
 
         DAO_UserInfo userInfo = new DBQuery(context).getUserInfoFromId(currentUserId);
 
+        // SharedPreference 도 저장
+        ManageDeviceConfiguration.getInstance().updateUser(userInfo);
         Log.d(TAG, "id:" + ManageDeviceConfiguration.getInstance().getUserId());
         Log.d(TAG, "name" + ManageDeviceConfiguration.getInstance().getUserName());
         Log.d(TAG, "birth" + ManageDeviceConfiguration.getInstance().getUserBirth());
         Log.d(TAG, "gender" + ManageDeviceConfiguration.getInstance().getUserGender());
         Log.d(TAG, "leg" + ManageDeviceConfiguration.getInstance().getUserLegPart());
-
-        // SharedPreference 도 저장
-        ManageDeviceConfiguration.getInstance().updateUser(userInfo);
     }
 
     ListView.OnItemClickListener onItemClickListener = new ListView.OnItemClickListener() {
@@ -209,7 +208,7 @@ public class Act_UserInfo extends AppCompatActivity {
         View mCustomView = LayoutInflater.from(this).inflate(R.layout.layout_actionbar, null);
         actionBar.setCustomView(mCustomView);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff6669")));
-        ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_05);
+        ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_09);
 
         Toolbar parent = (Toolbar) mCustomView.getParent();
         parent.setContentInsetsAbsolute(0, 0);
