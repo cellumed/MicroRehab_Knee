@@ -59,6 +59,7 @@
             android:background="#aec7d5"
             android:orientation="vertical">
 
+            <!--
             <EditText
                 android:id="@+id/et_birth"
 
@@ -76,7 +77,22 @@
                 android:textCursorDrawable="@null"
                 android:textColorHint="@drawable/selector"
                 android:background="#ffffff"/>
-                <!-- android:inputType="date" -->
+            -->
+            <!-- android:inputType="date" -->
+
+            <Button
+                android:id="@+id/btInputBirth"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ffffff"
+                android:textSize="13dp"
+                android:text="@string/input_birthday"/>
+
+
         </LinearLayout>
 
         <ImageView
@@ -93,7 +109,6 @@
             android:paddingBottom="14dp"
             android:paddingRight="40dp"
             android:paddingLeft="40dp">
-
 
             <LinearLayout
                 android:layout_width="70dp"

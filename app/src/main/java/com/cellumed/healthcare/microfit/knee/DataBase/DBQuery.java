@@ -4,8 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 
 import com.cellumed.healthcare.microfit.knee.DAO.DAO_Program;
+import com.cellumed.healthcare.microfit.knee.DAO.DAO_UserInfo;
 import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
 
 import java.util.ArrayList;
@@ -33,6 +35,20 @@ public class DBQuery implements SqlImp {
 
     }
 
+    public boolean newUserInfoInsert(HashMap<String, String> programInfo) {
+        ContentValues mValues = new ContentValues();
+        final Set<String> key = programInfo.keySet();
+        for (String keyName : key) {
+            String valueName = programInfo.get(keyName);
+            mValues.put(keyName, valueName);
+
+        }
+
+        final boolean b = db.setRecords(UserInfoTable, mValues);
+        db.close();
+
+        return b;
+    }
 
     public boolean newProgramInsert(HashMap<String, String> programInfo) {
         ContentValues mValues = new ContentValues();
@@ -89,7 +105,32 @@ public class DBQuery implements SqlImp {
         return b;
     }
 
+    public DAO_UserInfo getUserInfoFromId(String id) {
+        final String where = UserInfoId + " = " + id;
+        DAO_UserInfo userInfo = new DAO_UserInfo();
 
+        final Cursor mCursor = db.getField(UserInfoTable, ALL_FIELD, where, null, null);
+
+        while (mCursor.moveToNext()) {
+            try {
+
+                userInfo.setId(mCursor.getString(mCursor.getColumnIndex(UserInfoId)));
+                userInfo.setName(mCursor.getString(mCursor.getColumnIndex(UserInfoName)));
+                userInfo.setBirth(mCursor.getString(mCursor.getColumnIndex(UserInfoBirth)));
+                userInfo.setGender(mCursor.getString(mCursor.getColumnIndex(UserInfoGender)));
+                userInfo.setLegPart(mCursor.getString(mCursor.getColumnIndex(UserInfoLegPart)));
+
+            } catch (SQLiteException | IllegalStateException | NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return userInfo;
+    }
+
+    public String getUserInfoId(String name, String birth) {
+        final String where = UserInfoName + " = '" + name + "' AND " + UserInfoBirth + " = '" + birth + "'";
+        return db.getField(UserInfoTable, UserInfoId, where, null, null);
+    }
 
 
     public String getProgramTime(String name) {
@@ -257,6 +298,32 @@ public class DBQuery implements SqlImp {
         return mDaoProgram;
     }
 
+    public ArrayList<DAO_UserInfo> getALLUserInfo() {
+
+        ArrayList<DAO_UserInfo> userinfo = new ArrayList<>();
+        final Cursor mCursor = db.getField(UserInfoTable, ALL_FIELD, null, null, UserInfoId, null);
+
+        while (mCursor.moveToNext()) {
+            try {
+
+                DAO_UserInfo user = new DAO_UserInfo();
+                user.setId(mCursor.getString(mCursor.getColumnIndex(UserInfoId)));
+                user.setName(mCursor.getString(mCursor.getColumnIndex(UserInfoName)));
+                user.setBirth(mCursor.getString(mCursor.getColumnIndex(UserInfoBirth)));
+                user.setGender(mCursor.getString(mCursor.getColumnIndex(UserInfoGender)));
+                user.setLegPart(mCursor.getString(mCursor.getColumnIndex(UserInfoLegPart)));
+                userinfo.add(user);
+
+            } catch (SQLiteException | IllegalStateException | NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+
+        mCursor.close();
+        db.close();
+
+        return userinfo;
+    }
 
     public ArrayList<DAO_Program> getALLProgram() {
 
@@ -395,7 +462,6 @@ public class DBQuery implements SqlImp {
         return b;
     }
 
-
     public boolean programRemove(String idx) {
         boolean b = false;
         final String where = String.format(Idx + " = '%s'", idx);
@@ -403,4 +469,10 @@ public class DBQuery implements SqlImp {
         return db.dataDelete(ProgramTable, where) != 0;
     }
 
+    public boolean deleteUserInfo(String id) {
+        boolean b = false;
+        final String where = String.format(UserInfoId + " = '%s'", id);
+
+        return db.dataDelete(UserInfoTable, where) != 0;
+    }
 }

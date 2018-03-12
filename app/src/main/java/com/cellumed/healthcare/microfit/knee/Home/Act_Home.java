@@ -59,25 +59,6 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
 
         backPressCloseHandler = new BackPressCloseHandler(this);
 
-        // 설정 가져올 값
-        // UserInfo
-        // - name:string 10
-        // - gender: 0: male, 1: female
-        // - lr : 0: left, 1: right
-        String sfName="EMS_USER_INFO";   // 사용자 정보 저장
-        SharedPreferences sf = mContext.getSharedPreferences(sfName, Context.MODE_MULTI_PROCESS);
-        SharedPreferences.Editor editor = sf.edit();
-
-
-
-
-        String username=sf.getString(UserName,"");
-       /* if( username== null || username=="")
-        {
-            // Dialog open
-            new DialogUserInfoEdit(mContext);
-        }
-*/
         PackageManager m = getPackageManager();
         String s = getPackageName();
         try {
@@ -88,6 +69,9 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
             Log.w("yourtag", "Error Package name not found ", e);
         }
 
+        ManageDeviceConfiguration.getInstance().init(getApplicationContext());
+        checkUserInfo();
+
         //Toast.makeText(this, "Ver " + BudUtil.getInstance().FWVersion, Toast.LENGTH_SHORT).show();
         CustomToast.getInstance(this).showToast(BudUtil.getInstance().FWVersion, Toast.LENGTH_SHORT);
     }
@@ -96,6 +80,7 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
     protected void onResume() {
         super.onResume();
 
+        /*
         String sfName="EMS_USER_INFO";   // 사용자 정보 저장
         SharedPreferences sf = mContext.getSharedPreferences(sfName, Context.MODE_MULTI_PROCESS);
         SharedPreferences.Editor editor = sf.edit();
@@ -106,7 +91,7 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
             // Dialog open
             new DialogUserInfoEdit(mContext);
         }
-
+        */
     }
 
 
@@ -163,7 +148,25 @@ public class Act_Home extends BTConnectActivity implements SqlImp,IMP_CMD {
         backPressCloseHandler.onBackPressed();
     }
 
+    public boolean checkUserInfo(){
 
+        String userInfo = ManageDeviceConfiguration.getInstance().getUserName();
+        if(userInfo.isEmpty()){
+            CustomToast.makeText(this, getResources().getText(R.string.noneUserInfo).toString(), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        userInfo += "(";
+        userInfo += ManageDeviceConfiguration.getInstance().getUserBirth();
+        userInfo += ",";
+        userInfo += ManageDeviceConfiguration.getInstance().getUserGender();
+        userInfo += ",";
+        userInfo += ManageDeviceConfiguration.getInstance().getUserLegPart();
+        userInfo += ")";
+
+        CustomToast.makeText(this, userInfo, Toast.LENGTH_SHORT).show();
+        return true;
+    }
 
     public void rehab_home(View view) {
         final Bundle bundle = new Bundle();

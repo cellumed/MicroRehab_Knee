@@ -63,6 +63,7 @@ public class DBOpenHelper implements SqlImp {
     public boolean setRecords(String table, ContentValues data) {
         return db.insert(table, null, data) > 0;
     }
+
     public int dataDelete(String table, String where){
         return db.delete(table, where, null);
     }

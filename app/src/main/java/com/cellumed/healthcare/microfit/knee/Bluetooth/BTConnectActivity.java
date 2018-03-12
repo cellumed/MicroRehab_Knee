@@ -69,7 +69,6 @@ public abstract class BTConnectActivity extends AppCompatActivity {
         f.setAccessible(true);
         try {
             f.set(null, typeface);
-            Log.e("PAIN0928", "change Font !!!!!!!!!!!!!!");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
