@@ -172,12 +172,12 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     }
     @Override
     public void onBackPressed() {
+
         if(isAdminMode)
         {
             super.onBackPressed();
         }
         else checkBack();
-
     }
 
     public void emsDonePopup () {
@@ -211,12 +211,12 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                 .title(getString(R.string.SystemState))
                 .titleColor(Color.parseColor("#000000"))
                 .backgroundColor(Color.parseColor("#aec7d5"))
-                .content("재활훈련이 완료되었습니다.")
+                .content("EMS 동작이 완료되었습니다.")
                 .positiveText(getString(R.string.ok))
                 .positiveColor(Color.parseColor("#000000"))
                 .onPositive((dialog, which) -> {
 
-                    Intent intent = new Intent(this, Act_admin.class);
+                    Intent intent = new Intent(this, Act_Home.class);
                     final Bundle bundle = new Bundle();
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -278,45 +278,18 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         pulse_rising_time.setVisibility(View.GONE);
         pulse_width.setVisibility(View.GONE);
 
-
-
         d= mContext.getResources().getDisplayMetrics().density;
         // 사전운동에서 넘어온 데이터 세팅
         final Bundle extras = getIntent().getExtras();
-
-        rehab_mode_idx = extras.getInt("mode",9);   // 모드가 없이 오면 관리자 모드
-
         db_idx=extras.getString("dbidx","");
-        if(rehab_mode_idx==0)
-        {
-            screen.setBackgroundResource(R.drawable.ring_05);
-            rehab_mode_name=mContext.getResources().getString(R.string.gait);
-            rehab_mode_str="0";
-        }
-        else if(rehab_mode_idx==1)
-        {
+        rehab_mode_idx = extras.getInt("mode",9);   // 모드가 없이 오면 관리자 모드
+        screen.setBackgroundResource(R.drawable.ring_05);
+        rehab_mode_name=mContext.getResources().getString(R.string.admin_ems);
 
-            screen.setBackgroundResource(R.drawable.ring_05);
-            rehab_mode_name=mContext.getResources().getString(R.string.squat);
-            rehab_mode_str="1";
-        }
-        else if(rehab_mode_idx==2)
-        {
-            screen.setBackgroundResource(R.drawable.ring_05);
-            rehab_mode_name=mContext.getResources().getString(R.string.stepbox);
-            rehab_mode_str="2";
-        }
-        if(rehab_mode_idx==9)
-        {
+        if(rehab_mode_idx == 9){
             isAdminMode=true;
-            screen.setBackgroundResource(R.drawable.ring_05);
-            rehab_mode_name=mContext.getResources().getString(R.string.admin_ems);
-            rehab_mode_str="9";
         }
 
-
-
-//****//
         if(isAdminMode) {
             // 현재 ems설정 가져올 값
             String sfName = "EMS_TEMP_SETTING";   // 임시 shared 저장용
@@ -382,8 +355,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             SignalTypeIdx = 0;
             signal_type.setText(SignalTypeStr[SignalTypeIdx]);
 
-            //임시 3분 원래 30분
-            String t = "3";
+            //임시 3분, 원래 30분
+            String t = "30" ;
             // String t = "1";
             working_time.setText(t);
 
@@ -406,21 +379,17 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             //50-400. 25us
             t = "350";
             pulse_width.setText(t);
-
         }
 
         //----------------
         startService();
         setStart();
 
-
         formatter = new DecimalFormat("00");
         String minuteDefault = formatter.format((int) programTime );
         String secondDefault = formatter.format((int) 0);
         minute.setText(minuteDefault);
         second.setText(secondDefault);
-
-
 
         start.setOnClickListener(startClickListener);
         customAdapter = new Custom_List_Adapter(this,new Custom_List_Adapter.OnItemValueChangedListener() {
@@ -435,6 +404,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         listView.setAdapter(customAdapter);
         setCustomList();
     }
+
     /*
         private void startCountDownTimer() {
             not_started=false;
@@ -486,17 +456,10 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         workoutData.put(ProgramPulseRiseTime , pulse_rising_time.getText().toString()); //펄스 상승시
         workoutData.put(ProgramPulseWidth,pulse_width.getText().toString()) ;//펄스폭
 
-
         if (new DBQuery(mContext).setProgramUpdate(workoutData,db_idx)) {
-
             Log.d("ACT ems시작 db 업데이트", "ems db update success");
-
         }
-
-
     }
-
-
 
     private void setStart() {
         final Bundle extras = getIntent().getExtras();
@@ -537,9 +500,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
             width = 0;
         }
         width = width / 50;
-
-
-
     }
 
     Button.OnClickListener startClickListener = new View.OnClickListener() {
@@ -563,7 +523,6 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
                     Log.e("TAG","TIME CUT");
                     time -= (time%60);
                     time++;
-
                 }
 
                 // reset ems levels to 0 (04/10)
@@ -702,12 +661,11 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 */
     }
 
-
     private void setCustomList() {
-        customAdapter.addItem(mContext.getResources().getString(R.string.Fem_Up), formatter.format(stimulusIntensity));
-        customAdapter.addItem(mContext.getResources().getString(R.string.Fem_Down), formatter.format(stimulusIntensity));
-        customAdapter.addItem(mContext.getResources().getString(R.string.Ham_In), formatter.format(stimulusIntensity));
-        customAdapter.addItem(mContext.getResources().getString(R.string.Ham_Out), formatter.format(stimulusIntensity));
+        customAdapter.addItem(mContext.getResources().getString(R.string.Fem_Up), formatter.format((int)stimulusIntensity));
+        customAdapter.addItem(mContext.getResources().getString(R.string.Fem_Down), formatter.format((int)stimulusIntensity));
+        customAdapter.addItem(mContext.getResources().getString(R.string.Ham_In), formatter.format((int)stimulusIntensity));
+        customAdapter.addItem(mContext.getResources().getString(R.string.Ham_Out), formatter.format((int)stimulusIntensity));
     }
 
     @Override
@@ -730,12 +688,15 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.e("Act_EMS", "onDestroy");
+
+        cancelNotification();
+        finish();
 
         if(not_started ==false) {
             //  recycleBitmap(screen);
         }
         try{
-            notificationManager.cancel(ACT_EMS_NOTI_ID);
             // timer.cancel();
         } catch (Exception e) {}
         //timer = null;
@@ -909,9 +870,13 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
         actionBar.setCustomView(mCustomView);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff6669")));
 
+        /*
         if(rehab_mode_idx!=9){
             ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_04);
         }
+        */
+
+        ((TextView) findViewById(R.id.custom_name)).setBackgroundResource(R.drawable.title_04);
 
         Toolbar parent = (Toolbar) mCustomView.getParent();
         parent.setContentInsetsAbsolute(0, 0);
@@ -932,7 +897,7 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
     }
 
-    static final int ACT_EMS_NOTI_ID = 1;
+    static final int ACT_EMS_NOTI_ID = 1234567890;
     NotificationManager notificationManager;
     Notification notification;
     Notification.Builder notiBuilder;
@@ -940,6 +905,8 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
 
     // EMS 동작에서만 notification 으로 알림을 표시 한다
     public void createNotification(){
+
+        Log.d("tag", "create Notification");
 
         notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
@@ -989,19 +956,31 @@ public class Act_EMS extends BTConnectActivity implements OnAdapterClick, IMP_CM
     }
 
     public void updateNotificiation(String time){
-        Log.d("TAG", "udateNotification");
+        if(notificationManager == null) return;
+        Log.d("TAG", "udateNotification: " + time);
         notiBuilder.setContentText(time);
+        notification = notiBuilder.build();
         notificationManager.notify(ACT_EMS_NOTI_ID, notification);
     }
 
     public void updateCustomNotificiation(String time){
-        Log.d("TAG", "udateCustomNotification");
+        Log.d("TAG", "udateCustomNotification" + time);
         remoteViews.setTextViewText(R.id.tvTime, time);
         notiBuilder.setContent(remoteViews);
         notificationManager.notify(ACT_EMS_NOTI_ID, notification);
     }
 
     public void cancelNotification(){
+
+        if(notificationManager == null) {
+            Log.d("TAG", "notificationManager Null");
+            return;
+        }
+
         notificationManager.cancel(ACT_EMS_NOTI_ID);
+        notificationManager.cancelAll();
+        notificationManager = null;
+        Log.d("TAG", "notificationManager cancel");
+
     }
 }

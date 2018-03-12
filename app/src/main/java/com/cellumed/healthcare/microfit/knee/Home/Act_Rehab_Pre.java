@@ -598,21 +598,37 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                                 } else if(tickCnt%5==0) {
                                     String resName = currentPosture.replaceAll("res/drawable/", "");
                                     resName = resName.replaceAll(".png", "_eff");
-                                    Log.i("TAG", "resName:" + resName);
+                                    Log.i("STEP", "resName:" + resName + ", " + leftOrRight );
                                     bg_ctx.setImageResource(getResources().getIdentifier(resName, "drawable", getPackageName()));
                                 }
-                            } else if(runningPos == 0x20) {
+                            } else if(runningPos == 0x20) { // stand up
                                 if (tickCnt % 10 == 0) {
                                     bg_ctx.setImageResource(currentPostureId);
                                 } else if(tickCnt%5==0) {
                                     String resName = currentPosture.replaceAll("res/drawable/", "");
 
-                                    if(leftOrRight == -1){
-                                        resName = resName.replaceAll(".png", "_right");
-                                    } else if(leftOrRight == 1) {
-                                        resName = resName.replaceAll(".png", "_left");
+                                    if(legtype_idx == 0) {
+                                        if (leftOrRight == -1) {
+                                            resName = resName.replaceAll(".png", "_right");
+                                        } else if (leftOrRight == 1) {
+                                            resName = resName.replaceAll(".png", "_left");
+                                        } else {
+                                            resName.substring(0, resName.indexOf("."));
+                                            Log.i("STAND", "substring" + resName);
+                                        }
+                                    } else {
+                                        if (leftOrRight == 1) {
+                                            resName = resName.replaceAll(".png", "_right");
+                                        } else if (leftOrRight == -1) {
+                                            resName = resName.replaceAll(".png", "_left");
+                                        } else {
+                                            resName.substring(0, resName.indexOf("."));
+                                            Log.i("STAND", "substring" + resName);
+                                        }
                                     }
-                                    Log.i("TAG", "resName:" + resName);
+
+
+                                    Log.i("STAND", "resName:" + resName + ", " + leftOrRight );
                                     bg_ctx.setImageResource(getResources().getIdentifier(resName, "drawable", getPackageName()));
                                 }
                             }
@@ -636,7 +652,10 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                 //stop
                 Log.e("TAG", "STop button");
                 isRunning = 0;
+                //Todo: 프로톰콜에 일시정지를 추하해서 처리 해야 데이터 처리에 용이함
+                // 프로토콜 추가후 스톱 요청이 아닌 일시정시 요청으로 변경 필요
                 whenRequestStop();
+                //checkBack();
             }
         }
     };
@@ -787,7 +806,14 @@ public class Act_Rehab_Pre extends BTConnectActivity implements IMP_CMD, SqlImp 
                 Log.d("TAG","SENS info recved");
                 if(!doneFlag) {
 
-                    work_cnt++;
+                    String count = data.split(" ")[4];
+
+                    if(count.equals("a")) {
+                        work_cnt = 10;
+                    } else {
+                        work_cnt = Integer.valueOf(count);
+                    }
+
                     String n = Integer.toString(work_cnt, 10);
                     if (n.length() == 1) n = "0" + n;
 
