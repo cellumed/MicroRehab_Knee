@@ -32,7 +32,7 @@ public class SplashActivity extends BTConnectActivity {
         try {
             PackageInfo pi = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0);
             //Log.i("pain0928", "Name: " + pi.packageName + " povider:" + pi.providers);
-            tv_version.setText("App:" + pi.versionName + "\nF/W:"+ BudUtil.getInstance().FWVersion);
+            tv_version.setText("App:" + pi.versionName);
         } catch(PackageManager.NameNotFoundException e) {
             Log.e("SP", "Package Name don't find");
         }

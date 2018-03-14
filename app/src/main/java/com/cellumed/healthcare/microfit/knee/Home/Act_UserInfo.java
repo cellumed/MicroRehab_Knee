@@ -104,34 +104,37 @@ public class Act_UserInfo extends AppCompatActivity {
     }
 
     public void onClickDelete(View v){
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(context);
-        builder
-                .title(getString(R.string.DeleteUser))
-                .titleColor(Color.parseColor("#000000"))
-                .backgroundColor(Color.parseColor("#aec7d5"))
-                .content("사용자 정보를 삭제하시겠습니까?")
-                .positiveText(getString(R.string.ok))
-                .positiveColor(Color.parseColor("#000000"))
-                .negativeColor(Color.DKGRAY)
-                .negativeText(getString(R.string.cancel))
-                .onPositive((dialog, which) -> {
-                    if (new DBQuery(context).deleteUserInfo(currentUserId)) {
-                        Log.d(TAG, "Delete UserInfo ID: " + currentUserId);
-                    }
+        ArrayList<DAO_UserInfo> user_list = new DBQuery(context).getALLUserInfo();
+        Log.d("tag","user list size : "+ user_list.size());
+        if(user_list.size()>0) {
+            MaterialDialog.Builder builder = new MaterialDialog.Builder(context);
+            builder
+                    .title(getString(R.string.DeleteUser))
+                    .titleColor(Color.parseColor("#000000"))
+                    .backgroundColor(Color.parseColor("#aec7d5"))
+                    .content("사용자 정보를 삭제하시겠습니까?")
+                    .positiveText(getString(R.string.ok))
+                    .positiveColor(Color.parseColor("#000000"))
+                    .negativeColor(Color.DKGRAY)
+                    .negativeText(getString(R.string.cancel))
+                    .onPositive((dialog, which) -> {
+                        if (new DBQuery(context).deleteUserInfo(currentUserId)) {
+                            Log.d(TAG, "Delete UserInfo ID: " + currentUserId);
+                        }
 
-                    DAO_UserInfo user = new DAO_UserInfo().init();
+                        DAO_UserInfo user = new DAO_UserInfo().init();
 
-                    // SharedPreference Update
-                    ManageDeviceConfiguration.getInstance().updateUser(user);
+                        // SharedPreference Update
+                        ManageDeviceConfiguration.getInstance().updateUser(user);
 
-                    userInfoListViewAdapter.removeItem();
-                    userInfoListViewAdapter.notifyDataSetChanged();
-                    loadUserInfoTable();
-                    dialog.dismiss();
+                        userInfoListViewAdapter.removeItem();
+                        userInfoListViewAdapter.notifyDataSetChanged();
+                        loadUserInfoTable();
+                        dialog.dismiss();
 
-                })  .onNegative((dialog1, which1) -> dialog1.dismiss()
-        ).show();
-
+                    }).onNegative((dialog1, which1) -> dialog1.dismiss()
+            ).show();
+        }
 
 
 
@@ -180,7 +183,7 @@ public class Act_UserInfo extends AppCompatActivity {
             msg += user_list.get(i).getName();
             msg += "(";
             msg += user_list.get(i).getGender();
-            msg += ")\n ";
+            msg += ")\n";
             msg += user_list.get(i).getBirth();
             msg += ", ";
             msg += user_list.get(i).getLegPart();

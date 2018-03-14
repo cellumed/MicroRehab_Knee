@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -312,7 +313,7 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
         public View getView(int position, View convertView, ViewGroup parent) {
             Act_history.ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.listitem_history, null);
+                convertView = mInflater.inflate(R.layout.custom_userinfo_listview, null);
                 viewHolder = new Act_history.ViewHolder();
                 viewHolder.historyName = (TextView) convertView.findViewById(R.id.history_timename);
 
@@ -321,14 +322,17 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
             } else {
                 viewHolder = (Act_history.ViewHolder) convertView.getTag();
             }
+            ImageView icon = (ImageView)convertView.findViewById(R.id.ivIcon);
+            TextView content = (TextView)convertView.findViewById(R.id.tvContent);
 
             History_List_View_Item hh = mHistories.get(position);
             final String historyTimeName = hh.getHistoryTimeNamePre();
             Log.d("tag","position : "+hh.getHistoryTimeNamePre());
-
+            icon.setVisibility(View.VISIBLE);
             if (historyTimeName != null && historyTimeName.length() > 0) {
-                viewHolder.historyName.setText(historyTimeName);
-                viewHolder.historyName.setTextSize(17);
+                content.setText(historyTimeName);
+                content.setTextSize(17);
+                icon.setImageResource(R.mipmap.ic_timeline_white_36dp);
             }
             else {
                 viewHolder.historyName.setText("Unknown");  //error
