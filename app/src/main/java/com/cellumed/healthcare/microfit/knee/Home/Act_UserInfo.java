@@ -66,7 +66,13 @@ public class Act_UserInfo extends AppCompatActivity {
         userInfoListViewAdapter = new UserInfoListViewAdapter();
 
         userList.setAdapter(userInfoListViewAdapter);
-        //userInfoListViewAdapter.notifyDataSetChanged();
+        if(ManageDeviceConfiguration.getInstance().getUserId().isEmpty()){
+            currentUserId = "";
+        } else {
+            currentUserId = ManageDeviceConfiguration.getInstance().getUserId();
+        }
+
+        userInfoListViewAdapter.notifyDataSetChanged();
         loadUserInfoTable();
 
     }
@@ -81,11 +87,6 @@ public class Act_UserInfo extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
 
-        if(ManageDeviceConfiguration.getInstance().getUserId().isEmpty()){
-            currentUserId = "";
-        } else {
-            currentUserId = ManageDeviceConfiguration.getInstance().getUserId();
-        }
 
 
     }
