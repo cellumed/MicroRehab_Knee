@@ -255,9 +255,9 @@ public class Act_history extends BTConnectActivity implements  IMP_CMD, SqlImp {
         public String getHistoryTimeNamePre()
         {
             if(historyTimePre==null){
-                return historyTime + " " + historyName +"-개별";
+                return historyTime + "\n" + historyName +"-개별";
             }else{
-                return historyTime + " " + historyName;
+                return historyTime + "\n" + historyName;
             }
         }
 

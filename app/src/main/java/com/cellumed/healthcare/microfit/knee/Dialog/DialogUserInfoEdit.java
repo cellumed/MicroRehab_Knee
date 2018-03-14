@@ -28,6 +28,7 @@ import com.cellumed.healthcare.microfit.knee.R;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -133,7 +134,11 @@ public class DialogUserInfoEdit extends Dialog implements  SqlImp {
             if(etUserName.getText().toString().equals(""))
             {
                 Toast.makeText(mContext, mContext.getResources().getString(R.string.pleaseName), Toast.LENGTH_SHORT).show();
+                //Log.d("tag","btn text : "+btInputBirth.getText().toString());
+            }else if(btInputBirth.getText().toString().equals("생년월일을 입력 해주세요")){
+                Toast.makeText(mContext, mContext.getResources().getString(R.string.pleaseBirthDay), Toast.LENGTH_SHORT).show();
             }
+
             /*
             else if(etUserBirth.getText().toString().equals(""))
             {
@@ -158,8 +163,19 @@ public class DialogUserInfoEdit extends Dialog implements  SqlImp {
 
                 String name = etUserName.getText().toString();
                 String birth = currentDate;
-                String gender = cbFemale.isChecked() ? GENDER_FEMALE:GENDER_MALE;
-                String leg = cbRight.isChecked() ? RIGHT_LEG:LEFT_LEG;
+
+                Locale systemLocale = mContext.getResources().getConfiguration().locale;
+                String strLanguage = systemLocale.getLanguage();
+                String gender = "";
+                String leg = "";
+                if(strLanguage.equals("ko")){
+                    gender = cbFemale.isChecked() ? GENDER_FEMALE:GENDER_MALE;
+                    leg = cbRight.isChecked() ? RIGHT_LEG:LEFT_LEG;
+                }else if(strLanguage.equals("en")){
+                    gender = cbFemale.isChecked() ? EN_GENDER_FEMALE:EN_GENDER_MALE;
+                    leg = cbRight.isChecked() ? EN_RIGHT_LEG:EN_LEFT_LEG;
+                }
+
 
                 // DB에 사용자정보 저장
                 final HashMap<String, String> workoutData = new HashMap<>();
@@ -167,6 +183,7 @@ public class DialogUserInfoEdit extends Dialog implements  SqlImp {
                 workoutData.put(UserInfoBirth, birth);
                 workoutData.put(UserInfoGender, gender);
                 workoutData.put(UserInfoLegPart, leg);
+                Log.d("Tag","db data : "+ gender + " , " +leg);
 
                 if (new DBQuery(mContext).newUserInfoInsert(workoutData)) {
                     Log.d("DialogUserInfoEdit", "저장");

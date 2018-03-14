@@ -13,6 +13,7 @@ import com.cellumed.healthcare.microfit.knee.Bluetooth.BTConnectActivity;
 import com.cellumed.healthcare.microfit.knee.Bluetooth.ContextUtil;
 import com.cellumed.healthcare.microfit.knee.Bluetooth.PreferenceUtil;
 import com.cellumed.healthcare.microfit.knee.R;
+import com.cellumed.healthcare.microfit.knee.Util.BudUtil;
 
 public class SplashActivity extends BTConnectActivity {
     private final int SPLASH_DISPLAY_LENGTH = 1000;
@@ -31,7 +32,7 @@ public class SplashActivity extends BTConnectActivity {
         try {
             PackageInfo pi = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0);
             //Log.i("pain0928", "Name: " + pi.packageName + " povider:" + pi.providers);
-            tv_version.setText("App:" + pi.versionName + "\n");
+            tv_version.setText("App:" + pi.versionName + "\nF/W:"+ BudUtil.getInstance().FWVersion);
         } catch(PackageManager.NameNotFoundException e) {
             Log.e("SP", "Package Name don't find");
         }

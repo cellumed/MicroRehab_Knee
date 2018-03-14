@@ -96,10 +96,16 @@ public interface SqlImp {
     String SignalType = "signal_type";  // 자극타입
 
     // user info kind of data
-    String LEFT_LEG = "LL";
-    String RIGHT_LEG = "RL";
-    String GENDER_MALE = "M";
-    String GENDER_FEMALE = "FM";
+    String LEFT_LEG = "왼쪽 다리";
+    String RIGHT_LEG = "오른쪽 다리";
+    String GENDER_MALE = "남";
+    String GENDER_FEMALE = "여";
+
+    //영어 데이터
+    String EN_LEFT_LEG = "LL";
+    String EN_RIGHT_LEG = "RL";
+    String EN_GENDER_MALE = "M";
+    String EN_GENDER_FEMALE = "FM";
 
     // DB command
     String ORDER_BY = "ORDER BY";
