@@ -144,7 +144,7 @@ public class Act_UserInfo extends AppCompatActivity {
     public void onClickAdd(View v) {
         ArrayList<DAO_UserInfo> user_list = new DBQuery(context).getALLUserInfo();
         Log.d("tag","user list size : "+ user_list.size());
-        if(user_list.size()<10){
+        if(user_list.size()<7){
             new DialogUserInfoEdit(this, new CallbackDialog() {
                 @Override
                 public void onPositive() {
@@ -163,7 +163,7 @@ public class Act_UserInfo extends AppCompatActivity {
 
 
         }else{
-            Toast.makeText(getApplicationContext(),"사용자 등록은 최대 10명까지 가능합니다.",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"사용자 등록은 최대 7명까지 가능합니다.",Toast.LENGTH_LONG).show();
         }
 
 

@@ -166,22 +166,20 @@ public class Act_Setting extends BTConnectActivity implements OnAdapterClick {
             Log.e("TAG", "Package Name don't find");
         }
 
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext)
+                .title(getString(R.string.SystemState))
+                .titleColor(Color.parseColor("#000000"))
+                .backgroundColor(Color.parseColor("#aec7d5"))
+                .content("APP Version:" + pi.versionName + "\nH/W Version  " + BudUtil.getInstance().HWVersion + "\nF/W Version  " + BudUtil.getInstance().FWVersion)
+                .positiveText(getString(R.string.ok))
+                .positiveColor(Color.parseColor("#000000"))
+                .onPositive((dialog, which) -> {
+                    dialog.dismiss();
 
-//        MaterialDialog.Builder builder = new MaterialDialog.Builder(mContext)
-//                .title(getString(R.string.SystemState))
-//                .titleColor(Color.parseColor("#000000"))
-//                .backgroundColor(Color.parseColor("#aec7d5"))
-//                .content("APP Version:" + pi.versionName + "\nH/W Version  " + BudUtil.getInstance().HWVersion + "\nF/W Version  " + BudUtil.getInstance().FWVersion)
-//                .positiveText(getString(R.string.ok))
-//                .positiveColor(Color.parseColor("#000000"))
-//                .onPositive((dialog, which) -> {
-//                    dialog.dismiss();
-//
-//                });
-//
-//        //setGlobalFont(builder.build().getCustomView());
-//        builder.show();
+                });
 
+        //setGlobalFont(builder.build().getCustomView());
+        builder.show();
 
     }
 
